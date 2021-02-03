@@ -47,10 +47,7 @@ if(!SPIFFS.begin()){
 server.on("/html", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/test_file.html", "text/html");
 });
-
-  server.begin();
-  Serial.println("Server je spuštěn");
-  
+ 
   
   // Vysílač připojen k pinu #23, výchozí protokol 1
   mySwitch.enableTransmit(23);
@@ -64,12 +61,17 @@ server.on("/html", HTTP_GET, [](AsyncWebServerRequest *request){
       if (request->hasParam(PARAM_MESSAGE)) {
         message = request->getParam(PARAM_MESSAGE)->value();
         kod = message;
-        mySwitch.send(kod,24);
+        mySwitch.switchOn("kod","11111");
       } 
       else {
         message = "No message sent";
       }
-      });
+      Serial.println(message);
+   });
 
+  server.begin();
+  Serial.println("Server je spuštěn");
+}
+  
 void loop() {
 }
