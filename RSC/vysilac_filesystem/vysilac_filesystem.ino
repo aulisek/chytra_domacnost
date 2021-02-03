@@ -7,6 +7,7 @@ const char* ssid = "DOMA"; //Napište SSID
 const char* password = "VladaVlada12345"; //Heslo sítě
 
 const char* PARAM_MESSAGE = "message";
+String kod = "1364";
 
 AsyncWebServer server(80);
 
@@ -62,29 +63,13 @@ server.on("/html", HTTP_GET, [](AsyncWebServerRequest *request){
     String message;
       if (request->hasParam(PARAM_MESSAGE)) {
         message = request->getParam(PARAM_MESSAGE)->value();
-        mySwitch.send(1361, 24);
+        kod = message;
+        mySwitch.send(kod,24);
       } 
       else {
         message = "No message sent";
       }
-      request->send(200, "text/plain", "Hello, GET: " + message);
       });
-
-/*
-   server.on("/get", HTTP_GET, [] (AsyncWebServerRequest *request) {
-    String message;
-      if (request->hasParam(vypnuto)) {
-        message = request->getParam(pokoj=vypnuto)->value();
-        mySwitch.send(1364, 24);
-      }
-      else {
-        message = "No message sent";
-      }
-      request->send(200, "text/plain", "Hello, GET: " + message);
-  }
-*/ 
-
-}
 
 void loop() {
 }
