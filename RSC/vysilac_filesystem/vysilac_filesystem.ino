@@ -3,8 +3,8 @@
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
 
-const char* ssid = "DOMA"; //Napište SSID
-const char* password = "VladaVlada12345"; //Heslo sítě
+const char* ssid = ""; //Napište SSID
+const char* password = ""; //Heslo sítě
 
 const char* PARAM_MESSAGE = "message";
 String kod = "1364";
