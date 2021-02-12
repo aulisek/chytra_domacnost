@@ -3,12 +3,28 @@
 
 <head>
     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ovládací rozhraní</title>
 </head>
+
+<script>
+  function submitMessage() {
+    alert("Data uložena do ESP SPIFFS");
+    setTimeout(function(){ document.location.reload(false); }, 500);
+  }
+</script>
 
 <body>
     <h1>Světla</h1>
     <h2>Světlo v pokoji</h2>
     <p><a href="/get?message=11111"><button>ZAPNOUT</button> <a  href ="/get?message=00000"><button>VYPNOUT</button></a>
+    
 
-</html>
+    <form action="/get" target="hidden-form">
+        kod: <input type="text" name="input1">
+        <input type="submit" value="Odeslat" onclick="submitMessage()">
+    </form><br>
+    
+    <iframe style="display:none" name="hidden-form"></iframe>
+        
+</body></html>

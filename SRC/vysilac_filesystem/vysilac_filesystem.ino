@@ -3,26 +3,61 @@
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
 
-const char* ssid = ""; //Napište SSID
-const char* password = ""; //Heslo sítě
+const char* ssid = "esp_wifi"; //Napište SSID
+const char* password = "keplerprojekt"; //Heslo sítě
 
-const char* PARAM_MESSAGE = "message";
+const char* PARAM_MESSAGE = "zprava";
+const char* PARAM_INPUT_1 = "input1";
+
 String kod = "1364";
 
 AsyncWebServer server(80);
 
 RCSwitch mySwitch = RCSwitch();
 
+//čtení souboru
+String readFile(fs::FS &fs, const char * path) {
+  Serial.printf("Reading file: %s\r\n", path);
+  File file = fs.open(path, "r");
+  if (!file || file.isDirectory()) {
+    Serial.println("- empty file or failed to open file");
+    return String();
+  }
+  Serial.println("- read from file:");
+  String fileContent;
+  while (file.available()) {
+    fileContent += String((char)file.read());
+  }
+  Serial.println(fileContent);
+  return fileContent;
+}
+
+//zápis do souboru
+void writeFile(fs::FS &fs, const char * path, const char * message) {
+  Serial.printf("Writing file: %s\r\n", path);
+  File file = fs.open(path, "w");
+  if (!file) {
+    Serial.println("- failed to open file for writing");
+    return;
+  }
+  if (file.print(message)) {
+    Serial.println("- file written");
+  } else {
+    Serial.println("- write failed");
+  }
+}
+
+
 void setup() {
 
   Serial.begin(9600);
   Serial.println();
 
-//připojení souborového svazku
-if(!SPIFFS.begin()){
-  Serial.println("An Error has occurred while mounting SPIFFS");
-  return;
-}
+  //připojení souborového svazku
+  if (!SPIFFS.begin()) {
+    Serial.println("An Error has occurred while mounting SPIFFS");
+    return;
+  }
 
   Serial.print("Připojování k:");
   Serial.println(ssid);
@@ -33,9 +68,9 @@ if(!SPIFFS.begin()){
   Serial.println();
   Serial.print("Připojování");
 
-  while( WiFi.status() != WL_CONNECTED ){
-      delay(500);
-      Serial.print(".");  
+  while ( WiFi.status() != WL_CONNECTED ) {
+    delay(500);
+    Serial.print(".");
   }
 
   Serial.println();
@@ -43,11 +78,6 @@ if(!SPIFFS.begin()){
   Serial.println("Úspěšně připojeno k WIFI");
   Serial.println("Vaše IP adresa: ");
   Serial.println(WiFi.localIP() );
-
-server.on("/html", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/test_file.html", "text/html");
-});
- 
   
   // Vysílač připojen k pinu #23, výchozí protokol 1
   mySwitch.enableTransmit(23);
@@ -55,23 +85,46 @@ server.on("/html", HTTP_GET, [](AsyncWebServerRequest *request){
   // Nastavení počtu opakování vysílání
   mySwitch.setRepeatTransmit(15);
 
+
+  server.on("/html", HTTP_GET, [](AsyncWebServerRequest * request) {
+    request->send(SPIFFS, "/test_file.html", "text/html");
+  });
+
+
   // Send a GET request to <IP>/get?message=<message>
-  server.on("/get", HTTP_GET, [] (AsyncWebServerRequest *request) {
-    String message;
-      if (request->hasParam(PARAM_MESSAGE)) {
-        message = request->getParam(PARAM_MESSAGE)->value();
-        kod = message;
-        mySwitch.switchOn("kod","11111");
-      } 
-      else {
-        message = "No message sent";
-      }
-      Serial.println(message);
-   });
+  server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
+    String zprava;
+    if (request->hasParam(PARAM_MESSAGE)) {
+      zprava = request->getParam(PARAM_MESSAGE)->value();
+      kod = zprava;
+      mySwitch.switchOn("kod", "11111");
+    }
+    else {
+      zprava = "No message sent";
+    }
+    Serial.println(zprava);
+  });
 
   server.begin();
   Serial.println("Server je spuštěn");
+
+  // Send a GET request to <ESP_IP>/get?input1=<inputMessage>
+  server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
+    String inputMessage;
+
+  //Get input1 value on <ESP_IP>/get?input1=<inputMessage>
+  if (request->hasParam(PARAM_INPUT_1)) {
+    inputMessage = request->getParam(PARAM_INPUT_1)->value();
+    writeFile(SPIFFS, "/input1.txt", inputMessage.c_str());
+  }
+  else {
+    inputMessage = "No message sent";
+  }
+  Serial.println(inputMessage);
+  request->send(200, "text/text", inputMessage);
+});
 }
-  
+
+
 void loop() {
 }
