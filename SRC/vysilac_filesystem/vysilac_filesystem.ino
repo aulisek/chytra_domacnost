@@ -78,7 +78,7 @@ void setup() {
   Serial.println("Úspěšně připojeno k WIFI");
   Serial.println("Vaše IP adresa: ");
   Serial.println(WiFi.localIP() );
-  
+
   // Vysílač připojen k pinu #23, výchozí protokol 1
   mySwitch.enableTransmit(23);
 
@@ -91,19 +91,20 @@ void setup() {
   });
 
 
-  // Send a GET request to <IP>/get?message=<message>
-  server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
-    String zprava;
-    if (request->hasParam(PARAM_MESSAGE)) {
-      zprava = request->getParam(PARAM_MESSAGE)->value();
-      kod = zprava;
-      mySwitch.switchOn("kod", "11111");
-    }
-    else {
-      zprava = "No message sent";
-    }
-    Serial.println(zprava);
-  });
+  /*  // Send a GET request to <IP>/get?message=<message>
+    server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
+      String zprava;
+      if (request->hasParam(PARAM_MESSAGE)) {
+        zprava = request->getParam(PARAM_MESSAGE)->value();
+        kod = zprava;
+        mySwitch.switchOn("kod", "11111");
+      }
+      else {
+        zprava = "No message sent";
+      }
+      Serial.println(zprava);
+    });
+  */
 
   server.begin();
   Serial.println("Server je spuštěn");
@@ -112,19 +113,31 @@ void setup() {
   server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
     String inputMessage;
 
-  //Get input1 value on <ESP_IP>/get?input1=<inputMessage>
-  if (request->hasParam(PARAM_INPUT_1)) {
-    inputMessage = request->getParam(PARAM_INPUT_1)->value();
-    writeFile(SPIFFS, "/input1.txt", inputMessage.c_str());
-  }
-  else {
-    inputMessage = "No message sent";
-  }
-  Serial.println(inputMessage);
-  request->send(200, "text/text", inputMessage);
-});
+    //Get input1 value on <ESP_IP>/get?input1=<inputMessage>
+    if (request->hasParam(PARAM_INPUT_1)) {
+      inputMessage = request->getParam(PARAM_INPUT_1)->value();
+      writeFile(SPIFFS, "/input1.txt", inputMessage.c_str());
+    }
+    //Odeslani kodu z tlacitka na strace
+    // Send a GET request to <IP>/get?zprava=<inputMessage>
+    else if (request->hasParam(PARAM_MESSAGE)) {
+      inputMessage = request->getParam(PARAM_MESSAGE)->value();
+      kod = inputMessage;
+      mySwitch.switchOn("kod", "11111");
+    }
+    else {
+      inputMessage = "No message sent";
+    }
+    Serial.println(inputMessage);
+    //request->send(200, "text/text", inputMessage);
+  });
 }
 
 
 void loop() {
+  // To access your stored values on inputString, inputInt, inputFloat
+  String cojevsouboru = readFile(SPIFFS, "/input1.txt");
+  Serial.println(cojevsouboru);
+  delay(10000);
+
 }
