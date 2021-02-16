@@ -6,8 +6,8 @@
 const char* ssid = "esp_wifi"; //Napište SSID
 const char* password = "keplerprojekt"; //Heslo sítě
 
-const char* PARAM_MESSAGE = "zprava";
-const char* PARAM_INPUT_1 = "input1";
+const char* PARAM_MESSAGE = "zprava"; //Parametr pro čtení HTTP GET requestu
+const char* PARAM_INPUT_1 = "input1"; //Parametr pro čtení HTTP GET requestu
 
 String kod = "1364";
 
@@ -15,7 +15,7 @@ AsyncWebServer server(80);
 
 RCSwitch mySwitch = RCSwitch();
 
-//čtení souboru
+//funkce pro čtení souboru
 String readFile(fs::FS &fs, const char * path) {
   Serial.printf("Reading file: %s\r\n", path);
   File file = fs.open(path, "r");
@@ -32,7 +32,7 @@ String readFile(fs::FS &fs, const char * path) {
   return fileContent;
 }
 
-//zápis do souboru
+//funkce pro zápis do souboru
 void writeFile(fs::FS &fs, const char * path, const char * message) {
   Serial.printf("Writing file: %s\r\n", path);
   File file = fs.open(path, "w");
@@ -49,7 +49,7 @@ void writeFile(fs::FS &fs, const char * path, const char * message) {
 
 
 void setup() {
-
+  //Zahájení sériové komunikace
   Serial.begin(9600);
   Serial.println();
 
@@ -85,7 +85,7 @@ void setup() {
   // Nastavení počtu opakování vysílání
   mySwitch.setRepeatTransmit(15);
 
-
+  //Spuštění serveru
   server.on("/html", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(SPIFFS, "/test_file.html", "text/html");
   });
@@ -135,7 +135,7 @@ void setup() {
 
 
 void loop() {
-  // To access your stored values on inputString, inputInt, inputFloat
+  // Ověření, co je v souboru
   String cojevsouboru = readFile(SPIFFS, "/input1.txt");
   Serial.println(cojevsouboru);
   delay(10000);
