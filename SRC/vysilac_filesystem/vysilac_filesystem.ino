@@ -15,6 +15,7 @@ AsyncWebServer server(80);
 
 RCSwitch mySwitch = RCSwitch();
 
+
 //funkce pro čtení souboru
 String readFile(fs::FS &fs, const char * path) {
   Serial.printf("Reading file: %s\r\n", path);
@@ -31,7 +32,6 @@ String readFile(fs::FS &fs, const char * path) {
   Serial.println(fileContent);
   return fileContent;
 }
-
 //funkce pro zápis do souboru
 void writeFile(fs::FS &fs, const char * path, const char * message) {
   Serial.printf("Writing file: %s\r\n", path);
@@ -47,7 +47,13 @@ void writeFile(fs::FS &fs, const char * path, const char * message) {
   }
 }
 
-
+// Replaces placeholder with input1 values
+String processor(const String& var) {
+  if (var == "input1") {
+    return readFile(SPIFFS, "/input1.txt");
+  }
+  return String();
+}
 void setup() {
   //Zahájení sériové komunikace
   Serial.begin(9600);
@@ -87,7 +93,7 @@ void setup() {
 
   //Spuštění serveru
   server.on("/html", HTTP_GET, [](AsyncWebServerRequest * request) {
-    request->send(SPIFFS, "/test_file.html", "text/html");
+    request->send(SPIFFS, "/test_file.html", "text/html", processor);
   });
 
 
