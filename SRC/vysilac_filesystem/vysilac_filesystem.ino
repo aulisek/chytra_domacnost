@@ -93,7 +93,8 @@ void setup() {
 
   //Spuštění serveru
   server.on("/html", HTTP_GET, [](AsyncWebServerRequest * request) {
-    request->send(SPIFFS, "/test_file.html", "text/html", processor);
+    //request->send(SPIFFS, "/test_file.html", "text/html", processor);
+    request->send(SPIFFS, "/test_file.html", String(), false, processor);
   });
 
 
