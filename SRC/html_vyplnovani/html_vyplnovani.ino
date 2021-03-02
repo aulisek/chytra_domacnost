@@ -2,24 +2,25 @@
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
+#include <CSV_Parser.h>
 
 const char* ssid = "esp_wifi"; //Napište SSID
 const char* password = "keplerprojekt"; //Heslo sítě
-
 const char* PARAMETR = "zarizeni"; //Parametr pro čtení HTTP GET requestu
+
 
 
 AsyncWebServer server(80);
 
-//RCSwitch mySwitch = RCSwitch();
+RCSwitch mySwitch = RCSwitch();
 
 
 //funkce pro čtení souboru
 String readFile(fs::FS &fs, const char * path) {
   Serial.printf("Reading file: %s\r\n", path);
-  File file = fs.open(path, "r");
+  File file = SPIFFS.open(path);
   if (!file || file.isDirectory()) {
-    Serial.println("- empty file or failed to open file");
+    Serial.println("prázdný soubor nebo chyba");
     return String();
   }
   Serial.println("- read from file:");
@@ -29,29 +30,51 @@ String readFile(fs::FS &fs, const char * path) {
   }
   Serial.println(fileContent);
   return fileContent;
+  file.close();
 }
 //funkce pro zápis do souboru
 void writeFile(fs::FS &fs, const char * path, const char * message) {
   Serial.printf("Writing file: %s\r\n", path);
-  File file = fs.open(path, "w");
+  File file = SPIFFS.open(path, FILE_WRITE);
   if (!file) {
-    Serial.println("- failed to open file for writing");
+    Serial.println("chyba při přístupu do souboru");
     return;
   }
   if (file.print(message)) {
-    Serial.println("- file written");
+    Serial.println("zpráva zapsána");
   } else {
-    Serial.println("- write failed");
+    Serial.println("Chyba při zapisování");
   }
+  file.close();
+}
+//funkce pro přidání řádku
+void addRow(fs::FS &fs, const char * path, const char * message) {
+  Serial.printf("Připisuji řádek: %s\r\n", path);
+  File fileToAppend = SPIFFS.open(path, FILE_APPEND);
+  if (!fileToAppend) {
+    Serial.println("chyba při přístupu do souboru");
+    return;
+  }
+
+  if (fileToAppend.println(message)) {
+    Serial.println("zpráva přidána na nový řádek");
+  }
+  else {
+    Serial.println("Chyba při zapisování řádku");
+  }
+  fileToAppend.close();
 }
 
-// Replaces placeholder with input1 values
+//Replaces placeholder with input1 values
 String processor(const String& var) {
-  if (var == "zarizeni") {
-    return readFile(SPIFFS, "/zarizeni.txt");
-  }
+  // if (var == "zarizeni") {
+  // String zarizeni[] = {id,cislo}
+  // zarizeni = readFile(SPIFFS, "/zarizeni.txt");
+  // }
   return String();
 }
+
+
 void setup() {
   //Zahájení sériové komunikace
   Serial.begin(9600);
@@ -92,37 +115,38 @@ void setup() {
   server.begin();
   Serial.println("Server je spuštěn");
 
-/*
-  // Send a GET request to <ESP_IP>/get?input1=<inputMessage>
-  server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
-    String inputMessage;
+  /*
+    // Send a GET request to <ESP_IP>/get?input1=<inputMessage>
+    server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
+     String inputMessage;
 
-    //Get input1 value on <ESP_IP>/get?input1=<inputMessage>
-    if (request->hasParam(PARAM_INPUT_1)) {
-      inputMessage = request->getParam(PARAM_INPUT_1)->value();
-      writeFile(SPIFFS, "/input1.txt", inputMessage.c_str());
-    }
-    //Odeslani kodu z tlacitka na strace
-    // Send a GET request to <IP>/get?zprava=<inputMessage>
-    else if (request->hasParam(PARAM_MESSAGE)) {
-      inputMessage = request->getParam(PARAM_MESSAGE)->value();
-      kod = inputMessage;
-      mySwitch.switchOn("kod", "11111");
-    }
-    else {
-      inputMessage = "No message sent";
-    }
-    Serial.println(inputMessage);
-    //request->send(200, "text/text", inputMessage);
-  });
- */
+     //Get input1 value on <ESP_IP>/get?input1=<inputMessage>
+     if (request->hasParam(PARAM_INPUT_1)) {
+       inputMessage = request->getParam(PARAM_INPUT_1)->value();
+       writeFile(SPIFFS, "/input1.txt", inputMessage.c_str());
+     }
+     //Odeslani kodu z tlacitka na strace
+     // Send a GET request to <IP>/get?zprava=<inputMessage>
+     else if (request->hasParam(PARAM_MESSAGE)) {
+       inputMessage = request->getParam(PARAM_MESSAGE)->value();
+       kod = inputMessage;
+       mySwitch.switchOn("kod", "11111");
+     }
+     else {
+       inputMessage = "No message sent";
+     }
+     Serial.println(inputMessage);
+     //request->send(200, "text/text", inputMessage);
+    });
+  */
+
 }
+
 
 
 void loop() {
   // Ověření, co je v souboru
-  String cojevsouboru = readFile(SPIFFS, "/zarizeni.txt");
-  Serial.println(cojevsouboru);
-  delay(10000);
+
+
 
 }
