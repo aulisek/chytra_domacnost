@@ -76,8 +76,8 @@ String vypln() {
   int zapnout = 1364;
   int vypnout = 1360;
   tlacitka += "<p>" + String(nazev) + "</p>";
-  tlacitka += "<p><a href=\"/get?message="; 
-  tlacitka += zapnout; 
+  tlacitka += "<p><a href=\"/get?message=";
+  tlacitka += zapnout;
   tlacitka += "\"><button>ZAPNOUT</button> <a href=\"/get?message=";
   tlacitka += vypnout;
   tlacitka += "\"><button>VYPNOUT</button>";
@@ -124,6 +124,12 @@ void setup() {
   Serial.println("Vaše IP adresa: ");
   Serial.println(WiFi.localIP() );
 
+  // Vysílač připojen k pinu #23, výchozí protokol 1
+  mySwitch.enableTransmit(23);
+
+  // Nastavení počtu opakování vysílání
+  mySwitch.setRepeatTransmit(15);
+
   //Spuštění serveru
   server.on("/html", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(SPIFFS, "/test_file.html", String(), false, processor);
@@ -169,29 +175,29 @@ void setup() {
 
 
   }
-  
-    // Send a GET request to <ESP_IP>/get?input1=<inputMessage>
-    server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
-     String inputMessage;
-     //Get input1 value on <ESP_IP>/get?input1=<inputMessage>
-     if (request->hasParam(PARAM_INPUT_1)) {
-       inputMessage = request->getParam(PARAM_INPUT_1)->value();
-       writeFile(SPIFFS, "/input1.txt", inputMessage.c_str());
-     }
-     //Odeslani kodu z tlacitka na strace
-     // Send a GET request to <IP>/get?zprava=<inputMessage>
-     else if (request->hasParam(PARAM_MESSAGE)) {
-       inputMessage = request->getParam(PARAM_MESSAGE)->value();
-       kod = inputMessage;
-       mySwitch.switchOn("kod", "11111");
-     }
-     else {
-       inputMessage = "No message sent";
-     }
-     Serial.println(inputMessage);
-     //request->send(200, "text/text", inputMessage);
-    });
-  
+
+  // Send a GET request to <ESP_IP>/get?input1=<inputMessage>
+  server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
+    String inputMessage;
+    //Get input1 value on <ESP_IP>/get?input1=<inputMessage>
+    if (request->hasParam(PARAM_INPUT_1)) {
+      inputMessage = request->getParam(PARAM_INPUT_1)->value();
+      writeFile(SPIFFS, "/input1.txt", inputMessage.c_str());
+    }
+    //Odeslani kodu z tlacitka na strace
+    // Send a GET request to <IP>/get?zprava=<inputMessage>
+    else if (request->hasParam(PARAM_MESSAGE)) {
+      inputMessage = request->getParam(PARAM_MESSAGE)->value();
+      kod = inputMessage;
+      mySwitch.switchOn("kod", "11111");
+    }
+    else {
+      inputMessage = "No message sent";
+    }
+    Serial.println(inputMessage);
+    //request->send(200, "text/text", inputMessage);
+  });
+
 
 }
 
