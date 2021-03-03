@@ -7,8 +7,7 @@
 const char* ssid = "esp_wifi"; //Napište SSID
 const char* password = "keplerprojekt"; //Heslo sítě
 const char* PARAMETR = "zarizeni"; //Parametr pro čtení HTTP GET requestu
-
-
+char csv_str [512] = {'\0'};  // inicializace pro nacitani souboru po radcich
 
 AsyncWebServer server(80);
 
@@ -115,11 +114,44 @@ void setup() {
   server.begin();
   Serial.println("Server je spuštěn");
 
+  File file = SPIFFS.open("/zarizeni.csv");
+  if (!file) {
+    Serial.println("Failed to open file for reading");
+    return;
+  }
+  uint16_t i = 0;
+  while (file.available()) {
+    csv_str [i] = file.read();
+    // Serial.print (csv_str [i]); //use for debug
+    i++;
+  }
+  csv_str [i] = '\0';
+  // Serial.print (csv_str); //use for debug
+
+  // String csv_str = readFile(SPIFFS, "/zarizeni.txt");
+  //csv_str.c_str ();
+  CSV_Parser cp(csv_str,/*format*/ "sd", /*has_header*/ true, /*delimiter*/ ',');
+  // cp.readSDfile("zarizeni.csv");
+  cp.print();
+
+
+  int16_t *nazev = (int16_t*)cp["nazev"];
+  String *id = (String*)cp["id"];
+
+  if (nazev && id) {
+    for (int row = 0; row < cp.getRowsCount(); row++) {
+     // client.println(zarizeni[row], DEC);
+      //client.println(<p><a href = "/get?message=id"><button>ZAPNOUT < / button > <a  href = "/get?message=id"><button>VYPNOUT < / button > < / a > );
+    }
+  } else {
+    Serial.println("At least 1 of the columns was not found, something went wrong.");
+    file.close();
+
+  }
   /*
     // Send a GET request to <ESP_IP>/get?input1=<inputMessage>
     server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
      String inputMessage;
-
      //Get input1 value on <ESP_IP>/get?input1=<inputMessage>
      if (request->hasParam(PARAM_INPUT_1)) {
        inputMessage = request->getParam(PARAM_INPUT_1)->value();
