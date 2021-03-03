@@ -6,7 +6,13 @@
 
 const char* ssid = "esp_wifi"; //Napište SSID
 const char* password = "keplerprojekt"; //Heslo sítě
+
 const char* PARAMETR = "zarizeni"; //Parametr pro čtení HTTP GET requestu
+const char* PARAM_MESSAGE = "zprava"; //Parametr pro čtení HTTP GET requestu
+const char* PARAM_INPUT_1 = "input1"; //Parametr pro čtení HTTP GET requestu
+
+String kod = "1364"; //kód pro zapnutí zařízení (pro request)
+
 char csv_str [512] = {'\0'};  // inicializace pro nacitani souboru po radcich
 
 AsyncWebServer server(80);
@@ -63,7 +69,7 @@ void addRow(fs::FS &fs, const char * path, const char * message) {
   }
   fileToAppend.close();
 }
-//Vytvoření Stringu pro odeslání seznamu zařízení na stránku (placeholder)
+//Vytvoření Stringu pro odeslání seznamu zařízení na stránku (placeholder) - výplň
 String vypln() {
   String tlacitka = "";
   String nazev = "koupelna";
@@ -78,7 +84,7 @@ String vypln() {
   return String(tlacitka);
 }
 
-//Replaces placeholder with input1 values
+//Nahrazení placeholderu na stránce (tlacitkasem) vyplní s tlačítky
 String processor(const String& var) {
   if (var == "tlacitkasem") {
     return vypln();
@@ -163,7 +169,7 @@ void setup() {
 
 
   }
-  /*
+  
     // Send a GET request to <ESP_IP>/get?input1=<inputMessage>
     server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
      String inputMessage;
@@ -185,7 +191,7 @@ void setup() {
      Serial.println(inputMessage);
      //request->send(200, "text/text", inputMessage);
     });
-  */
+  
 
 }
 
