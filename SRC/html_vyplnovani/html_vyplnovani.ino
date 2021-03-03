@@ -76,9 +76,9 @@ String vypln() {
   int zapnout = 1364;
   int vypnout = 1360;
   tlacitka += "<p>" + String(nazev) + "</p>";
-  tlacitka += "<p><a href=\"/get?message=";
+  tlacitka += "<p><a href=\"/get?zprava=";
   tlacitka += zapnout;
-  tlacitka += "\"><button>ZAPNOUT</button> <a href=\"/get?message=";
+  tlacitka += "\"><button>ZAPNOUT</button> <a href=\"/get?zprava=";
   tlacitka += vypnout;
   tlacitka += "\"><button>VYPNOUT</button>";
   return String(tlacitka);
