@@ -63,13 +63,26 @@ void addRow(fs::FS &fs, const char * path, const char * message) {
   }
   fileToAppend.close();
 }
+//Vytvoření Stringu pro odeslání seznamu zařízení na stránku (placeholder)
+String vypln() {
+  String tlacitka = "";
+  String nazev = "koupelna";
+  int zapnout = 1364;
+  int vypnout = 1360;
+  tlacitka += "<p>" + String(nazev) + "</p>";
+  tlacitka += "<p><a href=\"/get?message="; 
+  tlacitka += zapnout; 
+  tlacitka += "\"><button>ZAPNOUT</button> <a href=\"/get?message=";
+  tlacitka += vypnout;
+  tlacitka += "\"><button>VYPNOUT</button>";
+  return String(tlacitka);
+}
 
 //Replaces placeholder with input1 values
 String processor(const String& var) {
-  // if (var == "zarizeni") {
-  // String zarizeni[] = {id,cislo}
-  // zarizeni = readFile(SPIFFS, "/zarizeni.txt");
-  // }
+  if (var == "tlacitkasem") {
+    return vypln();
+  }
   return String();
 }
 
@@ -140,12 +153,14 @@ void setup() {
 
   if (nazev && id) {
     for (int row = 0; row < cp.getRowsCount(); row++) {
-     // client.println(zarizeni[row], DEC);
+      // client.println(zarizeni[row], DEC);
       //client.println(<p><a href = "/get?message=id"><button>ZAPNOUT < / button > <a  href = "/get?message=id"><button>VYPNOUT < / button > < / a > );
     }
   } else {
     Serial.println("At least 1 of the columns was not found, something went wrong.");
     file.close();
+
+
 
   }
   /*
@@ -178,7 +193,4 @@ void setup() {
 
 void loop() {
   // Ověření, co je v souboru
-
-
-
 }
