@@ -1,4 +1,4 @@
-nazev,id
-pokoj,1
-koupelna,2
-lampa,3 
+nazev,kod_zapnuto,kod_vypnuto
+pokoj,1364,1360
+koupelna,1344,1350
+lampa,1354,1345
