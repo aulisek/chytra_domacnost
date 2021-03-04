@@ -18,9 +18,7 @@ String kod = "1364"; //kód pro zařízení (pro request)
 
 //Deklarace pro CSV parser
 char csv_str [512] = {'\0'};  // inicializace pro nacitani souboru po radcich
-//char **nazev = "";
-//int16_t *kod_zapnuto = "";
-//int16_t *kod_vypnuto = "";
+
 AsyncWebServer server(80);
 
 RCSwitch mySwitch = RCSwitch();
@@ -97,9 +95,9 @@ String vypln() {
       tlacitka += "</p>";
       tlacitka += "<p><a href=\"/get?zprava=";
       tlacitka += (kod_zapnuto[row]);
-      tlacitka += "\"><button>ZAPNOUT</button> <a href=\"/get?zprava=";
+      tlacitka += "\"><button>ZAPNOUT</button></a> <a href=\"/get?zprava=";
       tlacitka += (kod_vypnuto[row]);
-      tlacitka += "\"><button>VYPNOUT</button>";
+      tlacitka += "\"><button>VYPNOUT</button></a>";
     }
   } else {
     Serial.println("At least 1 of the columns was not found, something went wrong.");
@@ -183,7 +181,7 @@ void setup() {
     //Get input1 value on <ESP_IP>/get?input1=<inputMessage>
     if (request->hasParam(PARAM_INPUT_1)) {
       inputMessage = request->getParam(PARAM_INPUT_1)->value();
-      writeFile(SPIFFS, "/input1.txt", inputMessage.c_str());
+     addRow(SPIFFS, "/zarizeni.csv", inputMessage.c_str());
     }
     //Odeslani kodu z tlacitka na strace
     // Send a GET request to <IP>/get?zprava=<inputMessage>
@@ -201,5 +199,4 @@ void setup() {
 }
 
 void loop() {
-  // Ověření, co je v souboru
 }
