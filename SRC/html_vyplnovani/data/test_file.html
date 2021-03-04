@@ -7,11 +7,22 @@
     <title>Ovládací rozhraní</title>
 </head>
 
+<script>
+  function submitMessage() {
+    alert("Data uložena do ESP SPIFFS");
+    setTimeout(function(){ document.location.reload(false); }, 500);
+  }
+</script>
+
 <body>
     <h1>Světla</h1>
     <h2>Světlo v pokoji</h2>    
     <p>%tlacitkasem%</p>
     <iframe style="display:none" name="hidden-form"></iframe>
-    
-    <p>%zarizeni%</p>
+
+     <form action="/get" target="hidden-form">
+        kod: <input type="text" name="input1">
+        <input type="submit" value="Odeslat" onclick="submitMessage()">
+    </form><br>
+    <iframe style="display:none" name="hidden-form"></iframe>
 </body></html>
