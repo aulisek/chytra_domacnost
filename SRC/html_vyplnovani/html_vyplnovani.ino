@@ -4,17 +4,23 @@
 #include <SPIFFS.h>
 #include <CSV_Parser.h>
 
+//Proměné pro připojení k wifi
 const char* ssid = "esp_wifi"; //Napište SSID
 const char* password = "keplerprojekt"; //Heslo sítě
 
+//Parametry pro HTTP GET requesty
 const char* PARAMETR = "zarizeni"; //Parametr pro čtení HTTP GET requestu
 const char* PARAM_MESSAGE = "zprava"; //Parametr pro čtení HTTP GET requestu
 const char* PARAM_INPUT_1 = "input1"; //Parametr pro čtení HTTP GET requestu
 
-String kod = "1364"; //kód pro zapnutí zařízení (pro request)
+//Kód pro radiové ovládání
+String kod = "1364"; //kód pro zařízení (pro request)
 
+//Deklarace pro CSV parser
 char csv_str [512] = {'\0'};  // inicializace pro nacitani souboru po radcich
-
+//char **nazev = "";
+//int16_t *kod_zapnuto = "";
+//int16_t *kod_vypnuto = "";
 AsyncWebServer server(80);
 
 RCSwitch mySwitch = RCSwitch();
@@ -60,7 +66,6 @@ void addRow(fs::FS &fs, const char * path, const char * message) {
     Serial.println("chyba při přístupu do souboru");
     return;
   }
-
   if (fileToAppend.println(message)) {
     Serial.println("zpráva přidána na nový řádek");
   }
@@ -72,15 +77,33 @@ void addRow(fs::FS &fs, const char * path, const char * message) {
 //Vytvoření Stringu pro odeslání seznamu zařízení na stránku (placeholder) - výplň
 String vypln() {
   String tlacitka = "";
-  String nazev = "koupelna";
-  int zapnout = 1364;
-  int vypnout = 1360;
-  tlacitka += "<p>" + String(nazev) + "</p>";
-  tlacitka += "<p><a href=\"/get?zprava=";
-  tlacitka += zapnout;
-  tlacitka += "\"><button>ZAPNOUT</button> <a href=\"/get?zprava=";
-  tlacitka += vypnout;
-  tlacitka += "\"><button>VYPNOUT</button>";
+  CSV_Parser cp(csv_str,/*format*/ "sdd", /*has_header*/ true, /*delimiter*/ ',');
+  cp.print();
+
+  char **nazev = (char**)cp["nazev"];
+  int16_t *kod_zapnuto = (int16_t*)cp["kod_zapnuto" ];
+  int16_t *kod_vypnuto = (int16_t*)cp["kod_vypnuto"];
+
+  //cyklus zajišťující přiřazení tlačítka k prvkům ze souboru
+  if (nazev && kod_zapnuto && kod_vypnuto) {
+    for (int row = 0; row < cp.getRowsCount(); row++) {
+      //debug, zobrazení, co je v souboru
+      Serial.print(nazev[row]);               Serial.print(" - ");
+      Serial.print(kod_zapnuto[row], DEC);    Serial.print(" - ");
+      Serial.print(kod_vypnuto[row], DEC);    Serial.print(" - ");
+      //Sestavení HTML pro placeholder
+      tlacitka += "<p>";
+      tlacitka += (nazev)[row];
+      tlacitka += "</p>";
+      tlacitka += "<p><a href=\"/get?zprava=";
+      tlacitka += (kod_zapnuto[row]);
+      tlacitka += "\"><button>ZAPNOUT</button> <a href=\"/get?zprava=";
+      tlacitka += (kod_vypnuto[row]);
+      tlacitka += "\"><button>VYPNOUT</button>";
+    }
+  } else {
+    Serial.println("At least 1 of the columns was not found, something went wrong.");
+  }
   return String(tlacitka);
 }
 
@@ -131,14 +154,14 @@ void setup() {
   mySwitch.setRepeatTransmit(15);
 
   //Spuštění serveru
-  server.on("/html", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(SPIFFS, "/test_file.html", String(), false, processor);
   });
 
 
   server.begin();
   Serial.println("Server je spuštěn");
-
+//Načtení souboru /zarizeni.csv pro potřeby funkce pro vypsání zařízení do web rozhraní
   File file = SPIFFS.open("/zarizeni.csv");
   if (!file) {
     Serial.println("Failed to open file for reading");
@@ -152,29 +175,7 @@ void setup() {
   }
   csv_str [i] = '\0';
   // Serial.print (csv_str); //use for debug
-
-  // String csv_str = readFile(SPIFFS, "/zarizeni.txt");
-  //csv_str.c_str ();
-  CSV_Parser cp(csv_str,/*format*/ "sd", /*has_header*/ true, /*delimiter*/ ',');
-  // cp.readSDfile("zarizeni.csv");
-  cp.print();
-
-
-  int16_t *nazev = (int16_t*)cp["nazev"];
-  String *id = (String*)cp["id"];
-
-  if (nazev && id) {
-    for (int row = 0; row < cp.getRowsCount(); row++) {
-      // client.println(zarizeni[row], DEC);
-      //client.println(<p><a href = "/get?message=id"><button>ZAPNOUT < / button > <a  href = "/get?message=id"><button>VYPNOUT < / button > < / a > );
-    }
-  } else {
-    Serial.println("At least 1 of the columns was not found, something went wrong.");
-    file.close();
-
-
-
-  }
+  file.close();
 
   // Send a GET request to <ESP_IP>/get?input1=<inputMessage>
   server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
@@ -186,10 +187,10 @@ void setup() {
     }
     //Odeslani kodu z tlacitka na strace
     // Send a GET request to <IP>/get?zprava=<inputMessage>
-    else if (request->hasParam(PARAM_MESSAGE)) {
+    if (request->hasParam(PARAM_MESSAGE)) {
       inputMessage = request->getParam(PARAM_MESSAGE)->value();
       kod = inputMessage;
-      mySwitch.switchOn("kod", "11111");
+      mySwitch.switchOn("kod", "11111"); //druhý parametr -> výchozí klíč (nastavení na ovladači a zařízeních)
     }
     else {
       inputMessage = "No message sent";
@@ -197,11 +198,7 @@ void setup() {
     Serial.println(inputMessage);
     //request->send(200, "text/text", inputMessage);
   });
-
-
 }
-
-
 
 void loop() {
   // Ověření, co je v souboru
