@@ -23,22 +23,21 @@ AsyncWebServer server(80);
 
 RCSwitch mySwitch = RCSwitch();
 
-
 //funkce pro čtení souboru
-String readFile(fs::FS &fs, const char * path) {
+void readFile(fs::FS &fs, const char * path) {
   Serial.printf("Reading file: %s\r\n", path);
   File file = SPIFFS.open(path);
-  if (!file || file.isDirectory()) {
+  if (!file) {
     Serial.println("prázdný soubor nebo chyba");
-    return String();
+    return;
   }
-  Serial.println("- read from file:");
-  String fileContent;
+  uint16_t i = 0;
   while (file.available()) {
-    fileContent += String((char)file.read());
+    csv_str [i] = file.read();
+    i++;
   }
-  Serial.println(fileContent);
-  return fileContent;
+  csv_str [i] = '\0';
+  Serial.println(csv_str);
   file.close();
 }
 //funkce pro zápis do souboru
@@ -159,21 +158,7 @@ void setup() {
 
   server.begin();
   Serial.println("Server je spuštěn");
-//Načtení souboru /zarizeni.csv pro potřeby funkce pro vypsání zařízení do web rozhraní
-  File file = SPIFFS.open("/zarizeni.csv");
-  if (!file) {
-    Serial.println("Failed to open file for reading");
-    return;
-  }
-  uint16_t i = 0;
-  while (file.available()) {
-    csv_str [i] = file.read();
-    // Serial.print (csv_str [i]); //use for debug
-    i++;
-  }
-  csv_str [i] = '\0';
-  // Serial.print (csv_str); //use for debug
-  file.close();
+  readFile(SPIFFS, "/zarizeni.csv");
 
   // Send a GET request to <ESP_IP>/get?input1=<inputMessage>
   server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
@@ -181,7 +166,8 @@ void setup() {
     //Get input1 value on <ESP_IP>/get?input1=<inputMessage>
     if (request->hasParam(PARAM_INPUT_1)) {
       inputMessage = request->getParam(PARAM_INPUT_1)->value();
-     addRow(SPIFFS, "/zarizeni.csv", inputMessage.c_str());
+      addRow(SPIFFS, "/zarizeni.csv", inputMessage.c_str());
+      readFile(SPIFFS,"/zarizeni.csv");
     }
     //Odeslani kodu z tlacitka na strace
     // Send a GET request to <IP>/get?zprava=<inputMessage>
@@ -199,4 +185,5 @@ void setup() {
 }
 
 void loop() {
+  //  if csv_str
 }
