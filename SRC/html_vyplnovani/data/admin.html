@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+
+<head>
+    <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrační rozhraní</title>
+</head>
+
+<header>
+<nav>
+    <ul>
+        <li class="aktivni"><a href="/">Zařízení</a></li>
+        <li><a href="/admin">Administrace</a></li>
+    </ul>
+</nav>
+
+<script>
+  function submitMessage() {
+    alert("Zařízení úspěšně uloženo");
+    setTimeout(function(){ document.location.reload(false); }, 500);
+  }
+  function logoutButton() {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "/logout", true);
+  xhr.send();
+  setTimeout(function(){ window.open("/logged-out","_self"); }, 1000);
+}
+</script>
+
+<body>
+    <h1>Instrukce</h1>
+    <p>Zařízení zadávejte ve formátu: název,číslo,číslo</p>
+    <p>Název se bude zobrazovat ve webovém rozhraní, zvolit si můžete libovolný. Nepoužívejte mezery, nahrazujte například podtržítkem.</p>
+    <p>Čísla jsou uvedena na zařízení, uvádějte ve stejném formátu.</p>
+    <p>Poté klikněte na tlačítko "Potvrdit", tímto zařízení uložíte</p>
+    <h2>Přidat zařízení</h2>
+    <form action="/get" target="hidden-form">
+        Sem zadejte: <input type="text" name="vstup">
+        <input type="submit" value="Potvrdit" onclick="submitMessage()">
+    </form><br>
+    <iframe style="display:none" name="hidden-form"></iframe>
+    <button onclick="logoutButton()">Odhlásit se</button>
+

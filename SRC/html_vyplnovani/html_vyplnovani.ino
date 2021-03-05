@@ -9,10 +9,14 @@
 const char* ssid = "esp_wifi"; //Napište SSID
 const char* password = "keplerprojekt"; //Heslo sítě
 
+//Heslo pro administracni rozhrani
+const char* http_username = "admin";
+const char* http_password = "admin";
+
 //Parametry pro HTTP GET requesty
 const char* PARAMETR = "zarizeni"; //Parametr pro čtení HTTP GET requestu
 const char* PARAM_MESSAGE = "zprava"; //Parametr pro čtení HTTP GET requestu
-const char* PARAM_INPUT_1 = "input1"; //Parametr pro čtení HTTP GET requestu
+const char* PARAM_INPUT_1 = "vstup"; //Parametr pro čtení HTTP GET requestu
 
 //Kód pro radiové ovládání
 String kod = "1364"; //kód pro zařízení (pro request)
@@ -113,7 +117,6 @@ String processor(const String& var) {
   return String();
 }
 
-
 void setup() {
   //Zahájení sériové komunikace
   Serial.begin(9600);
@@ -161,15 +164,31 @@ void setup() {
     request->send(SPIFFS, "/test_file.html", String(), false, processor);
   });
 
+  //stránka pro administraci
+  server.on("/admin", HTTP_GET, [](AsyncWebServerRequest * request) {
+    if (!request->authenticate(http_username, http_password))
+      return request->requestAuthentication();
+    request->send(SPIFFS, "/admin.html", String(), false);
+  });
 
+  //Odhlášení
+  server.on("/logout", HTTP_GET, [](AsyncWebServerRequest * request) {
+    request->send(401);
+  });
+
+  //Stránka zobrazená po odhlášení
+  server.on("/logged-out", HTTP_GET, [](AsyncWebServerRequest * request) {
+    request->send(SPIFFS, "/logout.html", String(), false);
+  });
+  
   server.begin();
   Serial.println("Server je spuštěn");
   readFile(SPIFFS, "/zarizeni.csv");
 
-  // Send a GET request to <ESP_IP>/get?input1=<inputMessage>
+  // Send a GET request to <ESP_IP>/get?vstup=<inputMessage>
   server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
     String inputMessage;
-    //Get input1 value on <ESP_IP>/get?input1=<inputMessage>
+    //Get vstup value on <ESP_IP>/get?vstup=<inputMessage>
     if (request->hasParam(PARAM_INPUT_1)) {
       inputMessage = request->getParam(PARAM_INPUT_1)->value();
       addRow(SPIFFS, "/zarizeni.csv", inputMessage.c_str());
@@ -191,5 +210,4 @@ void setup() {
 }
 
 void loop() {
-  //  if csv_str
 }
