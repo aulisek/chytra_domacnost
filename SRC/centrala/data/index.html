@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ovládací rozhraní</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li<a href="/">Zařízení</a></li>
+                <li><a href="/admin">Administrace</a></li>
+            </ul>
+        /nav>
+    <h1>Vaše zařízení:</h1>
+        <form action="/get" method="get" target="hidden-form">
+            <p>%tlacitkasem%</p>
+        </form>
+    
+    <iframe style="display:none" name="hidden-form"></iframe>
+
+</body>
+</html>
