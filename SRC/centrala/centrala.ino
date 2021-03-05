@@ -206,7 +206,6 @@ void setup() {
     }
     Serial.println(inputMessage);
     request->send(200);
-    request->redirect("/");
   });
 }
 
