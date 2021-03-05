@@ -97,11 +97,11 @@ String vypln() {
       tlacitka += "<p>";
       tlacitka += (nazev)[row];
       tlacitka += "</p>";
-      tlacitka += "<p><a href=\"/get?zprava=";
+      tlacitka += "<p><button name='zprava' type='submit' value='";
       tlacitka += (kod_zapnuto[row]);
-      tlacitka += "\"><button>ZAPNOUT</button></a> <a href=\"/get?zprava=";
+      tlacitka += "'>ZAPNOUT</button> <button name='zprava' type='submit' value='";
       tlacitka += (kod_vypnuto[row]);
-      tlacitka += "\"><button>VYPNOUT</button></a>";
+      tlacitka += "'>VYPNOUT</button>";
     }
   } else {
     Serial.println("At least 1 of the columns was not found, something went wrong.");
@@ -148,7 +148,7 @@ void setup() {
   Serial.println("Vaše IP adresa: ");
   Serial.println(WiFi.localIP() );
 
-  //nastavení mDNS adresy (dostupné na: esp32.local)
+  //nastavení mDNS adresy (dostupné na adrese: http://esp32.local)
   if (!MDNS.begin("esp32")) {
     Serial.println("Error starting mDNS");
     return;
@@ -161,7 +161,7 @@ void setup() {
 
   //Spuštění serveru
   server.on("/", HTTP_GET, [](AsyncWebServerRequest * request) {
-    request->send(SPIFFS, "/test_file.html", String(), false, processor);
+    request->send(SPIFFS, "/index.html", String(), false, processor);
   });
 
   //stránka pro administraci
@@ -185,17 +185,17 @@ void setup() {
   Serial.println("Server je spuštěn");
   readFile(SPIFFS, "/zarizeni.csv");
 
-  // Send a GET request to <ESP_IP>/get?vstup=<inputMessage>
+  // Odešle HTTP GET request na <ESP_IP>/get?vstup=<inputMessage>
   server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
     String inputMessage;
-    //Get vstup value on <ESP_IP>/get?vstup=<inputMessage>
+    //Získej hodnotu proměné vstup z <ESP_IP>/get?vstup=<inputMessage>
     if (request->hasParam(PARAM_INPUT_1)) {
       inputMessage = request->getParam(PARAM_INPUT_1)->value();
       addRow(SPIFFS, "/zarizeni.csv", inputMessage.c_str());
       readFile(SPIFFS, "/zarizeni.csv");
     }
     //Odeslani kodu z tlacitka na strace
-    // Send a GET request to <IP>/get?zprava=<inputMessage>
+    // Odešle HTTP GET request na <IP>/get?zprava=<inputMessage>
     if (request->hasParam(PARAM_MESSAGE)) {
       inputMessage = request->getParam(PARAM_MESSAGE)->value();
       kod = inputMessage;
@@ -205,7 +205,8 @@ void setup() {
       inputMessage = "No message sent";
     }
     Serial.println(inputMessage);
-    //request->send(200, "text/text", inputMessage);
+    request->send(200);
+    request->redirect("/");
   });
 }
 
