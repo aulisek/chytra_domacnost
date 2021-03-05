@@ -3,6 +3,7 @@
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
 #include <CSV_Parser.h>
+#include <ESPmDNS.h>
 
 //Proměné pro připojení k wifi
 const char* ssid = "esp_wifi"; //Napište SSID
@@ -144,6 +145,11 @@ void setup() {
   Serial.println("Vaše IP adresa: ");
   Serial.println(WiFi.localIP() );
 
+  //nastavení mDNS adresy (dostupné na: esp32.local)
+  if (!MDNS.begin("esp32")) {
+    Serial.println("Error starting mDNS");
+    return;
+  }
   // Vysílač připojen k pinu #23, výchozí protokol 1
   mySwitch.enableTransmit(23);
 
@@ -167,7 +173,7 @@ void setup() {
     if (request->hasParam(PARAM_INPUT_1)) {
       inputMessage = request->getParam(PARAM_INPUT_1)->value();
       addRow(SPIFFS, "/zarizeni.csv", inputMessage.c_str());
-      readFile(SPIFFS,"/zarizeni.csv");
+      readFile(SPIFFS, "/zarizeni.csv");
     }
     //Odeslani kodu z tlacitka na strace
     // Send a GET request to <IP>/get?zprava=<inputMessage>
