@@ -4,46 +4,80 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{lmodern}
-\usepackage{enumitem}     % required for \setlist
 \usepackage[margin=35mm]{geometry}
-\setlist{noitemsep}       % no space between list items (keep margin around a list)
 \frenchspacing
 \renewcommand{\baselinestretch}{1.5}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt}
 
-
-
 \title{Maturitní projekt - Informatika}
 \author{Vladislav Aulich}
 
 \begin{document}
-\maketitle
+
+\pagestyle{empty}
 \begin{center}
-	\includegraphics[width=0.5\linewidth]{obrázky/kepler_logo_vectorized_pruhl200}
-\end{center}
+	\begin{center}
+		\includegraphics[width=0.7\linewidth]{obrázky/kepler_logo_vectorized_pruhl200}
+	\end{center}
+	
+	\huge{MATURITNÍ PRÁCE
+		\vspace{0.5 cm}
+		
+		Informatika
+		
+		\vspace{2.5 cm}
+		\textbf{Zařízení pro realizaci chytré domácnosti} }  
+\end{center} 
 
-\begin{description}
-	\item [Student:] Vladislav Aulich% Zde doplňte Vaše jméno ve formátu Jméno Příjmení
-	\item [Třída:] 4.C % Zde doplňte Vaši třídu
-	\item [Školní rok:] 2020/2021
-	\item [Vedoucí práce:] Emil Miler % Zde doplňte jméno Vašeho vedoucího
-\end{description}
+\vspace{2.5 cm}
+\Large{
+	Vladislav Aulich 4.C
+	
+	\clearpage  
+	
+%--------------- První stránka --------------------
+\vspace*{12 cm}
 
-\maketitle
+Prohlašuji tímto, že jsem  práci vypracoval samostatně pod vedením Bc. Emila Milera a uvedl v seznamu literatury veškerou použitou literaturu a další zdroje včetně internetu.
+
+Prohlašuji rovněž, že tištěná a elektronická verze této práce jsou shodné.
+
+V Praze dne \today            
+
+\hspace{6.5cm} \makebox[2in]{\hrulefill}
+
+\hspace{6.5cm} \makebox[2in]{Podpis autora}    
+
+
+\clearpage
+%--------------- druhá stránka --------------------
+\section*{Poděkování}
+
+Touto cestou bych rád poděkoval svému vedoucímu práce Bc. Emilu Milerovi za podporu a odbornou pomoc při tvorbě projektu.
+\clearpage
+%--------------- Třetí stránka --------------------
+
+\section*{Anotace}
+
+Tento projekt se zabývá realizací chytré domácnosti. Pro tvorbu projektu byl zvolen mikrokontrolér Arduino uno a čip ESP32. Komunikace mezi zařízeními je realizovaná bezdrátově za použití otevřené rádiové frekvence 433 MHz. Součástí projektu je i výroba hardware s použitím metody 3D tisku na tiskárně Ender 3 pro. Vývoj kódu probíhal v prostředí Arduino IDE, pro trasování změn byl využit verzovací systém git.
+
+\clearpage
+%--------------- Čtvrtá stránka ---------------------
+
 \tableofcontents
 \newpage
+%--------------- Pátá stránka --------------------
 
-\section{Úvod}
+\section*{Úvod}
 
-\subsection{Zadání projektu}
+Toto téma jsem si zvolil, protože jsem chtěl blíže prozkoumat práci s platformou Arduino a ESP32. S programováním těchto zařízení jsem měl minimální zkušenosti, proto pro mě byla práce na projektu výzvou k objevování nového. Použití komunikace na rádiové frekvenci jsem zvolil z důvodu široké škály použití a velkého množství příkladů. Zároveň jsem měl doma nevyužívaný ovladač pracující s touto frekvencí.
 
-Cílem práce je vytvořit chytrou domácnost, konkrétně ovládání světel pomocí
-mikrokontroleru. Systém bude možné ovládat pomocí jednoduchého rozhraní
-z počítače či mobilního zařízení. Systém bude libovolně rozšiřitelný o další čidla
-a senzory
 
+
+Motivací k výběru tématu \uv{chytré domácnosti} mi bylo její čím dál větší nasazování v domácnostech a snaha vytvořit si ji po svém. Na mnohých komerčních řešeních mi totiž nevyhovoval způsob ovládání, stejně jako velký zásah do soukromí uživatelů.
+\clearpage
 \section{Popis projektu}
 
 \subsection{Použitý hardware}
