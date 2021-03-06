@@ -5,6 +5,43 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ovládací rozhraní</title>
+    <style>
+        .button {
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #4CAF50;
+        }
+
+        .button1:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button2 {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #ff0000;
+        }
+
+        .button2:hover {
+            background-color: #ff0000;
+            color: white;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -14,7 +51,7 @@
                 <li<a href="/">Zařízení</a></li>
                 <li><a href="/admin">Administrace</a></li>
             </ul>
-        /nav>
+        </nav>
     <h1>Vaše zařízení:</h1>
         <form action="/get" method="get" target="hidden-form">
             <p>%tlacitkasem%</p>

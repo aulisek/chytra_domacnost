@@ -94,12 +94,12 @@ String vypln() {
       Serial.print(kod_zapnuto[row], DEC);    Serial.print(" - ");
       Serial.print(kod_vypnuto[row], DEC);    Serial.print(" - ");
       //Sestavení HTML pro placeholder
-      tlacitka += "<p>";
+      tlacitka += "<h3>";
       tlacitka += (nazev)[row];
-      tlacitka += "</p>";
-      tlacitka += "<p><button name='zprava' type='submit' value='";
+      tlacitka += "</h3>";
+      tlacitka += "<p><button class='button button1' name='zprava' type='submit' value='";
       tlacitka += (kod_zapnuto[row]);
-      tlacitka += "'>ZAPNOUT</button> <button name='zprava' type='submit' value='";
+      tlacitka += "'>ZAPNOUT</button> <button class='button button2' name='zprava' type='submit' value='";
       tlacitka += (kod_vypnuto[row]);
       tlacitka += "'>VYPNOUT</button>";
     }
