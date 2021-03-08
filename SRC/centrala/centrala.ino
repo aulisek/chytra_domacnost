@@ -17,6 +17,9 @@ const char* http_password = "admin";
 const char* PARAMETR = "zarizeni"; //Parametr pro čtení HTTP GET requestu
 const char* PARAM_MESSAGE = "zprava"; //Parametr pro čtení HTTP GET requestu
 const char* PARAM_INPUT_1 = "vstup"; //Parametr pro čtení HTTP GET requestu
+const char* KOMERCNI_OVLADAC = "ovladac"; //Parametr pro čtení HTTP GET requestu
+const char* KOMERCNI_ZARIZENI = "zarizeni"; //Parametr pro čtení HTTP GET requestu
+const char* NAZEV = "nazev"; //Parametr pro čtení HTTP GET requestu
 
 //Kód pro radiové ovládání
 String kod = "1364"; //kód pro zařízení (pro request)
@@ -185,17 +188,24 @@ void setup() {
   Serial.println("Server je spuštěn");
   readFile(SPIFFS, "/zarizeni.csv");
 
-  // Odešle HTTP GET request na <ESP_IP>/get?vstup=<inputMessage>
+  // Odešle HTTP GET request na <ESP_IP>/get
   server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
     String inputMessage;
-    //Získej hodnotu proměné vstup z <ESP_IP>/get?vstup=<inputMessage>
-    if (request->hasParam(PARAM_INPUT_1)) {
-      inputMessage = request->getParam(PARAM_INPUT_1)->value();
+    String inputNazev;
+    String inputOvladac;
+    String inputZarizeni;
+    //Zápis do souboru z uživatelského rozhraní
+    //Získej hodnoty z <ESP_IP>/get?nazev=<inputNazev>&ovladac=<inputOvladac>&zarizeni=<inputZarizeni>
+    if (request->hasParam(KOMERCNI_OVLADAC) && request->hasParam(KOMERCNI_ZARIZENI) && request->hasParam(NAZEV)) {
+      inputNazev = request->getParam(NAZEV)->value();
+      inputOvladac = request->getParam(KOMERCNI_OVLADAC)->value();
+      inputZarizeni = request->getParam(KOMERCNI_ZARIZENI)->value();
+      inputMessage += inputNazev + "," + inputOvladac + "," + inputZarizeni;
       addRow(SPIFFS, "/zarizeni.csv", inputMessage.c_str());
       readFile(SPIFFS, "/zarizeni.csv");
     }
-    //Odeslani kodu z tlacitka na strace
-    // Odešle HTTP GET request na <IP>/get?zprava=<inputMessage>
+    //Zpracování requestu pro ovládání komerčních zásuvek
+    //Získej hodnoty z <ESP_IP>/get?nazev=<inputNazev>&ovladac=<inputOvladac>&zarizeni=<inputZarizeni>
     if (request->hasParam(PARAM_MESSAGE)) {
       inputMessage = request->getParam(PARAM_MESSAGE)->value();
       kod = inputMessage;

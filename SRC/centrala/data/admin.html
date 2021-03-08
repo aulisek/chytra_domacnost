@@ -34,11 +34,17 @@
     <p>Název se bude zobrazovat ve webovém rozhraní, zvolit si můžete libovolný. Nepoužívejte mezery, nahrazujte například podtržítkem.</p>
     <p>Čísla jsou uvedena na zařízení, uvádějte ve stejném formátu.</p>
     <p>Poté klikněte na tlačítko "Potvrdit", tímto zařízení uložíte</p>
-    <h2>Přidat zařízení</h2>
-    <form action="/get" target="hidden-form">
-        Sem zadejte: <input type="text" name="vstup">
+    <h2>Přidat komerční zařízení</h2>
+    <form action="/get" method"get" target="hidden-form">
+        <label for="nazev">Název:</label><br>
+            <input type="text" name="nazev" value="Lampa"><br>
+        <label for="ovladac">Kód na ovladači:</label><br>
+            <input type="text" name="ovladac" value="11111"><br>
+        <label for="zarizeni">Kód na zařízení:</label><br>
+            <input type="text" name="zarizeni" value="11111"><br><br>
+    
         <input type="submit" value="Potvrdit" onclick="submitMessage()">
-    </form><br>
+</form><br>
     <iframe style="display:none" name="hidden-form"></iframe>
     <button onclick="logoutButton()">Odhlásit se</button>
 
