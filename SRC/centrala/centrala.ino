@@ -5,6 +5,7 @@
 #include <CSV_Parser.h>
 #include <ESPmDNS.h>
 #include <RH_ASK.h>
+#include <SPI.h>
 
 //Proměné pro připojení k wifi
 const char* ssid = "esp_wifi"; //Napište SSID
@@ -129,9 +130,11 @@ String vypln() {
       tlacitka += "'><button class='button button2'>VYPNOUT</button></a>";
 
       //Tlačítko pro smazání
-      tlacitka += " <button action='/get' target='hidden-form' class='button button1' name='"
+      tlacitka += " <button action='/get' target='hidden-form' class='button button1' name='";
       tlacitka += SMAZAT;
-      tlacitka += "'type='submit' value='" + row + "'>SMAZAT</button>";
+      tlacitka += "'type='submit' value='";
+      tlacitka += row;
+      tlacitka += "'>SMAZAT</button>";
     }
   } else {
     Serial.println("At least 1 of the columns was not found, something went wrong.");
@@ -223,7 +226,7 @@ void setup() {
     String inputOvladac;
     String inputZarizeni;
     String inputAkce;
-    //Zápis do souboru z uživatelského rozhraní
+    //Zápis do souboru z uživatelského rozhraní, komerční zařízení
     //Získej hodnoty z <ESP_IP>/get?nazev=<inputNazev>&ovladac=<inputOvladac>&zarizeni=<inputZarizeni>
     if (request->hasParam(KOMERCNI_OVLADAC) && request->hasParam(KOMERCNI_ZARIZENI) && request->hasParam(NAZEV)) {
       inputNazev = request->getParam(NAZEV)->value();
@@ -232,6 +235,16 @@ void setup() {
       inputMessage += inputNazev + "," + inputOvladac + "," + inputZarizeni;
       addRow(SPIFFS, "/zarizeni.csv", inputMessage.c_str());
       readFile(SPIFFS, "/zarizeni.csv");                                     
+    }
+    //Zpápis do souboru z uživatelského rozhraní, zařízení projektu
+    //Získej hodnoty z <ESP_IP>/get?nazev=<inputNazev>&zarizeni=<inputZarizeni>
+    if (request->hasParam(KOMERCNI_ZARIZENI) && request->hasParam(NAZEV)) {
+      inputNazev = request->getParam(NAZEV)->value();
+      inputOvladac = "x";
+      inputZarizeni = request->getParam(KOMERCNI_ZARIZENI)->value();
+      inputMessage += inputNazev + "," + inputOvladac + "," + inputZarizeni;
+      addRow(SPIFFS, "/zarizeni.csv", inputMessage.c_str());
+      readFile(SPIFFS, "/zarizeni.csv");
     }
     //Zpracování requestu pro ovládání komerčních zásuvek
     //Získej hodnoty z <ESP_IP>/get?ovladac=<inputOvladac>&zarizeni=<inputZarizeni>&akce=<ON/OFF>
@@ -259,8 +272,7 @@ void setup() {
       request->redirect("/");
    }
    if (request->hasParam(SMAZAT)) {
-    input message = request->getParam(SMAZAT)->value();
-    
+    inputMessage = request->getParam(SMAZAT)->value();
    }
     else {
       inputMessage = "No message sent";
