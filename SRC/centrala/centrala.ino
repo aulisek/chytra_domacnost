@@ -4,6 +4,7 @@
 #include <SPIFFS.h>
 #include <CSV_Parser.h>
 #include <ESPmDNS.h>
+#include <RH_ASK.h>
 
 //Proměné pro připojení k wifi
 const char* ssid = "esp_wifi"; //Napište SSID
@@ -18,6 +19,7 @@ const char* KOMERCNI_OVLADAC = "ovladac"; //Parametr pro čtení HTTP GET reques
 const char* KOMERCNI_ZARIZENI = "zarizeni"; //Parametr pro čtení HTTP GET requestu
 const char* NAZEV = "nazev"; //Parametr pro čtení HTTP GET requestu
 const char* AKCE = "akce";
+const char* SMAZAT = "smazat";
 
 //Kód pro radiové ovládání
 String kod = "1364"; //kód pro zařízení (pro request)
@@ -125,6 +127,11 @@ String vypln() {
       tlacitka += (kod_zarizeni[row]);
       tlacitka += "&akce=OFF";
       tlacitka += "'><button class='button button2'>VYPNOUT</button></a>";
+
+      //Tlačítko pro smazání
+      tlacitka += " <button action='/get' target='hidden-form' class='button button1' name='"
+      tlacitka += SMAZAT;
+      tlacitka += "'type='submit' value='" + row + "'>SMAZAT</button>";
     }
   } else {
     Serial.println("At least 1 of the columns was not found, something went wrong.");
@@ -233,8 +240,11 @@ void setup() {
       inputZarizeni = request->getParam(KOMERCNI_ZARIZENI)->value();
       inputAkce = request->getParam(AKCE)->value();
       Serial.println("z tlačítka");
-      if (inputOvladac == "x") {
-        Serial.print("moje zařízení");
+      if (inputOvladac == "x" && inputAkce == "OFF") {
+        Serial.print("moje zařízení odeslán požadavek na zapnutí");
+      }
+      if (inputOvladac == "x" && inputAkce == "ON") {
+        Serial.print("moje zařízení odeslán požadavek na vypnutí");
       }
       if (inputAkce == "ON" && inputOvladac != "x") {
         mySwitch.switchOn("inputOvladac", "inputZarizeni");
@@ -247,6 +257,10 @@ void setup() {
         Serial.println("odeslán kód vypnuto"); 
       }
       request->redirect("/");
+   }
+   if (request->hasParam(SMAZAT)) {
+    input message = request->getParam(SMAZAT)->value();
+    
    }
     else {
       inputMessage = "No message sent";
