@@ -277,7 +277,7 @@ void setup() {
        
       }
       if (inputAkce == "OFF" && inputOvladac != "x") {
-        int kod = inputOvladac.toInt();
+        int kod = inputZarizeni.toInt();
         mySwitch.send(kod, 24); //Pokud uživatel zadá kód decimálně
         //mySwitch.switchOff("inputOvladac", "inputZarizeni"); //Odkomentovat pokud uživatel zadává binární kód (polohy tlačítek na ovladači a zásuvce)
         Serial.println("odeslán kód vypnuto"); 
