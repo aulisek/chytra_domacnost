@@ -4,28 +4,24 @@
 #include <SPIFFS.h>
 #include <CSV_Parser.h>
 #include <ESPmDNS.h>
-#include <RH_ASK.h>
-#include <SPI.h>
 
-//Proměné pro připojení k wifi
-const char* ssid = "esp_wifi"; //Napište SSID
-const char* password = "keplerprojekt"; //Heslo sítě
+
+//Parametry pro připojení k síti
+const char* ssid = "esp_wifi";          //Do uvozovek napište SSID Vaší wifi sítě
+const char* password = "keplerprojekt"; //Mezi uvozovky napište heslo sítě
 
 //Heslo pro administracni rozhrani
-const char* http_username = "admin";
-const char* http_password = "admin";
+const char* http_username = "admin"; //Vyplňte jméno uživatele pro přístup do administračního rozhraní
+const char* http_password = "admin"; //Vyplňte své heslo
 
 //Parametry pro HTTP GET requesty
-const char* KOMERCNI_OVLADAC = "ovladac"; //Parametr pro čtení HTTP GET requestu
-const char* KOMERCNI_ZARIZENI = "zarizeni"; //Parametr pro čtení HTTP GET requestu
-const char* NAZEV = "nazev"; //Parametr pro čtení HTTP GET requestu
+const char* KOMERCNI_OVLADAC = "ovladac";  
+const char* KOMERCNI_ZARIZENI = "zarizeni"; 
+const char* NAZEV = "nazev"; 
 const char* AKCE = "akce";
 const char* SMAZAT = "smazat";
 
-//Kód pro radiové ovládání
-String kod = "1364"; //kód pro zařízení (pro request)
-
-//Deklarace pro CSV parser
+//Deklarace pro CSV parser, funkce readFile sem načte soubor
 char csv_str [512] = {'\0'};  // inicializace pro nacitani souboru po radcich
 
 AsyncWebServer server(80);
@@ -130,15 +126,17 @@ String vypln() {
       tlacitka += "'><button class='button button2'>VYPNOUT</button></a>";
 
       //Tlačítko pro smazání
-      tlacitka += " <button action='/get' target='hidden-form' class='button button1' name='";
+      tlacitka += "<a href='/get?";
       tlacitka += SMAZAT;
-      tlacitka += "'type='submit' value='";
+      tlacitka += "=";
       tlacitka += row;
-      tlacitka += "'>SMAZAT</button>";
+      tlacitka += "'><button class='button button2'>SMAZAT</button></a>";
+
     }
   } else {
-    Serial.println("At least 1 of the columns was not found, something went wrong.");
+    Serial.println("Alespoň jeden sloupec nenalezen, chyba");
   }
+  //Vrací string s tlačítko pro vypsání na stránku
   return String(tlacitka);
 }
 
@@ -157,7 +155,7 @@ void setup() {
 
   //připojení souborového svazku
   if (!SPIFFS.begin()) {
-    Serial.println("An Error has occurred while mounting SPIFFS");
+    Serial.println("Stala se chyba při připojování SPIFFS");
     return;
   }
 
@@ -183,7 +181,7 @@ void setup() {
 
   //nastavení mDNS adresy (dostupné na adrese: http://esp32.local)
   if (!MDNS.begin("esp32")) {
-    Serial.println("Error starting mDNS");
+    Serial.println("Chyba při spouštění mDNS");
     return;
   }
   // Vysílač připojen k pinu #23, výchozí protokol 1
@@ -216,7 +214,8 @@ void setup() {
   
   server.begin();
   Serial.println("Server je spuštěn");
-  
+
+  //Načte obsah souboru do csv_str
   readFile(SPIFFS, "/zarizeni.csv");
   
   // Odešle HTTP GET request na <ESP_IP>/get
@@ -236,7 +235,9 @@ void setup() {
       addRow(SPIFFS, "/zarizeni.csv", inputMessage.c_str());
       readFile(SPIFFS, "/zarizeni.csv");                                     
     }
-    //Zpápis do souboru z uživatelského rozhraní, zařízení projektu
+/*Tohle jsem zakomentoval z důvodu použití toho RC switch
+   
+    //Zpápis do souboru z uživatelského rozhraní pro zařízení projektu
     //Získej hodnoty z <ESP_IP>/get?nazev=<inputNazev>&zarizeni=<inputZarizeni>
     if (request->hasParam(KOMERCNI_ZARIZENI) && request->hasParam(NAZEV)) {
       inputNazev = request->getParam(NAZEV)->value();
@@ -246,6 +247,7 @@ void setup() {
       addRow(SPIFFS, "/zarizeni.csv", inputMessage.c_str());
       readFile(SPIFFS, "/zarizeni.csv");
     }
+*/
     //Zpracování requestu pro ovládání komerčních zásuvek
     //Získej hodnoty z <ESP_IP>/get?ovladac=<inputOvladac>&zarizeni=<inputZarizeni>&akce=<ON/OFF>
     if (request->hasParam(KOMERCNI_OVLADAC) && request->hasParam(KOMERCNI_ZARIZENI) && request->hasParam(AKCE)) {
@@ -253,29 +255,42 @@ void setup() {
       inputZarizeni = request->getParam(KOMERCNI_ZARIZENI)->value();
       inputAkce = request->getParam(AKCE)->value();
       Serial.println("z tlačítka");
+/*   Takhle jsem puvodne chtel odlisit komercni od mých   
+  //Pokud se jedná o zařízení vyrobené v rámci projektu
       if (inputOvladac == "x" && inputAkce == "OFF") {
+        int ID = inputZarizeni.toInt();
+        mySwitch.switchOff('d', ID);
         Serial.print("moje zařízení odeslán požadavek na zapnutí");
       }
       if (inputOvladac == "x" && inputAkce == "ON") {
+        int ID = inputZarizeni.toInt();
+        mySwitch.switchOn('d', ID);
         Serial.print("moje zařízení odeslán požadavek na vypnutí");
       }
+*/
+      //Pokud se jedná o komerční zařízení, SEM VKLÁDEJTE FUNKCE PRO ZAPNUTÍ A VYPNUTÍ
       if (inputAkce == "ON" && inputOvladac != "x") {
-        mySwitch.switchOn("inputOvladac", "inputZarizeni");
+        int kod = inputOvladac.toInt();
+        mySwitch.send(kod, 24); //Pokud uživatel zadá kód decimálně
+        //mySwitch.switchOn("inputOvladac", "inputZarizeni"); //Odkomentovat pokud uživatel zadává binární kód (polohy tlačítek na ovladači a zásuvce)
         Serial.println("odeslán kód zapnuto");
-        Serial.println(inputOvladac);
-        Serial.println(inputZarizeni);
+       
       }
       if (inputAkce == "OFF" && inputOvladac != "x") {
-        mySwitch.switchOff("inputOvladac", "inputZarizeni");
+        int kod = inputOvladac.toInt();
+        mySwitch.send(kod, 24); //Pokud uživatel zadá kód decimálně
+        //mySwitch.switchOff("inputOvladac", "inputZarizeni"); //Odkomentovat pokud uživatel zadává binární kód (polohy tlačítek na ovladači a zásuvce)
         Serial.println("odeslán kód vypnuto"); 
       }
+      //přesměruje zpět na domovskou stránku po kliknutí na tlačítko
       request->redirect("/");
    }
+   //Smazání řádku - NEFUNKČNÍ
    if (request->hasParam(SMAZAT)) {
     inputMessage = request->getParam(SMAZAT)->value();
    }
     else {
-      inputMessage = "No message sent";
+      inputMessage = "Nebyla odeslána žádná zpráva";
     }
     Serial.println(inputMessage);
     request->send(200);
