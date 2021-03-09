@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.2.13)  5 MAR 2021 19:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.2.13)  9 MAR 2021 11:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -352,7 +352,7 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<obrázky/kepler_logo_vectorized_pruhl200.png, id=16, 50.1875pt x 50.43843pt>
+<obrázky/kepler_logo_vectorized_pruhl200.png, id=64, 50.1875pt x 50.43843pt>
 File: obrázky/kepler_logo_vectorized_pruhl200.png Graphic file (type png)
 <use obrázky/kepler_logo_vectorized_pruhl200.png>
 Package pdftex.def Info: obrázky/kepler_logo_vectorized_pruhl200.png  used on 
@@ -361,74 +361,167 @@ input line 22.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./obrázky/kepler_logo_vec
-torized_pruhl200.png>] [2
+torized_pruhl200.png>]
+Overfull \hbox (7.38353pt too wide) in paragraph at lines 43--44
+\OT1/lmr/m/n/14.4 den^^S^^Pm Emila Mi-lera a uvedl v se-znamu li-te-ra-tury ve^
+^Tskerou pou^^Tzitou
+ []
+
+[2
 
 ] [3
 
 ] [4
 
 ] (./aulich_chytra_domacnost_dokumentace.toc
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 3
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 4
 .
+
 (/usr/share/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-3.
+4.
 
 (/usr/share/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-3.
+4.
 
 (/usr/share/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 3.
+(Font)              <14.4> on input line 4.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 3.
+(Font)              <10> on input line 4.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 3.
+(Font)              <7> on input line 4.
 )
 \tf@toc=\write4
  [5
 
-] [6]
+] [6] [7]
+
+Package hyperref Warning: Composite letter `\textasciicaron+r'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 84.
+
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 8
+8.
+(/usr/share/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [8
+
+]
+Overfull \hbox (6.25464pt too wide) in paragraph at lines 109--110
+\OT1/lmr/m/n/14.4 kou-pen^^Seho ko-mer^^Tcn^^S^^Pho za^^Tr^^S^^Pzen^^S^^P nebo 
+p^^Trid^^San^^S^^Pm za^^Tr^^S^^Pzen^^S^^P vy-ro-ben^^Seho
+ []
+
+
+Package hyperref Warning: Composite letter `\textasciicaron+r'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 113.
+
+
+Overfull \hbox (11.81793pt too wide) in paragraph at lines 118--119
+[]\OT1/lmr/m/n/14.4 Ovl^^Sad^^San^^S^^P mo-dul^^Wu jsem cht^^Tel re-a-li-zo-vat
+ po-moc^^S^^P jed-no-duch^^Se knihovny
+ []
+
+
+Overfull \hbox (6.28377pt too wide) in paragraph at lines 121--122
+\OT1/lmr/m/n/14.4 chyt^^S^^P ID a pro-vede p^^Tr^^S^^Pkaz. Tento syst^^Sem je d
+o bu-doucna roz^^Tsi^^Triteln^^Sy
+ []
+
+[9]
+
+Package hyperref Warning: Composite letter `\textasciicaron+r'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 126.
+
+
+Overfull \hbox (7.34035pt too wide) in paragraph at lines 144--145
+\OT1/lmr/m/n/14.4 sta^^Tc^^S^^P ID za^^Tr^^S^^Pzen^^S^^P, kter^^Se je v tomto p
+^^Tr^^S^^Ppad^^Te ve sloupci []kod[]zarizeni\. 
+ []
+
+
+Overfull \hbox (12.0098pt too wide) in paragraph at lines 147--148
+[]\OT1/lmr/m/n/14.4 P^^Tri zad^^Sav^^San^^S^^P ko-mer^^Tcn^^S^^Pho za^^Tr^^S^^P
+zen^^S^^P z^^Sale^^Tz^^S^^P na zp^^Wusobu ovl^^Sad^^San^^S^^P dan^^Seho
+ []
+
+
+Overfull \hbox (21.06587pt too wide) in paragraph at lines 147--148
+\OT1/lmr/m/n/14.4 zvl^^Sa^^Tst[] k^^Sod pro vy-pnut^^S^^P a za-pnut^^S^^P. Jin^
+^Sa za^^Tr^^S^^Pzen^^S^^P maj^^S^^P odli^^Tsn^^Sa sch^^Semata. 
+ []
+
+[10]
+
+Package hyperref Warning: Composite letter `\textasciicaron+r'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 152.
+
+
+Overfull \hbox (5.4013pt too wide) in paragraph at lines 167--168
+\OT1/lmr/m/n/14.4 Pro []centr^^Salu\ jsem si vy-bral plat-formu ESP32 a to hned
+ z n^^Tekolika
+ []
+
+[11]
+Overfull \hbox (24.49594pt too wide) in paragraph at lines 173--174
+[]\OT1/lmr/m/n/14.4 Pro []kon-cov^^Sa za^^Tr^^S^^Pzen^^S^^P\ a []ana-lyz^^Sator
+ k^^Sodu\ jsem zvo-lil jako v^^Syvojovou
+ []
+
 
 Package hyperref Warning: Composite letter `\textring+u'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textring' on input line 85.
+(hyperref)                removing `\textring' on input line 176.
 
-[7
+[12]
 
-] (./aulich_chytra_domacnost_dokumentace.aux)
+Package hyperref Warning: Composite letter `\textasciicaron+r'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 212.
+
+
+Package hyperref Warning: Composite letter `\textasciicaron+e'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 217.
+
+[13] (./aulich_chytra_domacnost_dokumentace.aux)
 Package rerunfilecheck Info: File `aulich_chytra_domacnost_dokumentace.out' has
  not changed.
-(rerunfilecheck)             Checksum: 0265969B498A154C89324B7D23E3E50D;199.
+(rerunfilecheck)             Checksum: ABD17360CA4DE1F88B430FE506EE7DE1;1021.
  )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 35 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 6529 strings out of 479383
- 99841 string characters out of 5875830
- 422160 words of memory out of 5000000
- 23515 multiletter control sequences out of 15000+600000
- 432163 words of font info for 43 fonts, out of 8000000 for 9000
+ 6598 strings out of 479383
+ 101060 string characters out of 5875830
+ 427172 words of memory out of 5000000
+ 23562 multiletter control sequences out of 15000+600000
+ 432538 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 66i,4n,72p,507b,392s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}</usr/share
-/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf-dist/fonts/type1
-/public/lm/lmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr12.pfb></
-usr/share/texmf-dist/fonts/type1/public/lm/lmr17.pfb>
-Output written on aulich_chytra_domacnost_dokumentace.pdf (7 pages, 124510 byte
-s).
+ 66i,7n,72p,673b,402s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share
+/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf-dist/fonts/type1/pu
+blic/lm/lmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></us
+r/share/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf-dist/fonts
+/type1/public/lm/lmr17.pfb>
+Output written on aulich_chytra_domacnost_dokumentace.pdf (13 pages, 143680 byt
+es).
 PDF statistics:
- 82 PDF objects out of 1000 (max. 8388607)
- 66 compressed objects within 1 object stream
- 15 named destinations out of 1000 (max. 500000)
- 30 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 174 PDF objects out of 1000 (max. 8388607)
+ 151 compressed objects within 2 object streams
+ 33 named destinations out of 1000 (max. 500000)
+ 126 words of extra memory for PDF output out of 10000 (max. 10000000)
 

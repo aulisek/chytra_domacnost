@@ -40,7 +40,7 @@
 %--------------- První stránka --------------------
 \vspace*{12 cm}
 
-Prohlašuji tímto, že jsem  práci vypracoval samostatně pod vedením Bc. Emila Milera a uvedl v seznamu literatury veškerou použitou literaturu a další zdroje včetně internetu.
+Prohlašuji tímto, že jsem  práci vypracoval samostatně pod vedením Emila Milera a uvedl v seznamu literatury veškerou použitou literaturu a další zdroje včetně internetu.
 
 Prohlašuji rovněž, že tištěná a elektronická verze této práce jsou shodné.
 
@@ -55,7 +55,7 @@ V Praze dne \today
 %--------------- druhá stránka --------------------
 \section*{Poděkování}
 
-Touto cestou bych rád poděkoval svému vedoucímu práce Bc. Emilu Milerovi za podporu a odbornou pomoc při tvorbě projektu.
+Touto cestou bych rád poděkoval svému vedoucímu práce Emilu Milerovi za podporu a odbornou pomoc při tvorbě projektu.
 \clearpage
 %--------------- Třetí stránka --------------------
 
@@ -78,11 +78,145 @@ Toto téma jsem si zvolil, protože jsem chtěl blíže prozkoumat práci s plat
 
 Motivací k výběru tématu \uv{chytré domácnosti} mi bylo její čím dál větší nasazování v domácnostech a snaha vytvořit si ji po svém. Na mnohých komerčních řešeních mi totiž nevyhovoval způsob ovládání, stejně jako velký zásah do soukromí uživatelů.
 \clearpage
-\section{Popis projektu}
 
-\subsection{Použitý hardware}
+\part{Popis projektu}
 
-\subsubsection{Kalkulace nákladů}
+\section{Zařízení}
+
+Projekt se zkládá ze třech hlavních zařízení:
+\begin{itemize}
+	\item Centrály - brány ovládající další zařízení
+	\item Koncového zařízení ovládajícího spotřebič
+	\item Analyzátoru kódu komerčních zásuvek
+\end{itemize}
+
+Jejich vzájemná komunikace probíhá na frekvenci 433,92 MHz. 
+
+\subsection{Centrála}
+
+Centrála zajišťuje několik funkcí:
+\begin{itemize}
+	\item Komunikace s uživatelem
+	\item Komunikace mezi zařízeními
+	\item Správa uložených zařízení
+\end{itemize}
+
+\subsubsection{Komunikace s uživatelem}
+
+Pro komunikaci s uživatelem je vytvořeno jednoduché webové rozhraní umožňující dynamicky vypsat uložená zařízení a přidat nové. Pro přidání nového zařízení je nutná autentifikace. Webové rozhraní je přístupné po zadání adresy http://esp32.local nebo po zadání přidělené IP adresy.
 
 
+Pro přidání nového zařízení má uživatel na výběr mezi přidáním koupeného komerčního zařízení nebo přidáním zařízení vyrobeného v rámci tohoto projektu. Postup při zadávání nového zařízení je nastíněn we webovém rozhraní.
+
+
+Komunikace prgramu a webového rozhraní je zajištěna pomocí HTTP GET requestů, které program zpracuje a provede potřebné akce. 
+
+\subsubsection{Komunikace mezi zařízeními}
+
+Komunikace mezi zařízeními je realizovaná bezdrátově po frekvenci 433 MHz. Tento druh jsem zvolil z důvodu rozšířenosti a nízkých pořizovacích nákladů modulů.
+
+
+Ovládání modulů jsem chtěl realizovat pomocí jednoduché knihovny VirtualWire, ale zjistil jsem, že není funkční na čipech ESP. K ovládání jsem tak použil knihovnu RadioHead. 
+
+
+Pro ovládání \uv{Koncového zařízení} je vyslána zpráva obsahující ID zařízení a tag ON nebo OFF, \uv{koncové zařízení} následně odchytí ID a provede příkaz. Tento systém je do budoucna rozšiřitelný o další tagy pro zařízení, které potřebují k ovlání více příkazů než ON nebo OFF.
+
+
+Do projektu jsem chtěl přidat i možnost ovládání komerčních zařízeních. K tomuto účelu jsem začlenil knihovnu RC switch, která umožňuje zobrazit protokol, na jehož základě zařízení komunikují. Poté dokáže vysílat tímto protokolem. Cílem mého projektu nebylo ovládání komerčních zařízení, proto má tato část drobné nedostatky. Doma jsem neměl potřebný hardware, takže tato část není ani otestovaná. Do projektu byla začleněna, protože jsem měl doma nevyužitý ovladač, který pracoval na této frekvenci. Přesnou strukturou jeho vysílání jsem se ale nezabýval.
+
+\subsubsection{Správa uložených zařízení}
+
+Zařízení se ukládají přímo do flash paměti ESP32 o velikosti 4 MB. Soubor je nazván \uv{zarizeni.csv}.
+
+Kvůli potřebě ovládání komerčních zařízení jsem zvolil následující schéma. 
+
+
+\begin{tabular}{|c|c|c|}
+	\hline
+	Název & kod\_ovladac & kod\_zarizeni \\
+	\hline
+	Zásuvka z projektu & x & 12345 \\
+	\hline
+	Komerční zásuvka & 1354 & 1364 \\
+	\hline
+\end{tabular}
+
+
+Do sloupce \uv{název} se uloží název, který si zadá sám uživatel v uživatelském rozhraní. Do sloupce \uv{kod\_ovladac} se v případě zařízení vyrobeného v rámci projektu uloží \uv{x}, protože k ovládání stačí ID zařízení, které je v tomto případě ve sloupci \uv{kod\_zarizeni}.
+
+
+Při zadávání komerčního zařízení záleží na způsobu ovládání daného zařízení. Při tvorbě jsem vycházel z mého ovladače, který má zvlášť kód pro vypnutí a zapnutí. Jiná zařízení mají odlišná schémata. 
+
+
+Pro implementaci takového typu zařízení je za potřebí analyzovat, jaký způsob ovládání zařízení používá. K tomu slouží example kód knihovny, který jsem nahrál na jedno ze svých zařízení. Pro funkčnost ovládání je také potřeba prostudovat dokumentaci k této knihovně a dopsat správný typ ovládání do místa v kódu (Toto místo je označeno přímo v kódu).
+
+\subsection{Koncové zařízení}
+
+Toto je hlavní částí mého projektu. Koncové zařízení provádí následující funkce:
+
+\begin{itemize}
+	\item přijímá požadavek od centrály
+	\item zapne/vypne spotřebič
+	\item reguje na pohyb
+	\item reaguje na vstup uživatele z tlačítka
+\end{itemize}
+
+Zařízení jsem vyvíjel na Arduinu uno, poté jsem vytvořil prototyp založený na Arduinu Pro mini, které má menší rozměry a pořizovací cenu.
+
+Pro realizaci uvedených funkcí má zařízení  
+
+\section{Použitý hardware}
+
+Pro \uv{centrálu} jsem  si vybral platformu ESP32 a to hned z několika důvodů. Čip má integrovanou wifi, k dispozici je velké množství dokumentace, hardwaru s příklady a knihovnami. Další výhodou je velká komunita, což může pomoct při řešení problémů. Čip lze také integrovat do prostředí Arduino IDE, což umožňuje snadnější práci při tvorbě kódu.
+
+
+Při výběru jsem zvažoval i platformu raspberry pi, ale odradila mě přítomnost operačního systému, který je zbytečný pro tak malý projekt a velké pořizovací náklady oproti ESP32.
+
+
+Pro \uv{koncová zařízení} a \uv{analyzátor kódu} jsem zvolil jako vývojovou platformu Arduino uno. Po odladění kódu a hardwaru jsem vyrobil prototyp, který již využíval Arduino Pro mini. 
+
+
+\subsection{Kalkulace nákladů}
+\begin{tabular}{|c|c|c|}
+	\hline
+	Počet kusů & Název & Cena [Kč] \\
+	\hline
+	1 & NodeMCU-32S ESP32 & 249  \\
+	\hline
+	2 & 433 MHz vysílač a přijímač & 79 \\
+	\hline
+	2 & Spirálová anténa 433 MHz & 10 \\
+	\hline
+	1 & Mikrospínač & 4 \\
+	\hline
+	2 & Relé modul s optickým oddělením & 65 \\
+	\hline
+	1 & Rezistor 10k & 1 \\
+	\hline
+	1 & Arduino Pro Mini & 98 \\
+	\hline
+	1 & Arduino uno & 599 \\
+	\hline
+	1 & PCB prototypová deska & 18 \\
+	\hline
+	1 & PIR detektro pohybu & 38 \\
+	\hline
+\end{tabular}
+
+Celkové náklady na \uv{centrálu} jsou přibližně 290 Kč.
+Celkové náklady za prototyp \uv{koncového zařízení} jsou 265 Kč.
+
+\section{Testování}
+p
+\section{Automatizace}
+p
+\section{Porovnání s existujícími projekty}
+p
+\section{Možnosti rozšíření}
+p
+
+\part{Uvedení do provozu}
+p
+\section{Závěr}
+p
 \end{document}

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Fritzing (http://www.fritzing.org/) -->
+<svg xmlns="http://www.w3.org/2000/svg" x="0in" y="0in" version="1.2" width="0.809722in" baseProfile="tiny"  viewBox="0 0 20.5669 25.8064" height="1.016in">
+    <desc >
+        <referenceFile >sparkfun-rf_rf-link_rx_schematic.svg</referenceFile>
+    </desc>
+    <g gorn="0.1" id="schematic" >
+        <rect stroke-width="0" x="5.20347" y="0.2032" width="10.16" class="interior rect" stroke="none"  fill="#ffffff" height="25.4"/>
+        <text stroke-width="0" x="10.2835" y="10.5042" text-anchor="middle" gorn="0.1.1" class="text" id="label" stroke="none"  fill="#000000" font-size="1.49931" font-family="'Droid Sans'">RF</text>
+        <text stroke-width="0" x="10.2835" y="12.1035" text-anchor="middle" gorn="0.1.2" class="text" id="label" stroke="none"  fill="#000000" font-size="1.49931" font-family="'Droid Sans'">LINK</text>
+        <text stroke-width="0" x="10.2835" y="13.7029" text-anchor="middle" gorn="0.1.3" class="text" id="label" stroke="none"  fill="#000000" font-size="1.49931" font-family="'Droid Sans'">RX</text>
+        <line x1="15.3635" stroke-width="0.3175" x2="5.20347" class="other" stroke="#000000"  stroke-linecap="round" y1="25.6032" y2="25.6032"/>
+        <line x1="5.20347" stroke-width="0.3175" x2="5.20347" class="other" stroke="#000000"  stroke-linecap="round" y1="0.2032" y2="25.6032"/>
+        <line x1="15.3635" stroke-width="0.3175" x2="15.3635" class="other" stroke="#000000"  stroke-linecap="round" y1="25.6032" y2="0.2032"/>
+        <line x1="5.20347" stroke-width="0.3175" x2="15.3635" class="other" stroke="#000000"  stroke-linecap="round" y1="0.2032" y2="0.2032"/>
+        <line connectorname="GND" x1="0.123472" stroke-width="0.246944" x2="5.20347" gorn="0.1.8" class="pin" id="connector1pin" stroke="#787878"  stroke-linecap="round" y1="17.9832" y2="17.9832"/>
+        <rect stroke-width="0" x="0.123472" y="17.9832" width="0.0001" gorn="0.1.9" class="terminal" id="connector0terminal" stroke="none"  fill="none" height="0.0001"/>
+        <text stroke-width="0" x="2.66347" y="17.6128" text-anchor="middle" class="text" stroke="none"  fill="#8c8c8c" font-size="0.881944" font-family="'Droid Sans'">1</text>
+        <text stroke-width="0" x="5.9443" y="18.2301" text-anchor="start" class="text" stroke="none"  fill="#787878" font-size="1.23472" font-family="'Droid Sans'">GND</text>
+        <line connectorname="ANT" x1="20.4435" stroke-width="0.246944" x2="15.3635" gorn="0.1.12" class="pin" id="connector2pin" stroke="#787878"  stroke-linecap="round" y1="2.7432" y2="2.7432"/>
+        <rect stroke-width="0" x="20.4435" y="2.7432" width="0.0001" gorn="0.1.13" class="terminal" id="connector7terminal" stroke="none"  fill="none" height="0.0001"/>
+        <text stroke-width="0" x="17.9035" y="2.37278" text-anchor="middle" class="text" stroke="none"  fill="#8c8c8c" font-size="0.881944" font-family="'Droid Sans'">8</text>
+        <text stroke-width="0" x="14.6226" y="2.99014" text-anchor="end" class="text" stroke="none"  fill="#787878" font-size="1.23472" font-family="'Droid Sans'">ANT</text>
+        <line connectorname="+5V" x1="0.123472" stroke-width="0.246944" x2="5.20347" gorn="0.1.16" class="pin" id="connector4pin" stroke="#787878"  stroke-linecap="round" y1="2.7432" y2="2.7432"/>
+        <rect stroke-width="0" x="0.123472" y="2.7432" width="0.0001" gorn="0.1.17" class="terminal" id="connector6terminal" stroke="none"  fill="none" height="0.0001"/>
+        <text stroke-width="0" x="2.66347" y="2.37278" text-anchor="middle" class="text" stroke="none"  fill="#8c8c8c" font-size="0.881944" font-family="'Droid Sans'">7</text>
+        <text stroke-width="0" x="5.9443" y="2.99014" text-anchor="start" class="text" stroke="none"  fill="#787878" font-size="1.23472" font-family="'Droid Sans'">+5V</text>
+        <line connectorname="DATA" x1="0.123472" stroke-width="0.246944" x2="5.20347" gorn="0.1.20" class="pin" stroke="#787878" id="connector3pin"  stroke-linecap="round" y1="10.3632" y2="10.3632"/>
+        <rect stroke-width="0" x="0.123472" y="10.3632" width="0.0001" gorn="0.1.21" class="terminal" id="connector1terminal" stroke="none"  fill="none" height="0.0001"/>
+        <text stroke-width="0" x="2.66347" y="9.99278" text-anchor="middle" class="text" stroke="none"  fill="#8c8c8c" font-size="0.881944" font-family="'Droid Sans'">2</text>
+        <text stroke-width="0" x="5.9443" y="10.6101" text-anchor="start" class="text" stroke="none"  fill="#787878" font-size="1.23472" font-family="'Droid Sans'">DATA</text>
+    </g>
+</svg>

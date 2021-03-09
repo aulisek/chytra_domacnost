@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 -19.874 116.352 42.626" x="0px" xmlns:xml="http://www.w3.org/XML/1998/namespace" y="0px" version="1.1" gorn="0" width="1.616in" id="Ebene_1"  viewBox="0 0 116.352 42.626" xml:space="preserve" height="0.592028in">
+    <metadata id="metadata340" >
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            <cc:Work xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" rdf:about="">
+                <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">image/svg+xml</dc:format>
+                <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+            </cc:Work>
+        </rdf:RDF>
+    </metadata>
+    <defs id="defs338" />
+    <desc id="desc3" >
+        <referenceFile id="referenceFile5" >sparkfun-rf_rf-link_rx_breadboard.svg</referenceFile>
+    </desc>
+    <rect style="fill:#1f7a34" x="0" y="-5.4931638e-007" width="116.352" gorn="0.3" id="rect12"  height="31.25"/>
+    <rect style="opacity:0.2" x="0" y="30.802999" width="116.352" gorn="0.4" id="rect14"  height="0.447"/>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <circle d="m 6.2280002,20.700001 c 0,1.133288 -0.9187117,2.052 -2.0520001,2.052 -1.1332883,0 -2.052,-0.918712 -2.052,-2.052 0,-1.133289 0.9187117,-2.052 2.052,-2.052 1.1332884,0 2.0520001,0.918711 2.0520001,2.052 z" style="fill:none" gorn="0.5.0.0.0" id="connector0pin"  r="2.052" cx="4.1760001" cy="20.700001"/>
+            </g>
+        </g>
+    </g>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <circle d="m 13.428,20.700001 c 0,1.133288 -0.918711,2.052 -2.052,2.052 -1.133288,0 -2.0519996,-0.918712 -2.0519996,-2.052 0,-1.133289 0.9187116,-2.052 2.0519996,-2.052 1.133289,0 2.052,0.918711 2.052,2.052 z" style="fill:none" gorn="0.6.0.0.0" id="connector1pin"  r="2.052" cx="11.376" cy="20.700001"/>
+            </g>
+        </g>
+    </g>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <circle d="m 20.628,20.700001 c 0,1.133288 -0.918711,2.052 -2.052,2.052 -1.133288,0 -2.052,-0.918712 -2.052,-2.052 0,-1.133289 0.918712,-2.052 2.052,-2.052 1.133289,0 2.052,0.918711 2.052,2.052 z" style="fill:none" gorn="0.7.0.0.0" id="connector2pin"  r="2.052" cx="18.576" cy="20.700001"/>
+            </g>
+        </g>
+    </g>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <circle d="m 27.827999,20.700001 c 0,1.133288 -0.918712,2.052 -2.052,2.052 -1.133288,0 -2.052,-0.918712 -2.052,-2.052 0,-1.133289 0.918712,-2.052 2.052,-2.052 1.133288,0 2.052,0.918711 2.052,2.052 z" style="fill:none" gorn="0.8.0.0.0" id="connector6pin"  r="2.052" cx="25.775999" cy="20.700001"/>
+            </g>
+        </g>
+    </g>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <circle d="m 92.627996,20.700001 c 0,1.133288 -0.918711,2.052 -2.052,2.052 -1.133288,0 -2.052,-0.918712 -2.052,-2.052 0,-1.133289 0.918712,-2.052 2.052,-2.052 1.133289,0 2.052,0.918711 2.052,2.052 z" style="fill:none" gorn="0.9.0.0.0" id="connector5pin"  r="2.052" cx="90.575996" cy="20.700001"/>
+            </g>
+        </g>
+    </g>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <circle d="m 99.828001,20.700001 c 0,1.133288 -0.918712,2.052 -2.052,2.052 -1.133288,0 -2.052,-0.918712 -2.052,-2.052 0,-1.133289 0.918712,-2.052 2.052,-2.052 1.133288,0 2.052,0.918711 2.052,2.052 z" style="fill:none" gorn="0.10.0.0.0" id="connector3pin"  r="2.052" cx="97.776001" cy="20.700001"/>
+            </g>
+        </g>
+    </g>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <circle d="m 107.028,20.700001 c 0,1.133288 -0.91871,2.052 -2.052,2.052 -1.13329,0 -2.052,-0.918712 -2.052,-2.052 0,-1.133289 0.91871,-2.052 2.052,-2.052 1.13329,0 2.052,0.918711 2.052,2.052 z" style="fill:none" gorn="0.11.0.0.0" id="connector4pin"  r="2.052" cx="104.976" cy="20.700001"/>
+            </g>
+        </g>
+    </g>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <circle d="m 114.228,20.700001 c 0,1.133288 -0.91871,2.052 -2.052,2.052 -1.13329,0 -2.052,-0.918712 -2.052,-2.052 0,-1.133289 0.91871,-2.052 2.052,-2.052 1.13329,0 2.052,0.918711 2.052,2.052 z" style="fill:none" gorn="0.12.0.0.0" id="connector7pin"  r="2.052" cx="112.176" cy="20.700001"/>
+            </g>
+        </g>
+    </g>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <g gorn="0.13.0.0.0" id="g24" >
+                    <polygon style="fill:#b8af82" gorn="0.13.0.0.0.0" id="polygon26"  points="113.328,20.406 112.77,22.752 111.588,22.752 111.031,20.406 111.031,8.983 113.328,8.983 "/>
+                    <polygon style="fill:#e2d6a1" gorn="0.13.0.0.0.1" id="polygon28"  points="111.432,22.096 111.588,22.752 112.77,22.752 112.926,22.096 "/>
+                </g>
+            </g>
+        </g>
+    </g>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <g gorn="0.14.0.0.0" id="g30" >
+                    <polygon style="fill:#b8af82" gorn="0.14.0.0.0.0" id="polygon32"  points="106.127,20.406 105.571,22.752 104.389,22.752 103.83,20.406 103.83,8.983 106.127,8.983 "/>
+                    <polygon style="fill:#e2d6a1" gorn="0.14.0.0.0.1" id="polygon34"  points="104.233,22.096 104.389,22.752 105.571,22.752 105.727,22.096 "/>
+                </g>
+            </g>
+        </g>
+    </g>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <g gorn="0.15.0.0.0" id="g36" >
+                    <polygon style="fill:#b8af82" gorn="0.15.0.0.0.0" id="polygon38"  points="98.93,20.406 98.369,22.752 97.19,22.752 96.632,20.406 96.632,8.983 98.93,8.983 "/>
+                    <polygon style="fill:#e2d6a1" gorn="0.15.0.0.0.1" id="polygon40"  points="97.033,22.096 97.19,22.752 98.369,22.752 98.528,22.096 "/>
+                </g>
+            </g>
+        </g>
+    </g>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <g gorn="0.16.0.0.0" id="g42" >
+                    <polygon style="fill:#b8af82" gorn="0.16.0.0.0.0" id="polygon44"  points="91.725,20.406 91.164,22.752 89.985,22.752 89.426,20.406 89.426,8.983 91.725,8.983 "/>
+                    <polygon style="fill:#e2d6a1" gorn="0.16.0.0.0.1" id="polygon46"  points="89.828,22.096 89.985,22.752 91.164,22.752 91.323,22.096 "/>
+                </g>
+            </g>
+        </g>
+    </g>
+    <rect style="fill:#cccccc" x="88.526001" y="25.312" width="4.1040001" gorn="0.17" id="rect80"  height="5.5970001"/>
+    <rect style="fill:#cccccc" x="95.728996" y="25.312" width="4.1040001" gorn="0.18" id="rect82"  height="5.5970001"/>
+    <rect style="fill:#cccccc" x="102.927" y="25.312" width="4.1040001" gorn="0.19" id="rect84"  height="5.5970001"/>
+    <rect style="fill:#cccccc" x="110.126" y="25.312" width="4.1040001" gorn="0.20" id="rect86"  height="5.5970001"/>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <g gorn="0.21.0.0.0" id="g88" >
+                    <rect style="fill:#00558d" x="5.8429999" y="-11.458" width="3.4820001" gorn="0.21.0.0.0.0" id="rect90"  height="9.4169998"/>
+                    <rect style="fill:#00558d" x="25.184" y="-11.458" width="3.4820001" gorn="0.21.0.0.0.1" id="rect92"  height="9.4169998"/>
+                    <rect style="fill:#c7b299" x="16.327" y="-13.25" width="6.7930002" gorn="0.21.0.0.0.2" id="rect94"  height="2.5120001"/>
+                    <rect style="fill:#4d4d4d" x="16.327" y="-9.2449999" width="6.7930002" gorn="0.21.0.0.0.3" id="rect96"  height="2.5120001"/>
+                    <rect style="fill:#c7b299" x="2.8299999" y="0.208" width="6.7930002" gorn="0.21.0.0.0.4" id="rect98"  height="2.5120001"/>
+                    <rect style="fill:#c7b299" x="11.036" y="0.208" width="6.7930002" gorn="0.21.0.0.0.5" id="rect100"  height="2.5120001"/>
+                    <rect style="fill:#f2f2f2" x="30.549999" y="-8.8800001" width="6.7930002" gorn="0.21.0.0.0.6" id="rect102"  height="2.5120001"/>
+                    <rect style="fill:#c7b299" x="30.549999" y="-4.2490001" width="6.7930002" gorn="0.21.0.0.0.7" id="rect104"  height="2.5120001"/>
+                    <rect style="fill:#1a1a1a" x="69.133003" y="-1.048" width="6.7930002" gorn="0.21.0.0.0.8" id="rect106"  height="2.5120001"/>
+                    <rect style="fill:#f2f2f2" x="62.946999" y="-5.5050001" width="6.7930002" gorn="0.21.0.0.0.9" id="rect108"  height="2.5120001"/>
+                    <rect style="fill:#1a1a1a" x="70.528999" y="-5.5050001" width="6.7930002" gorn="0.21.0.0.0.10" id="rect110"  height="2.5120001"/>
+                    <rect style="fill:#4d4d4d" x="78.112" y="-7.2550001" width="6.7930002" gorn="0.21.0.0.0.11" id="rect112"  height="2.5120001"/>
+                    <rect style="fill:#1a1a1a" x="78.112" y="-3.296" width="6.7930002" gorn="0.21.0.0.0.12" id="rect114"  height="2.5120001"/>
+                    <rect style="fill:#c7b299" x="67.133003" y="-10.738" width="6.7930002" gorn="0.21.0.0.0.13" id="rect116"  height="2.5120001"/>
+                    <rect style="fill:#c7b299" x="30.549999" y="-17.254999" width="6.7930002" gorn="0.21.0.0.0.14" id="rect118"  height="2.5120001"/>
+                    <rect style="fill:#1a1a1a" x="30.551001" y="-13.25" width="6.7930002" gorn="0.21.0.0.0.15" id="rect120"  height="2.5120001"/>
+                    <rect style="fill:#1a1a1a" x="90.578003" y="-0.37200001" width="9.9320002" gorn="0.21.0.0.0.16" id="rect122"  height="3.6719999"/>
+                    <rect style="fill:#1a1a1a" x="102.33" y="0.208" width="6.7930002" gorn="0.21.0.0.0.17" id="rect124"  height="2.5120001"/>
+                    <rect style="fill:#c7b299" x="102.33" y="-3.296" width="6.7930002" gorn="0.21.0.0.0.18" id="rect126"  height="2.5120001"/>
+                    <rect style="fill:#c7b299" x="62.948002" y="-14.439" width="2.5109999" gorn="0.21.0.0.0.19" id="rect128"  height="6.7930002"/>
+                    <rect style="fill:#1a1a1a" x="77.321999" y="2.72" width="2.5109999" gorn="0.21.0.0.0.20" id="rect130"  height="6.7930002"/>
+                    <rect style="fill:#1a1a1a" x="82.394997" y="2.72" width="2.5109999" gorn="0.21.0.0.0.21" id="rect132"  height="6.7930002"/>
+                    <rect style="fill:#1a1a1a" x="37.344002" y="2.72" width="2.5109999" gorn="0.21.0.0.0.22" id="rect134"  height="6.7930002"/>
+                    <rect style="fill:#c7b299" x="11.271" y="-8.1400003" width="2.5109999" gorn="0.21.0.0.0.23" id="rect136"  height="6.7930002"/>
+                    <rect style="fill:#4d4d4d" x="49.946999" y="-18.511" width="6.7930002" gorn="0.21.0.0.0.24" id="rect138"  height="2.5120001"/>
+                    <rect style="fill:#c7b299" x="41.862999" y="-18.511" width="6.7930002" gorn="0.21.0.0.0.25" id="rect140"  height="2.5120001"/>
+                    <rect style="fill:#c7b299" x="69.133003" y="2.954" width="6.7930002" gorn="0.21.0.0.0.26" id="rect142"  height="2.5120001"/>
+                    <rect style="fill:#c7b299" x="69.133003" y="6.4720001" width="6.7930002" gorn="0.21.0.0.0.27" id="rect144"  height="2.5120001"/>
+                    <rect style="fill:#4d4d4d" x="29" y="2.954" width="6.7930002" gorn="0.21.0.0.0.28" id="rect146"  height="2.5120001"/>
+                    <rect style="fill:#4d4d4d" x="29" y="6.9809999" width="6.7930002" gorn="0.21.0.0.0.29" id="rect148"  height="2.5120001"/>
+                    <rect style="fill:#00558d" x="63.766998" y="0" width="3.4820001" gorn="0.21.0.0.0.30" id="rect150"  height="9.4169998"/>
+                    <rect style="fill:#1a1a1a" x="45.932999" y="-13.25" width="10.16" gorn="0.21.0.0.0.31" id="rect152"  height="22.667"/>
+                </g>
+            </g>
+        </g>
+    </g>
+    <path d="m 114.231,9.131 c 0,3.3 -2.7,6 -6,6 H 92.343 c -3.3,0 -6,-2.7 -6,-6 V 7 c 0,-3.3 2.7,-6 6,-6 h 15.888 c 3.3,0 6,2.7 6,6 v 2.131 z" style="fill:#b3b3b3" gorn="0.22" id="path154" />
+    <path d="m 112.926,8.47 c 0,3.3 -2.7,6 -6,6 H 93.648 c -3.3,0 -6,-2.7 -6,-6 V 7.661 c 0,-3.3 2.7,-6 6,-6 h 13.278 c 3.3,0 6,2.7 6,6 V 8.47 z" style="fill:#e6e6e6" gorn="0.23" id="path156" />
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <g style="opacity:0.2" gorn="0.24.0.0.0" id="g158" >
+                    <rect style="fill:#ffffff" x="0" y="-19.874001" width="116.352" gorn="0.24.0.0.0.0" id="rect160"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="2.122" y="5.4380002" width="4.1040001" gorn="0.24.0.0.0.1" id="rect162"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="9.3249998" y="5.4380002" width="4.1040001" gorn="0.24.0.0.0.2" id="rect164"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="16.524" y="5.4380002" width="4.1040001" gorn="0.24.0.0.0.3" id="rect166"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="23.723" y="5.4380002" width="4.1040001" gorn="0.24.0.0.0.4" id="rect168"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="88.526001" y="5.4380002" width="4.1040001" gorn="0.24.0.0.0.5" id="rect170"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="95.728996" y="5.4380002" width="4.1040001" gorn="0.24.0.0.0.6" id="rect172"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="102.927" y="5.4380002" width="4.1040001" gorn="0.24.0.0.0.7" id="rect174"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="110.126" y="5.4380002" width="4.1040001" gorn="0.24.0.0.0.8" id="rect176"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="5.8429999" y="-11.458" width="3.4820001" gorn="0.24.0.0.0.9" id="rect178"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="25.184" y="-11.458" width="3.4820001" gorn="0.24.0.0.0.10" id="rect180"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="16.327" y="-13.25" width="6.7930002" gorn="0.24.0.0.0.11" id="rect182"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="16.327" y="-9.2449999" width="6.7930002" gorn="0.24.0.0.0.12" id="rect184"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="2.8299999" y="0.208" width="6.7930002" gorn="0.24.0.0.0.13" id="rect186"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="11.036" y="0.208" width="6.7930002" gorn="0.24.0.0.0.14" id="rect188"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="30.549999" y="-8.8800001" width="6.7930002" gorn="0.24.0.0.0.15" id="rect190"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="30.549999" y="-4.2490001" width="6.7930002" gorn="0.24.0.0.0.16" id="rect192"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="69.133003" y="-1.048" width="6.7930002" gorn="0.24.0.0.0.17" id="rect194"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="62.946999" y="-5.5050001" width="6.7930002" gorn="0.24.0.0.0.18" id="rect196"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="70.528999" y="-5.5050001" width="6.7930002" gorn="0.24.0.0.0.19" id="rect198"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="78.112" y="-7.2550001" width="6.7930002" gorn="0.24.0.0.0.20" id="rect200"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="78.112" y="-3.296" width="6.7930002" gorn="0.24.0.0.0.21" id="rect202"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="67.133003" y="-10.738" width="6.7930002" gorn="0.24.0.0.0.22" id="rect204"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="30.549999" y="-17.254999" width="6.7930002" gorn="0.24.0.0.0.23" id="rect206"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="30.551001" y="-13.25" width="6.7930002" gorn="0.24.0.0.0.24" id="rect208"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="90.578003" y="-0.37200001" width="9.9320002" gorn="0.24.0.0.0.25" id="rect210"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="102.33" y="0.208" width="6.7930002" gorn="0.24.0.0.0.26" id="rect212"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="102.33" y="-3.296" width="6.7930002" gorn="0.24.0.0.0.27" id="rect214"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="62.948002" y="-14.439" width="2.5109999" gorn="0.24.0.0.0.28" id="rect216"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="77.321999" y="2.72" width="2.5109999" gorn="0.24.0.0.0.29" id="rect218"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="82.394997" y="2.72" width="2.5109999" gorn="0.24.0.0.0.30" id="rect220"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="37.344002" y="2.72" width="2.5109999" gorn="0.24.0.0.0.31" id="rect222"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="11.271" y="-8.1400003" width="2.5109999" gorn="0.24.0.0.0.32" id="rect224"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="49.946999" y="-18.511" width="6.7930002" gorn="0.24.0.0.0.33" id="rect226"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="41.862999" y="-18.511" width="6.7930002" gorn="0.24.0.0.0.34" id="rect228"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="69.133003" y="2.954" width="6.7930002" gorn="0.24.0.0.0.35" id="rect230"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="69.133003" y="6.4720001" width="6.7930002" gorn="0.24.0.0.0.36" id="rect232"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="29" y="2.954" width="6.7930002" gorn="0.24.0.0.0.37" id="rect234"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="29" y="6.9809999" width="6.7930002" gorn="0.24.0.0.0.38" id="rect236"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="63.766998" y="0" width="3.4820001" gorn="0.24.0.0.0.39" id="rect238"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="45.932999" y="-13.25" width="10.16" gorn="0.24.0.0.0.40" id="rect240"  height="0.447"/>
+                    <path d="m 114.231,-12.427 c 0,-3.3 -2.7,-6 -6,-6 H 92.343 c -3.3,0 -6,2.7 -6,6 v -0.447 c 0,-3.3 2.7,-6 6,-6 h 15.888 c 3.3,0 6,2.7 6,6 v 0.447 z" style="fill:#ffffff" gorn="0.24.0.0.0.41" id="path242" />
+                    <path d="m 112.926,-11.766 c 0,-3.3 -2.7,-6 -6,-6 H 93.648 c -3.3,0 -6,2.7 -6,6 v -0.447 c 0,-3.3 2.7,-6 6,-6 h 13.278 c 3.3,0 6,2.7 6,6 v 0.447 z" style="fill:#ffffff" gorn="0.24.0.0.0.42" id="path244" />
+                </g>
+            </g>
+        </g>
+    </g>
+    <g transform="translate(0,19.874)" >
+        <g >
+            <g >
+                <g style="opacity:0.2" gorn="0.25.0.0.0" id="g246" >
+                    <rect style="fill:#ffffff" x="0" y="-19.874001" width="116.352" gorn="0.25.0.0.0.0" id="rect248"  height="0.447"/>
+                    <rect x="2.122" y="10.588" width="4.1040001" gorn="0.25.0.0.0.1" id="rect250"  height="0.447"/>
+                    <rect x="9.3249998" y="10.588" width="4.1040001" gorn="0.25.0.0.0.2" id="rect252"  height="0.447"/>
+                    <rect x="16.524" y="10.588" width="4.1040001" gorn="0.25.0.0.0.3" id="rect254"  height="0.447"/>
+                    <rect x="23.723" y="10.588" width="4.1040001" gorn="0.25.0.0.0.4" id="rect256"  height="0.447"/>
+                    <rect x="88.526001" y="10.588" width="4.1040001" gorn="0.25.0.0.0.5" id="rect258"  height="0.447"/>
+                    <rect x="95.728996" y="10.588" width="4.1040001" gorn="0.25.0.0.0.6" id="rect260"  height="0.447"/>
+                    <rect x="102.927" y="10.588" width="4.1040001" gorn="0.25.0.0.0.7" id="rect262"  height="0.447"/>
+                    <rect x="110.126" y="10.588" width="4.1040001" gorn="0.25.0.0.0.8" id="rect264"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="5.8429999" y="-11.458" width="3.4820001" gorn="0.25.0.0.0.9" id="rect266"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="5.8429999" y="-2.4879999" width="3.4820001" gorn="0.25.0.0.0.10" id="rect268"  height="0.447"/>
+                    <rect x="25.184" y="-2.4879999" width="3.4820001" gorn="0.25.0.0.0.11" id="rect270"  height="0.447"/>
+                    <rect x="16.327" y="-11.166" width="6.7930002" gorn="0.25.0.0.0.12" id="rect272"  height="0.447"/>
+                    <rect x="16.327" y="-7.1609998" width="6.7930002" gorn="0.25.0.0.0.13" id="rect274"  height="0.447"/>
+                    <rect x="2.8299999" y="2.2920001" width="6.7930002" gorn="0.25.0.0.0.14" id="rect276"  height="0.447"/>
+                    <rect x="11.036" y="2.2920001" width="6.7930002" gorn="0.25.0.0.0.15" id="rect278"  height="0.447"/>
+                    <rect style="fill:#ffffff" x="30.549999" y="-8.8800001" width="6.7930002" gorn="0.25.0.0.0.16" id="rect280"  height="0.447"/>
+                    <rect x="30.549999" y="-2.165" width="6.7930002" gorn="0.25.0.0.0.17" id="rect282"  height="0.447"/>
+                    <rect x="69.133003" y="1.036" width="6.7930002" gorn="0.25.0.0.0.18" id="rect284"  height="0.447"/>
+                    <rect x="62.946999" y="-3.421" width="6.7930002" gorn="0.25.0.0.0.19" id="rect286"  height="0.447"/>
+                    <rect x="70.528999" y="-3.421" width="6.7930002" gorn="0.25.0.0.0.20" id="rect288"  height="0.447"/>
+                    <rect x="78.112" y="-5.171" width="6.7930002" gorn="0.25.0.0.0.21" id="rect290"  height="0.447"/>
+                    <rect x="78.112" y="-1.212" width="6.7930002" gorn="0.25.0.0.0.22" id="rect292"  height="0.447"/>
+                    <rect x="67.133003" y="-8.6540003" width="6.7930002" gorn="0.25.0.0.0.23" id="rect294"  height="0.447"/>
+                    <rect x="30.549999" y="-15.171" width="6.7930002" gorn="0.25.0.0.0.24" id="rect296"  height="0.447"/>
+                    <rect x="30.551001" y="-11.166" width="6.7930002" gorn="0.25.0.0.0.25" id="rect298"  height="0.447"/>
+                    <rect x="90.578003" y="2.8529999" width="9.9320002" gorn="0.25.0.0.0.26" id="rect300"  height="0.447"/>
+                    <rect x="102.33" y="2.2920001" width="6.7930002" gorn="0.25.0.0.0.27" id="rect302"  height="0.447"/>
+                    <rect x="102.33" y="-1.212" width="6.7930002" gorn="0.25.0.0.0.28" id="rect304"  height="0.447"/>
+                    <rect x="62.948002" y="-8.1160002" width="2.5109999" gorn="0.25.0.0.0.29" id="rect306"  height="0.447"/>
+                    <rect x="77.321999" y="9.0649996" width="2.5109999" gorn="0.25.0.0.0.30" id="rect308"  height="0.447"/>
+                    <rect x="82.394997" y="9.0649996" width="2.5109999" gorn="0.25.0.0.0.31" id="rect310"  height="0.447"/>
+                    <rect x="37.344002" y="9.0649996" width="2.5109999" gorn="0.25.0.0.0.32" id="rect312"  height="0.447"/>
+                    <rect x="11.271" y="-1.794" width="2.5109999" gorn="0.25.0.0.0.33" id="rect314"  height="0.447"/>
+                    <rect x="49.946999" y="-16.427" width="6.7930002" gorn="0.25.0.0.0.34" id="rect316"  height="0.447"/>
+                    <rect x="41.862999" y="-16.427" width="6.7930002" gorn="0.25.0.0.0.35" id="rect318"  height="0.447"/>
+                    <rect x="69.133003" y="5.0380001" width="6.7930002" gorn="0.25.0.0.0.36" id="rect320"  height="0.447"/>
+                    <rect x="69.133003" y="8.5559998" width="6.7930002" gorn="0.25.0.0.0.37" id="rect322"  height="0.447"/>
+                    <rect x="29" y="5.0380001" width="6.7930002" gorn="0.25.0.0.0.38" id="rect324"  height="0.447"/>
+                    <rect x="29" y="9.0649996" width="6.7930002" gorn="0.25.0.0.0.39" id="rect326"  height="0.447"/>
+                    <rect x="63.766998" y="8.9700003" width="3.4820001" gorn="0.25.0.0.0.40" id="rect328"  height="0.447"/>
+                    <rect x="45.932999" y="9.4169998" width="10.16" gorn="0.25.0.0.0.41" id="rect330"  height="0.447"/>
+                    <path d="m 86.343,-11.12 c 0,3.3 2.7,6 6,6 h 15.888 c 3.3,0 6,-2.7 6,-6 v 0.447 c 0,3.3 -2.7,6 -6,6 H 92.343 c -3.3,0 -6,-2.7 -6,-6 v -0.447 z" gorn="0.25.0.0.0.42" id="path332" />
+                    <path d="m 87.648,-11.781 c 0,3.3 2.7,6 6,6 h 13.278 c 3.3,0 6,-2.7 6,-6 v 0.447 c 0,3.3 -2.7,6 -6,6 H 93.648 c -3.3,0 -6,-2.7 -6,-6 v -0.447 z" gorn="0.25.0.0.0.43" id="path334" />
+                </g>
+            </g>
+        </g>
+    </g>
+    <g style="font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;font-family:Droid Sans;-inkscape-font-specification:Droid Sans" xmlns:xml="http://www.w3.org/XML/1998/namespace" fill-opacity="1" gorn="0.26" id="text4454" stroke="none"  fill="#b3b3b3" font-size="76.8" xml:space="preserve">
+        <text x="94.808525" style="font-size:8px;fill:#b3b3b3;fill-opacity:1" y="10.332392" gorn="0.26.0" id="tspan4456" >RX</text>
+    </g>
+</svg>
