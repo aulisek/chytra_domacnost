@@ -1,3 +1,4 @@
+// Knihovna pro ovládání po rádiu
 #include <RCSwitch.h>
 
 // Definování pinů
@@ -47,14 +48,14 @@ void blokovani_pohybu() {
 }
 
 void setup() {
-  pinMode(RELEpin, OUTPUT);   // Nastavení relé jako výstup
-  pinMode(PIRpin, INPUT);     // Nastavení PIR senzoru jako výstup
-  pinMode(TLACITKOpin, INPUT);// Nastavení tlačítka jako vstup (zapojeno přes pull-down rezistor -> log1 = zapnuto)
-  pinMode(FOTOREZISTORpin, INPUT);
+  pinMode(RELEpin, OUTPUT);       // Nastavení relé jako výstup
+  pinMode(PIRpin, INPUT);         // Nastavení PIR senzoru jako výstup
+  pinMode(TLACITKOpin, INPUT);    // Nastavení tlačítka jako vstup (zapojeno přes pull-down rezistor -> log1 = zapnuto)
+  pinMode(FOTOREZISTORpin, INPUT);// Nastavení fotorezistoru jako analogový vstup
   
-  mySwitch.enableReceive(0);  // Přijímač je na pinu přerušení 0 -> arduino uno pin #2
+  mySwitch.enableReceive(0);      // Přijímač je na pinu přerušení 0 -> arduino uno pin #2 
 
-// Zahájení komunikace po sériové lince (v monitoru potřeba nastavit správnou rychlost)
+// Zahájení komunikace po sériové lince, rychlost 9 600 baudů (v monitoru potřeba nastavit správnou rychlost)
   Serial.begin(9600);
 }
 
@@ -64,19 +65,26 @@ void loop() {
   // Určuje, jestli je světlo/tma za použití hystereze
   if(fotorezistor_hodnota < (hranice_svetlo - odchylka)){
     tma = 1;
+    Serial.println("tma");
     } 
   else if(fotorezistor_hodnota > (hranice_svetlo + odchylka)){
     tma = 0;
+    Serial.println("svetlo");
     }
   //Serial.println(fotorezistor_hodnota); // Zahltí konsoli, jen při debug
+
+  // Chování při stisku tlačítka
   if (digitalRead(TLACITKOpin) == HIGH) {
+    // Porovná stavy a cas (z důvodu kolísání log1 kvůli stavbě tlačítka)
     if (soucasny_stav == LOW && (millis() - cas_zmeny) > PRODLEVA) {
       soucasny_stav = HIGH;
+      // Provede funkci (převrátí stav neblokovaného na blokovaný)
       blokovani_pohybu();
       Serial.println("tlačítko stisknuto");
     }
   }
   else {
+    // načte do proměnné cas_zmeny aktuální čas od startu programu
     cas_zmeny = millis();
     soucasny_stav = LOW;
   }
@@ -84,20 +92,24 @@ void loop() {
 
     int hodnota = mySwitch.getReceivedValue();
 
+    // Hodnota z tlačítka ON v decimálním zápisu
     if (hodnota == 1361) {
       Serial.println("rele zapnuto");
       Serial.print("Received ");
       Serial.print( mySwitch.getReceivedValue() );
+      // Převrátí stav na blokovaný (z funkce blokovani_pohybu)
       digitalWrite(LEDpin, HIGH);  // zapne se signalizační dioda
       Serial.println("led zapnuta");
       digitalWrite(RELEpin, LOW);  // zapne relé 
       blokovani = true;            // nastaví se příznak
       mySwitch.resetAvailable();
     }
+    // Hodnota z tlačítka OFF v decimálním zápisu
     else if (hodnota == 1364) {
       Serial.println("rele vypnuto");
       Serial.print("Received ");
       Serial.print( mySwitch.getReceivedValue() );
+      // Převrátí stav na blokovaný (z funkce blokovani_pohybu)
       digitalWrite(LEDpin, LOW);    // vypne se signalizační dioda
       Serial.println("LED vypnuta");
       digitalWrite(RELEpin, HIGH);  // Vypne se relé (obrácená logika -> 0 = zapnuto)
