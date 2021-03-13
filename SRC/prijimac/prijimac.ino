@@ -1,5 +1,6 @@
 #include <RCSwitch.h>
 
+// Definování pinů
 #define LEDpin 13          // pin s LED ukazující status
 #define RELEpin 4          // pin připojené relé
 #define PIRpin 5           // pin připojený PIR senzor
@@ -14,8 +15,12 @@ int hodnota = 0;           // proměná pro čtení hodnoty na senzoru PIR
 
 int soucasny_stav = LOW;   // současný stav (mód ve kterém pracujeme) čidlo/(zap/vyp)
 
-int fotorezistor_hodnota = 0;
-int tma = 5;               // Napište, při jaké hodnotě na fotorezistoru chcete zapínat PIR (tma)
+// Určování světla/tmy
+int fotorezistor_hodnota;  // Sem se načítá hodnota analogového vstupu
+#define odchylka 10        // Odchylka měření (aby nepřepínalo při každé změně na senzoru)
+#define hranice_svetlo 150 // Napište, při jaké hodnotě na fotorezistoru chcete zapínat PIR (tma)
+int tma;                   // Zapíše jestli je tma -> 1
+
 // Inicializujeme, jestli je aktivní čtení z čidla pohybu PIR (trvale zapnuto = true)
 volatile boolean blokovani = false;       
 
@@ -24,7 +29,7 @@ unsigned long cas_zmeny = 0;
 
 RCSwitch mySwitch = RCSwitch();
 
-// Funkce, která přepíná stav trvale zapnuto/čtení ze senzoru
+// Funkce, která přepíná stav trvale zapnuto/čtení ze senzoru (invertuje stav)
 void blokovani_pohybu() {
   // nereaguje na podněty PIR čidla, blokovani
   if (blokovani) {
@@ -55,8 +60,14 @@ void setup() {
 
 void loop() {
   // Načtení napětí na vstupu s fotorezistorem
-  // Přemapování na menší rozsah z důvodu ustálení "rovnováhy"
-  fotorezistor_hodnota = map(analogRead(FOTOREZISTORpin), 0, 1023, 0, 100);
+  fotorezistor_hodnota = analogRead(FOTOREZISTORpin);
+  // Určuje, jestli je světlo/tma za použití hystereze
+  if(fotorezistor_hodnota < (hranice_svetlo - odchylka)){
+    tma = 1;
+    } 
+  else if(fotorezistor_hodnota > (hranice_svetlo + odchylka)){
+    tma = 0;
+    }
   //Serial.println(fotorezistor_hodnota); // Zahltí konsoli, jen při debug
   if (digitalRead(TLACITKOpin) == HIGH) {
     if (soucasny_stav == LOW && (millis() - cas_zmeny) > PRODLEVA) {
@@ -77,16 +88,20 @@ void loop() {
       Serial.println("rele zapnuto");
       Serial.print("Received ");
       Serial.print( mySwitch.getReceivedValue() );
-      soucasny_stav = HIGH;
-      blokovani_pohybu();
+      digitalWrite(LEDpin, HIGH);  // zapne se signalizační dioda
+      Serial.println("led zapnuta");
+      digitalWrite(RELEpin, LOW);  // zapne relé 
+      blokovani = true;            // nastaví se příznak
       mySwitch.resetAvailable();
     }
     else if (hodnota == 1364) {
       Serial.println("rele vypnuto");
       Serial.print("Received ");
       Serial.print( mySwitch.getReceivedValue() );
-      soucasny_stav = LOW;
-      blokovani_pohybu();
+      digitalWrite(LEDpin, LOW);    // vypne se signalizační dioda
+      Serial.println("LED vypnuta");
+      digitalWrite(RELEpin, HIGH);  // Vypne se relé (obrácená logika -> 0 = zapnuto)
+      blokovani = false;            // nastaví se příznak
       mySwitch.resetAvailable();
     }
     else {
@@ -101,7 +116,7 @@ void loop() {
     hodnota = digitalRead(PIRpin);  // Přečte výstup PIR senzoru
     // Kontrola, jestli je detekován pohyb
     // Zároveň musí být splněna podmínka tmy (detekováno fotorezistorem)
-    if (hodnota == HIGH && (fotorezistor_hodnota <= tma)) {
+    if (hodnota == HIGH && tma == 1) {
       digitalWrite(RELEpin, LOW);  // zapne relé
       //Mění stav čidla v proměnné PIRstav z LOW na HIGH
       if (PIRstav == LOW) {
