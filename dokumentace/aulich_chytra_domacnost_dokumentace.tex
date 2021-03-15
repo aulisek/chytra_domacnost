@@ -1,98 +1,97 @@
-\documentclass[a4paper,titlepage]{article}
+\documentclass[11pt,a4paper,twoside,openright]{report}
 
-\usepackage[czech]{babel}
-\usepackage{hyperref}
-\usepackage{graphicx}
-\usepackage{lmodern}
-\usepackage[margin=35mm]{geometry}
-\frenchspacing
-\renewcommand{\baselinestretch}{1.5}
+\usepackage[top=25mm,bottom=25mm,right=25mm,left=30mm,head=12.5mm,foot=12.5mm]{geometry}
+\let\openright=\cleardoublepage
 
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt}
+\input{macros}
 
-\title{Maturitní projekt - Informatika}
-\author{Vladislav Aulich}
+\def\NazevPrace{Zařízení pro realizaci chytré domácnosti}
+\def\Trida{4.C}
+\def\AutorPrace{Vladislav Aulich}
+\def\DatumOdevzdani{2021}
+
+% Vedoucí práce: Jméno a příjmení s~tituly
+\def\Vedouci{Bc. Emil Miler}
+
+% Studijní program a obor
+\def\StudijniProgram{studijní program}
+\def\StudijniObor{studijní obor}
+
+% Text čestného prohlášení
+\def\Prohlaseni{Prohlašuji, že jsem svou práci vypracoval samostatně a použil jsem pouze prameny a literaturu
+uvedené v~seznamu bibliografických záznamů. Nemám žádné námitky proti zpřístupňování této práce v~souladu se
+zákonem č. 121/2000 Sb. o~právu autorském, o~právech souvisejících s~právem autorským a
+o~změně některých zákonů (autorský zákon) ve znění pozdějších předpisů.}
+
+% Text poděkování
+\def\Podekovani{%
+Poděkování.
+}
+
+% Abstrakt česky
+\def\Abstrakt{%
+Abstrakt.
+}
+
+% Abstrakt anglicky
+\def\AbstraktEN{%
+Abstract.
+}
+
+% 3 až 5 klíčových slov
+\def\KlicovaSlova{klíčové slovo, další pojem, jiný důležitý termín, a ještě jeden}
+% 3 až 5 klíčových slov anglicky
+\def\KlicovaSlovaEN{keyword, important term, another topic, and another one}
 
 \begin{document}
 
-\pagestyle{empty}
-\begin{center}
-	\begin{center}
-		\includegraphics[width=0.7\linewidth]{obrázky/kepler_logo_vectorized_pruhl200}
-	\end{center}
-	
-	\huge{MATURITNÍ PRÁCE
-		\vspace{0.5 cm}
-		
-		Informatika
-		
-		\vspace{2.5 cm}
-		\textbf{Zařízení pro realizaci chytré domácnosti} }  
-\end{center} 
+\include{titlepage}
 
-\vspace{2.5 cm}
-\Large{
-	Vladislav Aulich 4.C
-	
-	\clearpage  
-	
-%--------------- První stránka --------------------
-\vspace*{12 cm}
-
-Prohlašuji tímto, že jsem  práci vypracoval samostatně pod vedením Emila Milera a uvedl v seznamu literatury veškerou použitou literaturu a další zdroje včetně internetu.
-
-Prohlašuji rovněž, že tištěná a elektronická verze této práce jsou shodné.
-
-V Praze dne \today            
-
-\hspace{6.5cm} \makebox[2in]{\hrulefill}
-
-\hspace{6.5cm} \makebox[2in]{Podpis autora}    
-
-
-\clearpage
-%--------------- druhá stránka --------------------
-\section*{Poděkování}
-
-Touto cestou bych rád poděkoval svému vedoucímu práce Emilu Milerovi za podporu a odbornou pomoc při tvorbě projektu.
-\clearpage
-%--------------- Třetí stránka --------------------
-
-\section*{Anotace}
-
-Tento projekt se zabývá realizací chytré domácnosti. Pro tvorbu projektu byl zvolen mikrokontrolér Arduino uno a čip ESP32. Komunikace mezi zařízeními je realizovaná bezdrátově za použití otevřené rádiové frekvence 433 MHz. Součástí projektu je i výroba hardware s použitím metody 3D tisku na tiskárně Ender 3 pro. Vývoj kódu probíhal v prostředí Arduino IDE, pro trasování změn byl využit verzovací systém git.
-
-\clearpage
-%--------------- Čtvrtá stránka ---------------------
-
+% Obsah
+\setcounter{tocdepth}{2}
 \tableofcontents
-\newpage
-%--------------- Pátá stránka --------------------
 
-\section*{Úvod}
+\chapter{Teoretická část}
+\pagestyle{fancy}
+
+V první části maturitní práce by se měla objevit informace o tom, jaký problém řešíte. Co si Váš projekt klade za cíl?
+
+\section{Úvod}
 
 Toto téma jsem si zvolil, protože jsem chtěl blíže prozkoumat práci s platformou Arduino a ESP32. S programováním těchto zařízení jsem měl minimální zkušenosti, proto pro mě byla práce na projektu výzvou k objevování nového. Použití komunikace na rádiové frekvenci jsem zvolil z důvodu široké škály použití a velkého množství příkladů. Zároveň jsem měl doma nevyužívaný ovladač pracující s touto frekvencí.
 
 
 
 Motivací k výběru tématu \uv{chytré domácnosti} mi bylo její čím dál větší nasazování v domácnostech a snaha vytvořit si ji po svém. Na mnohých komerčních řešeních mi totiž nevyhovoval způsob ovládání, stejně jako velký zásah do soukromí uživatelů.
-\clearpage
 
-\part{Popis projektu}
 
-\section{Zařízení}
+\section{Cíl práce}
 
-Projekt se zkládá ze třech hlavních zařízení:
+Cílem této práce je vytvořit zařízení pro realizaci chytré domácnosti. Zařízení si klade za cíl ovládat spotřebiče uživatele na tzv. \uv{na dálku}. Součástí řešení musí být uživatelské rozhraní, možnost další automatizace a možnost ovládání \uv{offline}.
+
+
+\chapter{Implementace}
+
+Druhá kapitola obsahuje detailní informace o tom, jak probíhala implementace. Zde se objeví zdůvodnění výběru technologií, řešení problémů, na které jste narazili, informace o použitých knihovnách apod. Pochvalte se, nikdo to za Vás neudělá. Přiznejte chyby, není to ostuda.
+
+
+\section{Schéma řešení}
+
+Pro dosažení cíle práce jsem projekt rozdělil na dvě nezávislá zařízení:
+
 \begin{itemize}
 	\item Centrály - brány ovládající další zařízení
 	\item Koncového zařízení ovládajícího spotřebič
-	\item Analyzátoru kódu komerčních zásuvek
 \end{itemize}
 
-Jejich vzájemná komunikace probíhá na frekvenci 433,92 MHz. 
+Pro každé zařízení jsem pak implementoval potřebné funkce. Dále bylo potřeba zajistit jejich vzájemnou komunikaci.
 
 \subsection{Centrála}
+
+Pro \uv{centrálu} jsem  si vybral platformu ESP32 a to hned z několika důvodů. Čip má integrovanou wifi, k dispozici je velké množství dokumentace, hardwaru s příklady a knihovnami. Další výhodou je velká komunita, což může pomoct při řešení problémů. Čip lze také integrovat do prostředí Arduino IDE, což umožňuje snadnější práci při tvorbě kódu.
+
+
+Při výběru jsem zvažoval i platformu raspberry pi, ale odradila mě přítomnost operačního systému, který je zbytečný pro tak malý projekt a velké pořizovací náklady oproti ESP32.
 
 Centrála zajišťuje několik funkcí:
 \begin{itemize}
@@ -103,17 +102,33 @@ Centrála zajišťuje několik funkcí:
 
 \subsubsection{Komunikace s uživatelem}
 
-Pro komunikaci s uživatelem je vytvořeno jednoduché webové rozhraní umožňující dynamicky vypsat uložená zařízení a přidat nové. Pro přidání nového zařízení je nutná autentifikace. Webové rozhraní je přístupné po zadání adresy http://esp32.local nebo po zadání přidělené IP adresy.
+Pro komunikaci s uživatelem je vytvořeno jednoduché webové rozhraní umožňující dynamicky vypsat uložená zařízení a přidat nové. Pro tvorbu webového rozhraní jsem zvolil knihovnu ESPAsyncWebServer\footnote{https://github.com/me-no-dev/ESPAsyncWebServer}. Tato knihovna má dobře zpracovanou dokumentaci a pro nasazení v projektu se hodí svými funkcemi. Samotné připojení čipu k Wi-Fi je realizováno pomocí knihovny WiFi\footnote{https://github.com/arduino-libraries/WiFi}.
+
+
+První verze kódu měly implementovaný jednoduchý synchronní webserver pomocí knihovny WiFi, obsažené v základní verzi Arduina IDE. Toto řešení nebylo vhodné, protože numožňovalo připojení více uživatelů k rozhraní naráz.
+
+
+Další implementovanou funkcí byla autentifikace uživatele. Tato funkce je zajištěná při odesílání requstu pomocí knihovny ESPAsyncWebServer.
+
+
+Pro zjednodušení přístupu k uživatelskému rozhraní je na zařízení spuštěn mDNS server na adrese http://esp32.local. Tato funkce je realizována pomocí knihovny ESPmDNS \footnote{https://github.com/espressif/arduino-esp32/tree/master/libraries/ESPmDNS}.
+
+
+Uživatelské rozhraní je vytvořeno pomocí HTML. HTML soubor je uložen ve vnitřní flash paměti čipu ESP. K ovládání filesystému SPIF je užito knihovny SPIFFS\footnote{https://github.com/espressif/arduino-esp32/tree/master/libraries/SPIFFS}. Tato knihovna obsahuje všechny potřebné funkce.
 
 
 Pro přidání nového zařízení má uživatel na výběr mezi přidáním koupeného komerčního zařízení nebo přidáním zařízení vyrobeného v rámci tohoto projektu. Postup při zadávání nového zařízení je nastíněn we webovém rozhraní.
 
 
-Komunikace prgramu a webového rozhraní je zajištěna pomocí HTTP GET requestů, které program zpracuje a provede potřebné akce. 
+Komunikace programu a webového rozhraní je zajištěna pomocí HTTP GET requestů, které program zpracuje a provede potřebné akce. 
+
 
 \subsubsection{Komunikace mezi zařízeními}
 
-Komunikace mezi zařízeními je realizovaná bezdrátově po frekvenci 433 MHz. Tento druh jsem zvolil z důvodu rozšířenosti a nízkých pořizovacích nákladů modulů.
+Komunikace mezi zařízeními je realizovaná bezdrátově po frekvenci 433 MHz. Tento druh jsem zvolil z důvodu rozšířenosti a nízkých pořizovacích nákladů modulů. Další nespornou výhodou je dosah, který v optimálním prostředí může být až 200 m.
+
+
+Další ze zvažovaných řešení byla realizace pomocí Wi-Fi nebo GSM modulu. V prvním případě jsem jako nevýhodu viděl dosah (závislost na dostupnosti připojení). Dále by nebylo tak snadné ovládat zařízení pomocí ovladače. V druhém případě byla nevýhoda cena a potřeba realizace připojení pomocí telefoního operátora.
 
 
 Ovládání modulů jsem chtěl realizovat pomocí jednoduché knihovny VirtualWire, ale zjistil jsem, že není funkční na čipech ESP. K ovládání jsem tak použil knihovnu RadioHead. 
@@ -122,24 +137,18 @@ Ovládání modulů jsem chtěl realizovat pomocí jednoduché knihovny VirtualW
 Pro ovládání \uv{Koncového zařízení} je vyslána zpráva obsahující ID zařízení a tag ON nebo OFF, \uv{koncové zařízení} následně odchytí ID a provede příkaz. Tento systém je do budoucna rozšiřitelný o další tagy pro zařízení, které potřebují k ovlání více příkazů než ON nebo OFF.
 
 
-Do projektu jsem chtěl přidat i možnost ovládání komerčních zařízeních. K tomuto účelu jsem začlenil knihovnu RC switch, která umožňuje zobrazit protokol, na jehož základě zařízení komunikují. Poté dokáže vysílat tímto protokolem. Cílem mého projektu nebylo ovládání komerčních zařízení, proto má tato část drobné nedostatky. Doma jsem neměl potřebný hardware, takže tato část není ani otestovaná. Do projektu byla začleněna, protože jsem měl doma nevyužitý ovladač, který pracoval na této frekvenci. Přesnou strukturou jeho vysílání jsem se ale nezabýval.
+Tento navržený systém jsem implementoval, nicméně jsem narazil na problém s ovládáním pomocí komerčního ovladače. K tomuto účelu jsem začlenil knihovnu RCswitch\footnote{https://github.com/sui77/rc-switch}, která umožňuje zobrazit protokol, na jehož základě zařízení komunikují. Poté dokáže vysílat tímto protokolem. 
+
+
+Ve svém řešení jsem chtěl použít knihovny obě a rozdělit tak ovládání na dvě části, podle toho, jakým způsobem mají komunikovat. Při realizaci tohoto jsem však narazil na problém, že není možné bezdrátový vysílač ovládat dvěma knihovnami současně.
+
+
+Nakonec jsem vybral knihovnu RCswitch z důvodu větší spolehlivosti při přenosu vysílání a možného rozšíření na ovládání komerčních zařízení (nebo ovládání komerčními zařízeními). Toto řešení sebou nese nutnost dvou kódů, pro zapnutí a vypnutí.
+
 
 \subsubsection{Správa uložených zařízení}
 
 Zařízení se ukládají přímo do flash paměti ESP32 o velikosti 4 MB. Soubor je nazván \uv{zarizeni.csv}.
-
-Kvůli potřebě ovládání komerčních zařízení jsem zvolil následující schéma. 
-
-
-\begin{tabular}{|c|c|c|}
-	\hline
-	Název & kod\_ovladac & kod\_zarizeni \\
-	\hline
-	Zásuvka z projektu & x & 12345 \\
-	\hline
-	Komerční zásuvka & 1354 & 1364 \\
-	\hline
-\end{tabular}
 
 
 Do sloupce \uv{název} se uloží název, který si zadá sám uživatel v uživatelském rozhraní. Do sloupce \uv{kod\_ovladac} se v případě zařízení vyrobeného v rámci projektu uloží \uv{x}, protože k ovládání stačí ID zařízení, které je v tomto případě ve sloupci \uv{kod\_zarizeni}.
@@ -157,26 +166,25 @@ Toto je hlavní částí mého projektu. Koncové zařízení provádí následu
 \begin{itemize}
 	\item přijímá požadavek od centrály
 	\item zapne/vypne spotřebič
-	\item reguje na pohyb
+	\item reaguje na pohyb
+	\item obsahuje senzor světla 
 	\item reaguje na vstup uživatele z tlačítka
 \end{itemize}
 
-Zařízení jsem vyvíjel na Arduinu uno, poté jsem vytvořil prototyp založený na Arduinu Pro mini, které má menší rozměry a pořizovací cenu.
-
-Pro realizaci uvedených funkcí má zařízení  
-
-\section{Použitý hardware}
-
-Pro \uv{centrálu} jsem  si vybral platformu ESP32 a to hned z několika důvodů. Čip má integrovanou wifi, k dispozici je velké množství dokumentace, hardwaru s příklady a knihovnami. Další výhodou je velká komunita, což může pomoct při řešení problémů. Čip lze také integrovat do prostředí Arduino IDE, což umožňuje snadnější práci při tvorbě kódu.
+Pro \uv{koncová zařízení} jsem zvolil jako vývojovou platformu Arduino uno. Po odladění kódu a hardwaru jsem vyrobil prototyp, který již využíval Arduino Pro mini. 
 
 
-Při výběru jsem zvažoval i platformu raspberry pi, ale odradila mě přítomnost operačního systému, který je zbytečný pro tak malý projekt a velké pořizovací náklady oproti ESP32.
+Pro realizaci zapínání a vypínání spotřebičů jsem zvolil ovládání pomocí relé. Pro snadnější ovládání jsem vybral již hotový modul pro arduino\footnote{https://dratek.cz/arduino/2954-modul-rele-5v-1-kanal-opticky-oddeleno.html}, který pokud je na vstupu logická 1 vypnutý, pokud je přítomna zem, tak je zapnutý (je tzv. negovaný).
 
 
-Pro \uv{koncová zařízení} a \uv{analyzátor kódu} jsem zvolil jako vývojovou platformu Arduino uno. Po odladění kódu a hardwaru jsem vyrobil prototyp, který již využíval Arduino Pro mini. 
+Reakce na pohyb je zajišťována PIR senzorem. Opět byl zakoupen modul, který bylo snazší implementovat. Aby nedocházelo k zapnutí světla ve dne, byl k senzoru přidán fotorezistor, který reaguje na hladinu světla v místnosti.
 
 
-\subsection{Kalkulace nákladů}
+\subsubsection{Tvorba prototypu}
+
+
+
+\section{Kalkulace nákladů}
 \begin{tabular}{|c|c|c|}
 	\hline
 	Počet kusů & Název & Cena [Kč] \\
@@ -205,18 +213,43 @@ Pro \uv{koncová zařízení} a \uv{analyzátor kódu} jsem zvolil jako vývojov
 
 Celkové náklady na \uv{centrálu} jsou přibližně 290 Kč.
 Celkové náklady za prototyp \uv{koncového zařízení} jsou 265 Kč.
+\chapter{Technická dokumentace}
 
-\section{Testování}
-p
-\section{Automatizace}
-p
-\section{Porovnání s existujícími projekty}
-p
-\section{Možnosti rozšíření}
-p
+Poslední kapitola obsahuje informace o tom, jak projekt, který v rámci maturitní práce vznikl, nainstalovat, spustit a používat.
 
-\part{Uvedení do provozu}
-p
-\section{Závěr}
-p
+\section{Ukázka sekce}
+
+
+\subsection{A jedné podsekce}
+
+
+\section{A další sekce}
+
+
+\chapter*{Závěr}
+\pagestyle{empty}
+\addcontentsline{toc}{chapter}{Závěr}
+
+Závěr obsahuje shrnutí práce a vyjadřuje se k míře splnění jejího zadání. Dále by se zde mělo objevit sebehodnocení studenta a informace o tom, co nového se naučil a jak vnímal svou práci na projektu.
+
+%%% Seznam použité literatury
+\nocite{einstein}\nocite{latexcompanion}\nocite{knuthwebsite}
+\printbibliography[title={Seznam použité literatury},heading={bibintoc}]
+
+%%% Seznam obrázků
+\openright
+\listoffigures
+\addcontentsline{toc}{chapter}{Seznam obrázků}
+
+%%% Seznam tabulek
+\clearpage
+\listoftables
+\addcontentsline{toc}{chapter}{Seznam tabulek}
+
+%%% Přílohy k práci, existují-li. Každá příloha musí být alespoň jednou
+%%% odkazována z vlastního textu práce. Přílohy se číslují.
+
+%\part*{Přílohy}
+%\appendix
+
 \end{document}
