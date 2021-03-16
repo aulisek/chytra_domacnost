@@ -15,11 +15,11 @@ const char* http_username = "admin"; //Vyplňte jméno uživatele pro přístup 
 const char* http_password = "admin"; //Vyplňte své heslo
 
 //Parametry pro HTTP GET requesty
-const char* KOMERCNI_OVLADAC = "ovladac";  
-const char* KOMERCNI_ZARIZENI = "zarizeni"; 
+const char* KOD_ZAPNUTO = "zapnuto";  
+const char* KOD_VYPNUTO = "vypnuto"; 
 const char* NAZEV = "nazev"; 
 const char* AKCE = "akce";
-const char* SMAZAT = "smazat";
+const char* KOD = "kod";
 
 //Deklarace pro CSV parser, funkce readFile sem načte soubor
 char csv_str [512] = {'\0'};  // inicializace pro nacitani souboru po radcich
@@ -84,54 +84,32 @@ String vypln() {
   cp.print();
 
   char **nazev = (char**)cp["nazev"];
-  char **kod_ovladac = (char**)cp["kod_ovladac" ];
-  char **kod_zarizeni = (char**)cp["kod_zarizeni"];
+  char **kod_zapnuto = (char**)cp["kod_zapnuto" ];
+  char **kod_vypnuto = (char**)cp["kod_vypnuto"];
 
   //cyklus zajišťující přiřazení tlačítka k prvkům ze souboru
   if (nazev && kod_ovladac && kod_zarizeni) {
     for (int row = 0; row < cp.getRowsCount(); row++) {
       //debug, zobrazení, co je v souboru
       Serial.print(nazev[row]);          Serial.print(" - ");
-      Serial.print(kod_ovladac[row]);    Serial.print(" - ");
-      Serial.print(kod_zarizeni[row]);   Serial.print(" - ");
+      Serial.print(kod_zapnuto[row]);    Serial.print(" - ");
+      Serial.print(kod_vypnuto[row]);   Serial.print(" - ");
       
-      //Sestavení HTML pro placeholder <ESP_IP>/get?ovladac= &zarizeni= &akce=ON/OFF
+      //Sestavení HTML pro placeholder <ESP_IP>/get?
       //Nadpis pro tlačítko (název zařízení)
       tlacitka += "<h3>";
       tlacitka += (nazev)[row];
       tlacitka += "</h3>";
       
       //Zapnout tlačítko
-      tlacitka += "<p><a href='/get?";
-      tlacitka += KOMERCNI_OVLADAC;
-      tlacitka += "=";
-      tlacitka += (kod_ovladac[row]);
-      tlacitka += "&";
-      tlacitka += KOMERCNI_ZARIZENI;
-      tlacitka += "=";
-      tlacitka += (kod_zarizeni[row]);
-      tlacitka += "&akce=ON";
-      tlacitka += "'><button class='button button1'>VYPNOUT</button></a>";
+      tlacitka += "<p><button class='button button1' name='kod' type='submit' value='";
+      tlacitka += (kod_zapnuto[row]);
+      tlacitka += "'>ZAPNOUT</button>";
       
       //Vypnout tlačítko
-      tlacitka += "<a href='/get?";
-      tlacitka += KOMERCNI_OVLADAC;
-      tlacitka += "=";
-      tlacitka += (kod_ovladac[row]);
-      tlacitka += "&";
-      tlacitka += KOMERCNI_ZARIZENI;
-      tlacitka += "=";
-      tlacitka += (kod_zarizeni[row]);
-      tlacitka += "&akce=OFF";
-      tlacitka += "'><button class='button button2'>VYPNOUT</button></a>";
-
-      //Tlačítko pro smazání
-      tlacitka += "<a href='/get?";
-      tlacitka += SMAZAT;
-      tlacitka += "=";
-      tlacitka += row;
-      tlacitka += "'><button class='button button2'>SMAZAT</button></a>";
-
+      tlacitka += "<button class ='button button2'name='kod' type='submit' value='";
+      tlacitka += (kod_vypnuto[row]);
+      tlacitka += "'>VYPNOUT</button>";
     }
   } else {
     Serial.println("Alespoň jeden sloupec nenalezen, chyba");
@@ -222,73 +200,28 @@ void setup() {
   server.on("/get", HTTP_GET, [] (AsyncWebServerRequest * request) {
     String inputMessage;
     String inputNazev;
-    String inputOvladac;
-    String inputZarizeni;
+    String inputZapnuto;
+    String inputVypnuto;
     String inputAkce;
+    String inputKod;
     //Zápis do souboru z uživatelského rozhraní, komerční zařízení
     //Získej hodnoty z <ESP_IP>/get?nazev=<inputNazev>&ovladac=<inputOvladac>&zarizeni=<inputZarizeni>
-    if (request->hasParam(KOMERCNI_OVLADAC) && request->hasParam(KOMERCNI_ZARIZENI) && request->hasParam(NAZEV)) {
+    if (request->hasParam(KOD_ZAPNUTO) && request->hasParam(KOD_VYPNUTO) && request->hasParam(NAZEV)) {
       inputNazev = request->getParam(NAZEV)->value();
-      inputOvladac = request->getParam(KOMERCNI_OVLADAC)->value();
-      inputZarizeni = request->getParam(KOMERCNI_ZARIZENI)->value();
-      inputMessage += inputNazev + "," + inputOvladac + "," + inputZarizeni;
+      inputZapnuto = request->getParam(KOD_ZAPNUTO)->value();
+      inputVypnuto = request->getParam(KOD_VYPNUTO)->value();
+      inputMessage += inputNazev + "," + inputZapnuto + "," + inputVypnuto;
       addRow(SPIFFS, "/zarizeni.csv", inputMessage.c_str());
       readFile(SPIFFS, "/zarizeni.csv");                                     
     }
-/*Tohle jsem zakomentoval z důvodu použití toho RC switch
-   
-    //Zpápis do souboru z uživatelského rozhraní pro zařízení projektu
-    //Získej hodnoty z <ESP_IP>/get?nazev=<inputNazev>&zarizeni=<inputZarizeni>
-    if (request->hasParam(KOMERCNI_ZARIZENI) && request->hasParam(NAZEV)) {
-      inputNazev = request->getParam(NAZEV)->value();
-      inputOvladac = "x";
-      inputZarizeni = request->getParam(KOMERCNI_ZARIZENI)->value();
-      inputMessage += inputNazev + "," + inputOvladac + "," + inputZarizeni;
-      addRow(SPIFFS, "/zarizeni.csv", inputMessage.c_str());
-      readFile(SPIFFS, "/zarizeni.csv");
-    }
-*/
-    //Zpracování requestu pro ovládání komerčních zásuvek
-    //Získej hodnoty z <ESP_IP>/get?ovladac=<inputOvladac>&zarizeni=<inputZarizeni>&akce=<ON/OFF>
-    if (request->hasParam(KOMERCNI_OVLADAC) && request->hasParam(KOMERCNI_ZARIZENI) && request->hasParam(AKCE)) {
-      inputOvladac = request->getParam(KOMERCNI_OVLADAC)->value();
-      inputZarizeni = request->getParam(KOMERCNI_ZARIZENI)->value();
-      inputAkce = request->getParam(AKCE)->value();
-      Serial.println("z tlačítka");
-/*   Takhle jsem puvodne chtel odlisit komercni od mých   
-  //Pokud se jedná o zařízení vyrobené v rámci projektu
-      if (inputOvladac == "x" && inputAkce == "OFF") {
-        int ID = inputZarizeni.toInt();
-        mySwitch.switchOff('d', ID);
-        Serial.print("moje zařízení odeslán požadavek na zapnutí");
-      }
-      if (inputOvladac == "x" && inputAkce == "ON") {
-        int ID = inputZarizeni.toInt();
-        mySwitch.switchOn('d', ID);
-        Serial.print("moje zařízení odeslán požadavek na vypnutí");
-      }
-*/
-      //Pokud se jedná o komerční zařízení, SEM VKLÁDEJTE FUNKCE PRO ZAPNUTÍ A VYPNUTÍ
-      if (inputAkce == "ON" && inputOvladac != "x") {
-        int kod = inputOvladac.toInt();
-        mySwitch.send(kod, 24); //Pokud uživatel zadá kód decimálně
-        //mySwitch.switchOn("inputOvladac", "inputZarizeni"); //Odkomentovat pokud uživatel zadává binární kód (polohy tlačítek na ovladači a zásuvce)
-        Serial.println("odeslán kód zapnuto");
-       
-      }
-      if (inputAkce == "OFF" && inputOvladac != "x") {
-        int kod = inputZarizeni.toInt();
-        mySwitch.send(kod, 24); //Pokud uživatel zadá kód decimálně
-        //mySwitch.switchOff("inputOvladac", "inputZarizeni"); //Odkomentovat pokud uživatel zadává binární kód (polohy tlačítek na ovladači a zásuvce)
-        Serial.println("odeslán kód vypnuto"); 
-      }
-      //přesměruje zpět na domovskou stránku po kliknutí na tlačítko
-      request->redirect("/");
-   }
-   //Smazání řádku - NEFUNKČNÍ
-   if (request->hasParam(SMAZAT)) {
-    inputMessage = request->getParam(SMAZAT)->value();
-   }
+
+    //Zpracování requestu pro ovládání zařízení
+    //Získej hodnoty z <ESP_IP>/get?kod=<kod_zapnuto/kod_vypnuto>
+    if (request->hasParam(KOD)) {
+      inputKod = request->getParam(KOD)->value();
+      int kod = inputKod.toInt();
+      Serial.println("Odeslán kód");
+
     else {
       inputMessage = "Nebyla odeslána žádná zpráva";
     }

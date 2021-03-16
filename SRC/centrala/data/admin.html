@@ -30,18 +30,18 @@
 
 <body>
     <h1>Instrukce</h1>
-    <p>Zařízení zadávejte ve formátu: název,číslo,číslo</p>
     <p>Název se bude zobrazovat ve webovém rozhraní, zvolit si můžete libovolný. Nepoužívejte mezery, nahrazujte například podtržítkem.</p>
     <p>Čísla jsou uvedena na zařízení, uvádějte ve stejném formátu.</p>
+    <p>Pokud chcete přidat zakoupené komerční zařízení, nejprve zanalyzujte využívaný protokol pomocí příkladu knihovny RCswitch.</p>
     <p>Poté klikněte na tlačítko "Potvrdit", tímto zařízení uložíte</p>
-    <h2>Přidat komerční zařízení</h2>
+    <h2>Přidat zařízení</h2>
     <form action="/get" method="get" target="hidden-form">
         <label for="nazev">Název:</label><br>
             <input type="text" name="nazev" value="Lampa"><br>
-        <label for="ovladac">Kód na ovladači:</label><br>
-            <input type="text" name="ovladac" value="11111"><br>
-        <label for="zarizeni">Kód na zařízení:</label><br>
-            <input type="text" name="zarizeni" value="11111"><br><br>
+        <label for="zapnuto">Kód pro zapnutí:</label><br>
+            <input type="text" name="zapnuto" value="11111"><br>
+        <label for="vypnuto">Kód pro vypnutí:</label><br>
+            <input type="text" name="vypnuto" value="11111"><br><br>
     
         <input type="submit" value="Potvrdit" onclick="submitMessage()">
 </form><br>
