@@ -137,18 +137,18 @@ Ovládání modulů jsem chtěl realizovat pomocí jednoduché knihovny VirtualW
 Pro ovládání \uv{Koncového zařízení} je vyslána zpráva obsahující ID zařízení a tag ON nebo OFF, \uv{koncové zařízení} následně odchytí ID a provede příkaz. Tento systém je do budoucna rozšiřitelný o další tagy pro zařízení, které potřebují k ovlání více příkazů než ON nebo OFF.
 
 
-Tento navržený systém jsem implementoval, nicméně jsem narazil na problém s ovládáním pomocí komerčního ovladače. K tomuto účelu jsem začlenil knihovnu RCswitch\footnote{https://github.com/sui77/rc-switch}, která umožňuje zobrazit protokol, na jehož základě zařízení komunikují. Poté dokáže vysílat tímto protokolem. 
+Tento navržený systém jsem implementoval, nicméně jsem narazil na problém s ovládáním pomocí komerčního ovladače. K tomuto účelu jsem začlenil knihovnu RCswitch\footnote{https://github.com/sui77/rc-switch}, která umožňuje zobrazit protokol, na jehož základě právě komerční zařízení komunikují. Poté dokáže vysílat tímto protokolem. 
 
 
 Ve svém řešení jsem chtěl použít knihovny obě a rozdělit tak ovládání na dvě části, podle toho, jakým způsobem mají komunikovat. Při realizaci tohoto jsem však narazil na problém, že není možné bezdrátový vysílač ovládat dvěma knihovnami současně.
 
 
-Nakonec jsem vybral knihovnu RCswitch z důvodu větší spolehlivosti při přenosu vysílání a možného rozšíření na ovládání komerčních zařízení (nebo ovládání komerčními zařízeními). Toto řešení sebou nese nutnost dvou kódů, pro zapnutí a vypnutí.
+Nakonec jsem vybral knihovnu RCswitch z důvodu větší spolehlivosti při přenosu vysílání a možného rozšíření na ovládání komerčních zařízení (nebo ovládání komerčními zařízeními). Toto řešení sebou nese nutnost dvou kódů, pro zapnutí a vypnutí (při použití již výše zmiňovaného ovladače). 
 
 
 \subsubsection{Správa uložených zařízení}
 
-Zařízení se ukládají přímo do flash paměti ESP32 o velikosti 4 MB. Soubor je nazván \uv{zarizeni.csv}.
+Zařízení se ukládají přímo do flash paměti ESP32 o velikosti 4 MB. Soubor je nazván \uv{zarizeni.csv}. Zařízení se ukládají ve formátu CSV (comma separate value). Pro ovládání filesystému byla zvolena výše zmíněná knihovna SPIFFS. Pro \uv{parsování} csv souboru jsem využil již hotové řešení za pomocí knihovny CSVparser\footnote{https://github.com/michalmonday/CSV-Parser-for-Arduino}. Knihovna je pěkně zadokumentovaná a obsahuje vše, co jsem pro čtení CSV potřeboval. 
 
 
 Do sloupce \uv{název} se uloží název, který si zadá sám uživatel v uživatelském rozhraní. Do sloupce \uv{kod\_ovladac} se v případě zařízení vyrobeného v rámci projektu uloží \uv{x}, protože k ovládání stačí ID zařízení, které je v tomto případě ve sloupci \uv{kod\_zarizeni}.
@@ -157,7 +157,7 @@ Do sloupce \uv{název} se uloží název, který si zadá sám uživatel v uživ
 Při zadávání komerčního zařízení záleží na způsobu ovládání daného zařízení. Při tvorbě jsem vycházel z mého ovladače, který má zvlášť kód pro vypnutí a zapnutí. Jiná zařízení mají odlišná schémata. 
 
 
-Pro implementaci takového typu zařízení je za potřebí analyzovat, jaký způsob ovládání zařízení používá. K tomu slouží example kód knihovny, který jsem nahrál na jedno ze svých zařízení. Pro funkčnost ovládání je také potřeba prostudovat dokumentaci k této knihovně a dopsat správný typ ovládání do místa v kódu (Toto místo je označeno přímo v kódu).
+Pro implementaci takového typu zařízení je za potřebí analyzovat, jaký způsob ovládání zařízení používá. K tomu slouží example kód knihovny RCswitch. Pro funkčnost ovládání je také potřeba prostudovat dokumentaci k této knihovně a dopsat správný typ ovládání do místa v kódu (Toto místo je označeno přímo v kódu).
 
 \subsection{Koncové zařízení}
 
@@ -179,12 +179,56 @@ Pro realizaci zapínání a vypínání spotřebičů jsem zvolil ovládání po
 
 Reakce na pohyb je zajišťována PIR senzorem. Opět byl zakoupen modul, který bylo snazší implementovat. Aby nedocházelo k zapnutí světla ve dne, byl k senzoru přidán fotorezistor, který reaguje na hladinu světla v místnosti.
 
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\hsize]{img/schema_koncove_zarizeni.png}
+\caption{Schéma činností koncového zařízení}\end{figure}
 
-\subsubsection{Tvorba prototypu}
+\section{Návrh prototypu}
+\subsection{Centrála}
+
+Centrálu jsem se rozhodl ponechat v nepájivém kontaktním poli a vyrobit k ní krabičku na 3D tiskárně. Návrh krabičky pro 3D tisk jsem tvořil v programu thinkercad. 
+
+Obrázek Schéma zapojení
+
+\subsection{Koncové zařízení}
+
+\subsubsection{Pokus 1}
+
+Oddělení na snímání pohybu pomocí PIR čidla a ovládání pomocí tlačítka (ovladače) jsem původně chtěl rozdělit hardwarově. Jedna část by bylo Arduino, které přijímá kód po rádiu a vstup uživatele z tlačítka a druhá část by byl PIR senzor, který obstarává vše ostatní.
 
 
+Protože PIR senzor má vlastní časovač, logickou 1 dává na výstup vždy podle uživatele nadefinovanou dobu od posledního pohybu. Toho jsem chtěl využít a spojit výstup arduina pomocí dvou diod s výstupem PIR senzoru a připojit to na vstup relé. Toto řešení však sebou neslo spoustu nevýhod. 
 
-\section{Kalkulace nákladů}
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.5\hsize]{img/zapojeni_rele.png}
+\caption{Schéma zapojení relé a diody}\end{figure}
+
+Toto řešení nefungovalo perfektně, kvůli úbytku napětí na diodě (0.7 V), takže výstup s PIR nebyl iniciován jako logická 1. Další nevýhodou byl fakt, že používám negované relé. Tyto problémy by šly vyřešit použitím tranzistoru, nicméně i kvůli detektoru hladiny světla jsem toto řešení zavrhl.
+
+\subsubsection{Pokus 2}
+
+Po prvním nezdařilém pokusu jsem přešel na kompletní ovládání arduinem. Nejprve jsem si všechny potřebné díly spojil v nepájivém kontaktním poli a potom jsem ověřil funkčnost kódu. Takto vyrobené zařízení splňovalo všechny požadavky, takže jsem se rozhodl zařízení přenést do kompaktnější podoby.
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\hsize]{img/přijímač_zásuvka_bb.png}
+\caption{Schéma zapojení v nepájivém kontaktním poli}\end{figure}
+
+Opět jsem vytvořil návrh krabičky pro 3D tisk. Při návrhu krabičky pro PIR senzor jsem vycházel již z hotového modelu\footnote{https://www.thingiverse.com/thing:2845890} staženého z portálu thinkverse, který jsem obohatil o díru na fotorezistor a notifikační LED. Návrh je od autora hills8, publikován je pod licencí creative commons-attribution. Návrh krabičky pro zařízení jsem již vytvářel sám. Moduly jsem následně přenesl na zakoupenou PCB návrhovou desku podle schématu.
+
+
+\section{Výroba prototypu}
+
+Tisk součástek jsem prováděl na tiskárně Ender 3 pro, kterou jsem si sám složil. Při pájení součástek na desku jsem narážel na nedostatečné vybavení, ale myslím, že jsem nakonec udělal co bylo v mých silách. 
+
+
+\subsection{Kalkulace nákladů}
+
+\begin{table}[htb]
+\centering
 \begin{tabular}{|c|c|c|}
 	\hline
 	Počet kusů & Název & Cena [Kč] \\
@@ -210,9 +254,13 @@ Reakce na pohyb je zajišťována PIR senzorem. Opět byl zakoupen modul, který
 	1 & PIR detektro pohybu & 38 \\
 	\hline
 \end{tabular}
+\caption{Kalkulace nákladů}
+\end{table}
 
-Celkové náklady na \uv{centrálu} jsou přibližně 290 Kč.
-Celkové náklady za prototyp \uv{koncového zařízení} jsou 265 Kč.
+Celkové náklady na \uv{centrálu} bez 3D tisku jsou přibližně 300 Kč.
+Celkové náklady za prototyp \uv{koncového zařízení} bez 3D tisku je 265 Kč.
+
+
 \chapter{Technická dokumentace}
 
 Poslední kapitola obsahuje informace o tom, jak projekt, který v rámci maturitní práce vznikl, nainstalovat, spustit a používat.
@@ -232,8 +280,9 @@ Poslední kapitola obsahuje informace o tom, jak projekt, který v rámci maturi
 
 Závěr obsahuje shrnutí práce a vyjadřuje se k míře splnění jejího zadání. Dále by se zde mělo objevit sebehodnocení studenta a informace o tom, co nového se naučil a jak vnímal svou práci na projektu.
 
+
 %%% Seznam použité literatury
-\nocite{einstein}\nocite{latexcompanion}\nocite{knuthwebsite}
+\nocite{einstein}\nocite{maly}\nocite{knuthwebsite}\nocite{ucebnice}\nocite{polovodicovatechnika}\nocite{šrait}
 \printbibliography[title={Seznam použité literatury},heading={bibintoc}]
 
 %%% Seznam obrázků
