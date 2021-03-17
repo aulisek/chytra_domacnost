@@ -25,23 +25,23 @@ o~změně některých zákonů (autorský zákon) ve znění pozdějších před
 
 % Text poděkování
 \def\Podekovani{%
-Poděkování.
+Touto cestou bych rád poděkoval svému vedoucímu práce Bc. Emilu Milerovi za podporu a odbornou pomoc při tvorbě projektu. Dále bych chěl poděkovat svému bratrovi za pomoc při stavbě 3D tiskárny a odstraňováním následných vad tisku a své sestře za pomoc při testování  a motivaci k dokončení projektu.
 }
 
 % Abstrakt česky
 \def\Abstrakt{%
-Abstrakt.
+Tento projekt se zabývá realizací chytré domácnosti. Pro tvorbu projektu byl zvolen mikrokontrolér Arduino uno a čip ESP32. Komunikace mezi zařízeními je realizovaná bezdrátově za použití otevřené rádiové frekvence 433 MHz. V rámci projektu bylo vytvořeno jednoduché webové rozhraní v HTML. Součástí projektu je i výroba hardware s použitím metody 3D tisku na tiskárně Ender 3 pro. Vývoj kódu probíhal v prostředí Arduino IDE, pro trasování změn byl využit verzovací systém git.
 }
 
 % Abstrakt anglicky
 \def\AbstraktEN{%
-Abstract.
+This project deals with the implementation of a smart home. The project is created using an Arduino uno microcontroller and an ESP32. Communication between devices is realized wirelessly using an open radio frequency of 433 MHz. Within the project, a simple web interface in HTML was created. The project also includes the production of hardware using the 3D printing method on the Ender 3 pro printer. The code was developed in the Arduino IDE environment, and the git versioning system was used to trace the changes.
 }
 
 % 3 až 5 klíčových slov
-\def\KlicovaSlova{klíčové slovo, další pojem, jiný důležitý termín, a ještě jeden}
+\def\KlicovaSlova{Chytrá domácnost, automatizace, ESP32, Arduino, Arduino IDE, 433 MHz, HTML}
 % 3 až 5 klíčových slov anglicky
-\def\KlicovaSlovaEN{keyword, important term, another topic, and another one}
+\def\KlicovaSlovaEN{smart home, automation, ESP32, Arduino, Arduino IDE, 433 MHz, HTML}
 
 \begin{document}
 
@@ -224,6 +224,8 @@ Opět jsem vytvořil návrh krabičky pro 3D tisk. Při návrhu krabičky pro PI
 
 Tisk součástek jsem prováděl na tiskárně Ender 3 pro, kterou jsem si sám složil. Při pájení součástek na desku jsem narážel na nedostatečné vybavení, ale myslím, že jsem nakonec udělal co bylo v mých silách. 
 
+\subsection{3D tisk}
+
 
 \subsection{Kalkulace nákladů}
 
@@ -251,7 +253,9 @@ Tisk součástek jsem prováděl na tiskárně Ender 3 pro, kterou jsem si sám 
 	\hline
 	1 & PCB prototypová deska & 18 \\
 	\hline
-	1 & PIR detektro pohybu & 38 \\
+	1 & PIR detektor pohybu & 38 \\
+	\hline
+	1 & Detektor tmy & 20 \\
 	\hline
 \end{tabular}
 \caption{Kalkulace nákladů}
@@ -278,11 +282,22 @@ Poslední kapitola obsahuje informace o tom, jak projekt, který v rámci maturi
 \pagestyle{empty}
 \addcontentsline{toc}{chapter}{Závěr}
 
+
 Závěr obsahuje shrnutí práce a vyjadřuje se k míře splnění jejího zadání. Dále by se zde mělo objevit sebehodnocení studenta a informace o tom, co nového se naučil a jak vnímal svou práci na projektu.
 
+V rámci projektu jsem vytvořil funkční soustavu zařízení umožňující realizaci chytré domácnosti. Toto zařízení splňuje všechny body zadání. Se zařízením jsem spokojený, stále je však co zlepšovat.
+
+
+Při tvorbě projektu jsem si osvojil mnoho nových dovedností. Při sofwarovém návrhu jsem se blíže seznámil s prostředím Arduino IDE, práci s knihovnami a dokumentací. Naučil jsem se práci se senzory a způsoby jejich připojení. Při tvorbě webového prostředí nasazení HTML a kaskádových stylů.
+
+
+Realizace hardwarové části mi přinesla zkušenost s letováním, nahráváním programu do Arduina pro mini pomocí programátoru mimo prostředí Arduino IDE. Také jsem se naučil základy programu fritzing při tvorbě schémat zapojení modulů. Naučil jsem se základy 3D modelování pomocí softwaru thinkercad, následné převedení předlohy modelu do hotové podoby použitím metody 3D tisku. S tím se pojí i samotná údržba 3D tiskárny. Po jejím složení jsem se rozhl pro několik úprav. Seznámil jsem se s firmwarem Marlin, naučil jsem se ho upravovat, zkompilovat a nahrát ho do tiskárny za použití USBisp programátoru. Dále jsem se dozvěděl více o materiálech pro 3D tisk a potřebným nastavením parametrů tisku.
+
+
+Při tvorbě dokumentace jsem se seznámil se zázecím sytémem \LaTeX, který byl pro mě nový. 
 
 %%% Seznam použité literatury
-\nocite{einstein}\nocite{maly}\nocite{knuthwebsite}\nocite{ucebnice}\nocite{polovodicovatechnika}\nocite{šrait}
+\nocite{einstein}\nocite{maly}\nocite{knuthwebsite}\nocite{ucebnice}\nocite{polovodicovatechnika}\nocite{šrait}\nocite{techtutorials}
 \printbibliography[title={Seznam použité literatury},heading={bibintoc}]
 
 %%% Seznam obrázků
