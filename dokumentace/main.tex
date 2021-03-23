@@ -67,7 +67,7 @@ Motivací k výběru tématu \uv{chytré domácnosti} mi bylo její čím dál v
 
 \section{Cíl práce}
 
-Cílem této práce je vytvořit zařízení pro realizaci chytré domácnosti. Zařízení si klade za cíl ovládat spotřebiče uživatele na tzv. \uv{na dálku}. Součástí řešení musí být uživatelské rozhraní, možnost další automatizace a možnost ovládání \uv{offline}.
+Cílem této práce je vytvořit zařízení pro realizaci chytré domácnosti. Zařízení si klade za cíl ovládat spotřebiče uživatele tzv. \uv{na dálku}. Součástí řešení musí být uživatelské rozhraní, možnost další automatizace a možnost ovládání \uv{offline}.
 
 
 \chapter{Implementace}
@@ -88,7 +88,7 @@ Pro každé zařízení jsem pak implementoval potřebné funkce. Dále bylo pot
 
 \subsection{Centrála}
 
-Pro \uv{centrálu} jsem  si vybral platformu ESP32 a to hned z několika důvodů. Čip má integrovanou wifi, k dispozici je velké množství dokumentace, hardwaru s příklady a knihovnami. Další výhodou je velká komunita, což může pomoct při řešení problémů. Čip lze také integrovat do prostředí Arduino IDE, což umožňuje snadnější práci při tvorbě kódu.
+Pro \uv{centrálu} jsem  si vybral platformu ESP32 (konkrétně model NODE-MCU32-S\footnote{https://rpishop.cz/iot/2605-waveshare-nodemcu-32s-esp32-wifi-bluetooth-vyvojova-deska.html}) a to hned z několika důvodů. Čip má integrovanou wifi, k dispozici je velké množství dokumentace, hardwaru s příklady a knihovnami. Další výhodou je velká komunita, což může pomoct při řešení problémů. Čip lze také integrovat do prostředí Arduino IDE, což umožňuje snadnější práci při tvorbě kódu.
 
 
 Při výběru jsem zvažoval i platformu raspberry pi, ale odradila mě přítomnost operačního systému, který je zbytečný pro tak malý projekt a velké pořizovací náklady oproti ESP32.
@@ -125,7 +125,7 @@ Komunikace programu a webového rozhraní je zajištěna pomocí HTTP GET reques
 
 \subsubsection{Komunikace mezi zařízeními}
 
-Komunikace mezi zařízeními je realizovaná bezdrátově po frekvenci 433 MHz. Tento druh jsem zvolil z důvodu rozšířenosti a nízkých pořizovacích nákladů modulů. Další nespornou výhodou je dosah, který v optimálním prostředí může být až 200 m.
+Komunikace mezi zařízeními je realizovaná bezdrátově po frekvenci 433 MHz. Tento druh jsem zvolil z důvodu rozšířenosti a nízkých pořizovacích nákladů modulů\footnote{https://www.laskarduino.cz/sada-vysilac-prijimac-433mhz/}. Další nespornou výhodou je dosah, který v optimálním prostředí může být až 200 m.
 
 
 Další ze zvažovaných řešení byla realizace pomocí Wi-Fi nebo GSM modulu. V prvním případě jsem jako nevýhodu viděl dosah (závislost na dostupnosti připojení). Dále by nebylo tak snadné ovládat zařízení pomocí ovladače. V druhém případě byla nevýhoda cena a potřeba realizace připojení pomocí telefoního operátora.
@@ -171,14 +171,19 @@ Toto je hlavní částí mého projektu. Koncové zařízení provádí následu
 	\item reaguje na vstup uživatele z tlačítka
 \end{itemize}
 
-Pro \uv{koncová zařízení} jsem zvolil jako vývojovou platformu Arduino uno. Po odladění kódu a hardwaru jsem vyrobil prototyp, který již využíval Arduino Pro mini. 
+Pro \uv{koncová zařízení} jsem zvolil jako vývojovou platformu Arduino uno\footnote{https://www.laskarduino.cz/arduino-uno-r3--atmega328p--klon/}. Po odladění kódu a hardwaru jsem vyrobil prototyp, který již využíval Arduino Pro mini\footnote{https://www.laskarduino.cz/arduino-pro-mini--atmega328-5v-16mhz--klon/} s pšti voltovou logikou. 
 
 
 Pro realizaci zapínání a vypínání spotřebičů jsem zvolil ovládání pomocí relé. Pro snadnější ovládání jsem vybral již hotový modul pro arduino\footnote{https://dratek.cz/arduino/2954-modul-rele-5v-1-kanal-opticky-oddeleno.html}, který pokud je na vstupu logická 1 vypnutý, pokud je přítomna zem, tak je zapnutý (je tzv. negovaný).
 
 
-Reakce na pohyb je zajišťována PIR senzorem. Opět byl zakoupen modul, který bylo snazší implementovat. Aby nedocházelo k zapnutí světla ve dne, byl k senzoru přidán fotorezistor, který reaguje na hladinu světla v místnosti.
+Reakce na pohyb je zajišťována PIR senzorem\footnote{https://www.laskarduino.cz/arduino-pir-detektor-pohybu-hc-sr501/}. Opět byl zakoupen modul, který bylo snazší implementovat. Aby nedocházelo k zapnutí světla ve dne, byl k senzoru přidán fotorezistor, který reaguje na hladinu světla v místnosti. Při tvorbě kódu pro fotorezistor jsem narazil na problém s rozeznáváním světla od tmy. Fototorezistor v mém zapojení totiž neukazoval konstantní hodnoty.
 
+
+Při prvním pokusu ovládání jsem nastavil pevnou hranici pro tmu, kde jsem porovnával napětí na analogovém vstupu s pevně danou hodnotou. Toto řešení se neukázalo jako vhodné ve chvíli. kdy fotorezistor ukazoval hodnoty blízké k hranici, docházelo tak k rychlému spínání a vypínání světla. Ve finálním kódu jsem použil hystereze a k tomuto efektu nedochází. Nevýhoda tohoto řešení je, že si uživatel musí nastavit hranici tmy v kódu. Toto by se dalo vyřešit náhradou rezistoru za trimmer, kterým by uživatel měnil hodnotu odporu a s tím i napětí na amalogovém vstupu.
+
+
+Při pátrání na internetu jsem objevil právě takový modul\footnote{https://www.laskarduino.cz/arduino-svetelny-senzor--4-pin-modul/}, který umožňoval trimmerem měnit \uv{citlivost na tmu}. Proto jsem ho zakoupil a ve výsledném řešení je implementován. Samotný modul má dva výstupy. Jeden je analogový ukazující \uv{hladinu tmy} a druhý je digitální, který má buď logickou jedničku na světle, zem při tmě. Toto zapojení se tak i hodí k negovanému relé, kde lze zapojit modul napřímo k ovládání relé bez nutnosti mikrokontroleru.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=1\hsize]{img/schema_koncove_zarizeni.png}
@@ -264,6 +269,9 @@ Tisk součástek jsem prováděl na tiskárně Ender 3 pro, kterou jsem si sám 
 Celkové náklady na \uv{centrálu} bez 3D tisku jsou přibližně 300 Kč.
 Celkové náklady za prototyp \uv{koncového zařízení} bez 3D tisku je 265 Kč.
 
+\section{Možnosti automatizace}
+
+\section{Návrhy na vylepšení}
 
 \chapter{Technická dokumentace}
 
@@ -285,16 +293,16 @@ Poslední kapitola obsahuje informace o tom, jak projekt, který v rámci maturi
 
 Závěr obsahuje shrnutí práce a vyjadřuje se k míře splnění jejího zadání. Dále by se zde mělo objevit sebehodnocení studenta a informace o tom, co nového se naučil a jak vnímal svou práci na projektu.
 
-V rámci projektu jsem vytvořil funkční soustavu zařízení umožňující realizaci chytré domácnosti. Toto zařízení splňuje všechny body zadání. Se zařízením jsem spokojený, stále je však co zlepšovat.
+V rámci projektu jsem vytvořil funkční soustavu zařízení umožňující realizaci chytré domácnosti. Toto zařízení splňuje všechny body zadání. Se zařízením jsem spokojený, splňuje všechny mé požadavky. Do budoucna se nabízí rozšíření a vylepšení zařízení.
 
 
-Při tvorbě projektu jsem si osvojil mnoho nových dovedností. Při sofwarovém návrhu jsem se blíže seznámil s prostředím Arduino IDE, práci s knihovnami a dokumentací. Naučil jsem se práci se senzory a způsoby jejich připojení. Při tvorbě webového prostředí nasazení HTML a kaskádových stylů.
+Při tvorbě projektu jsem si osvojil mnoho nových dovedností. Při sofwarovém návrhu jsem se blíže seznámil s prostředím Arduino IDE, práci s knihovnami a dokumentací. Naučil jsem se práci se senzory a způsoby jejich připojení. Při tvorbě webového prostředí nasazení HTML a kaskádových stylů. K zaznamenávání verzí projektu jsem používal verzovací systém git, změny jsem nahrával na server github. Bylo to moje první setkání s verzovacími systémy, ze začátku jsem trochu tápal, jak ho přesně použít. Při tvorbě kódu jsem však ocenil přehlednost a vracení se ke starším verzím. Systém jsem ovládal z příkazové řádky, naučil jsem se tak spravovat svůj soborový systém a efektivní práci s ním.
 
 
 Realizace hardwarové části mi přinesla zkušenost s letováním, nahráváním programu do Arduina pro mini pomocí programátoru mimo prostředí Arduino IDE. Také jsem se naučil základy programu fritzing při tvorbě schémat zapojení modulů. Naučil jsem se základy 3D modelování pomocí softwaru thinkercad, následné převedení předlohy modelu do hotové podoby použitím metody 3D tisku. S tím se pojí i samotná údržba 3D tiskárny. Po jejím složení jsem se rozhl pro několik úprav. Seznámil jsem se s firmwarem Marlin, naučil jsem se ho upravovat, zkompilovat a nahrát ho do tiskárny za použití USBisp programátoru. Dále jsem se dozvěděl více o materiálech pro 3D tisk a potřebným nastavením parametrů tisku.
 
 
-Při tvorbě dokumentace jsem se seznámil se zázecím sytémem \LaTeX, který byl pro mě nový. 
+Při tvorbě dokumentace jsem se seznámil se zázecím sytémem \LaTeX, který pro mě byl nový 
 
 %%% Seznam použité literatury
 \nocite{einstein}\nocite{maly}\nocite{knuthwebsite}\nocite{ucebnice}\nocite{polovodicovatechnika}\nocite{šrait}\nocite{techtutorials}
