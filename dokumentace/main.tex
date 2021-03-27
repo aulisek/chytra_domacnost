@@ -11,7 +11,7 @@
 \def\DatumOdevzdani{2021}
 
 % Vedoucí práce: Jméno a příjmení s~tituly
-\def\Vedouci{Bc. Emil Miler}
+\def\Vedouci{Emil Miler}
 
 % Studijní program a obor
 \def\StudijniProgram{studijní program}
@@ -25,7 +25,7 @@
 
 % Text poděkování
 \def\Podekovani{%
-	Touto cestou bych rád poděkoval svému vedoucímu práce Bc. Emilu Milerovi za podporu a odbornou pomoc při tvorbě projektu. Dále bych chěl poděkovat svému bratrovi za pomoc při stavbě 3D tiskárny a odstraňováním následných vad tisku a své sestře za pomoc při testování  a motivaci k dokončení projektu.
+	Touto cestou bych rád poděkoval svému vedoucímu práce Emilu Milerovi za zapůjčení hardwarového vybavení, podporu a odbornou pomoc při tvorbě projektu. Dále bych chěl poděkovat svému bratrovi za pomoc při stavbě 3D tiskárny a odstraňováním následných vad tisku a své sestře za pomoc při testování  a motivaci k dokončení projektu.
 }
 
 % Abstrakt česky
@@ -193,7 +193,10 @@
 	
 	Centrálu jsem se rozhodl ponechat v nepájivém kontaktním poli a vyrobit k ní krabičku na 3D tiskárně. Návrh krabičky pro 3D tisk jsem tvořil v programu thinkercad. 
 	
-	Obrázek Schéma zapojení
+	\begin{figure}[htb]
+		\centering
+		\includegraphics[width=1\hsize]{img/centrala_bb.png}
+		\caption{Schéma zapojení centrály}\end{figure}
 	
 	\subsection{Koncové zařízení}
 	
@@ -216,13 +219,16 @@
 	Po prvním nezdařilém pokusu jsem přešel na kompletní ovládání arduinem. Nejprve jsem si všechny potřebné díly spojil v nepájivém kontaktním poli a potom jsem ověřil funkčnost kódu. Takto vyrobené zařízení splňovalo všechny požadavky, takže jsem se rozhodl zařízení přenést do kompaktnější podoby.
 	
 	
-	\begin{figure}[htb]
-		\centering
-		\includegraphics[width=1\hsize]{img/přijímač_zásuvka_bb.png}
-		\caption{Schéma zapojení v nepájivém kontaktním poli}\end{figure}
-	
 	Opět jsem vytvořil návrh krabičky pro 3D tisk. Při návrhu krabičky pro PIR senzor jsem vycházel již z hotového modelu\footnote{\url{https://www.thingiverse.com/thing:2845890}} staženého z portálu thinkverse, který jsem obohatil o díru na fotorezistor a notifikační LED. Návrh je od autora hills8, publikován je pod licencí creative commons-attribution. Návrh krabičky pro zařízení jsem již vytvářel sám. Moduly jsem následně přenesl na zakoupenou PCB návrhovou desku podle schématu.
 	
+	\begin{figure}
+		\centering
+		\includegraphics[width=1\hsize]{img/přijímač_zásuvka_bb.png}
+		\caption{Schéma zapojení koncového zařízení s fotorezistorem v nepájivém kontaktním poli}
+		
+		\includegraphics[width=1\hsize]{img/přijímač_zásuvka_modul_bb.png}
+		\caption{Schéma zapojení koncového zařízení se senzorem světla v nepájivém kontaktním poli}
+	\end{figure}
 	
 	\section{Výroba prototypu}
 	
@@ -295,7 +301,15 @@
 	
 	
 	Struktura requestu pro zařízení:
+	\begin{verbatim}
+		http://<IP_adresa_esp>/get?kod=<KOD>
+	\end{verbatim}
+	Nebo při použití mDNS
+	\begin{verbatim}
+		http://<esp32.local>/get?kod=<KOD>
+	\end{verbatim}
 	
+	Za kód dosadíme buď kód pro vypnutí nebo zapnutí zařízení.
 	
 	\section{Návrhy na vylepšení}
 	\subsection{Uživatelské rozhraní}
