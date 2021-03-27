@@ -2,7 +2,8 @@
 #include <RCSwitch.h>
 
 // Definování pinů
-#define LEDpin 13          // pin s LED ukazující status
+#define LEDpin 13          // pin s interní LED ukazující status
+#define LEDPIRpin 7        // pin s LED ukazující status v krabicce s PIR senzorem
 #define RELEpin 4          // pin připojené relé
 #define PIRpin 5           // pin připojený PIR senzor
 #define TLACITKOpin 3      // pin s tlačítkem (musí být #2/#3 kvůli přerušení)
@@ -29,12 +30,14 @@ void blokovani_pohybu() {
   // nereaguje na podněty PIR čidla, blokovani
   if (blokovani) {
     digitalWrite(LEDpin, LOW);    // vypne se signalizační dioda
+    digitalWrite(LEDPIRpin, LOW);
     Serial.println("LED vypnuta");
     digitalWrite(RELEpin, HIGH);  // Vypne se relé (obrácená logika -> 0 = zapnuto)
     blokovani = false;            // nastaví se příznak
   }
   else {
     digitalWrite(LEDpin, HIGH);  // zapne se signalizační dioda
+    digitalWrite(LEDPIRpin, HIGH);
     Serial.println("led zapnuta");
     digitalWrite(RELEpin, LOW);  // zapne relé 
     blokovani = true;            // nastaví se příznak
@@ -80,6 +83,7 @@ void loop() {
       Serial.print( mySwitch.getReceivedValue() );
       // Převrátí stav na blokovaný (z funkce blokovani_pohybu)
       digitalWrite(LEDpin, HIGH);  // zapne se signalizační dioda
+      digitalWrite(LEDPIRpin, HIGH);
       Serial.println("led zapnuta");
       digitalWrite(RELEpin, LOW);  // zapne relé 
       blokovani = true;            // nastaví se příznak
@@ -92,6 +96,7 @@ void loop() {
       Serial.print( mySwitch.getReceivedValue() );
       // Převrátí stav na blokovaný (z funkce blokovani_pohybu)
       digitalWrite(LEDpin, LOW);    // vypne se signalizační dioda
+      digitalWrite(LEDPIRpin, LOW);
       Serial.println("LED vypnuta");
       digitalWrite(RELEpin, HIGH);  // Vypne se relé (obrácená logika -> 0 = zapnuto)
       blokovani = false;            // nastaví se příznak
