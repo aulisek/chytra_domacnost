@@ -88,7 +88,7 @@ String vypln() {
   char **kod_vypnuto = (char**)cp["kod_vypnuto"];
 
   //cyklus zajišťující přiřazení tlačítka k prvkům ze souboru
-  if (nazev && kod_ovladac && kod_zarizeni) {
+  if (nazev && kod_zapnuto && kod_vypnuto) {
     for (int row = 0; row < cp.getRowsCount(); row++) {
       //debug, zobrazení, co je v souboru
       Serial.print(nazev[row]);          Serial.print(" - ");
@@ -221,6 +221,9 @@ void setup() {
       inputKod = request->getParam(KOD)->value();
       int kod = inputKod.toInt();
       Serial.println("Odeslán kód");
+      Serial.print(kod);
+      mySwitch.send(kod, 24);
+    }
 
     else {
       inputMessage = "Nebyla odeslána žádná zpráva";

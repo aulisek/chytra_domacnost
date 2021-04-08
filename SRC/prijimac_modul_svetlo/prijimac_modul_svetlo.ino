@@ -49,6 +49,7 @@ void setup() {
   pinMode(PIRpin, INPUT);         // Nastavení PIR senzoru jako výstup
   pinMode(TLACITKOpin, INPUT);    // Nastavení tlačítka jako vstup (zapojeno přes pull-down rezistor -> log1 = zapnuto)
   pinMode(FOTOMODULpin, INPUT);   // Nastavení fotomodulu jako vstup
+  pinMode(LEDPIRpin, OUTPUT);     // Nastavení LED u PIR senzoru jako výstup   
   
   mySwitch.enableReceive(0);      // Přijímač je na pinu přerušení 0 -> arduino uno pin #2 
 
@@ -114,7 +115,7 @@ void loop() {
     hodnota = digitalRead(PIRpin);  // Přečte výstup PIR senzoru
     // Kontrola, jestli je detekován pohyb
     // Zároveň musí být splněna podmínka tmy (detekováno modulem, log 0 je tma)
-    if (hodnota == HIGH && (digitalRead(FOTOMODULpin) == LOW)) {
+    if (hodnota == HIGH && (digitalRead(FOTOMODULpin) == HIGH)) {
       digitalWrite(RELEpin, LOW);  // zapne relé
       //Mění stav čidla v proměnné PIRstav z LOW na HIGH
       if (PIRstav == LOW) {

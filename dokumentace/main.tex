@@ -25,12 +25,12 @@
 
 % Text poděkování
 \def\Podekovani{%
-	Touto cestou bych rád poděkoval svému vedoucímu práce Emilu Milerovi za zapůjčení hardwarového vybavení, podporu a odbornou pomoc při tvorbě projektu. Dále bych chěl poděkovat svému bratrovi za pomoc při stavbě 3D tiskárny a odstraňováním následných vad tisku a své sestře za pomoc při testování  a motivaci k dokončení projektu.
+	Touto cestou bych rád poděkoval svému vedoucímu práce Emilu Milerovi za zapůjčení hardwarového vybavení, podporu a odbornou pomoc při tvorbě projektu. Dále bych chěl poděkovat svému bratrovi za pomoc při stavbě 3D tiskárny a odstraňováním následných vad tisku a své sestře za pomoc při testování  a motivaci k~dokončení projektu.
 }
 
 % Abstrakt česky
 \def\Abstrakt{%
-	Tento projekt se zabývá realizací chytré domácnosti. Pro tvorbu projektu byl zvolen mikrokontrolér Arduino uno a čip ESP32. Komunikace mezi zařízeními je realizovaná bezdrátově za použití otevřené rádiové frekvence 433 MHz. V rámci projektu bylo vytvořeno jednoduché webové rozhraní v HTML. Součástí projektu je i výroba hardware s použitím metody 3D tisku na tiskárně Ender 3 pro. Vývoj kódu probíhal v prostředí Arduino IDE, pro trasování změn byl využit verzovací systém git.
+	Tento projekt se zabývá realizací chytré domácnosti. Pro tvorbu projektu byl zvolen mikrokontrolér Arduino uno a čip ESP32. Komunikace mezi zařízeními je realizovaná bezdrátově za použití otevřené rádiové frekvence 433 MHz. V~rámci projektu bylo vytvořeno jednoduché webové rozhraní v~HTML. Součástí projektu je i výroba hardware s~použitím metody 3D tisku na tiskárně Ender 3 pro. Vývoj kódu probíhal v~prostředí Arduino IDE, pro trasování změn byl využit verzovací systém git.
 }
 
 % Abstrakt anglicky
@@ -54,15 +54,13 @@
 	\chapter{Teoretická část}
 	\pagestyle{fancy}
 	
-	V první části maturitní práce by se měla objevit informace o tom, jaký problém řešíte. Co si Váš projekt klade za cíl?
-	
 	\section{Úvod}
 	
-	Toto téma jsem si zvolil, protože jsem chtěl blíže prozkoumat práci s platformou Arduino a ESP32. S programováním těchto zařízení jsem měl minimální zkušenosti, proto pro mě byla práce na projektu výzvou k objevování nového. Použití komunikace na rádiové frekvenci jsem zvolil z důvodu široké škály použití a velkého množství příkladů. Zároveň jsem měl doma nevyužívaný ovladač pracující s touto frekvencí.
+	Toto téma jsem si zvolil, protože jsem chtěl blíže prozkoumat práci s~platformou Arduino a ESP32. S~programováním těchto zařízení jsem měl minimální zkušenosti, proto pro mě byla práce na projektu výzvou k~objevování nového. Použití komunikace na rádiové frekvenci jsem zvolil z~důvodu široké škály použití a velkého množství příkladů. Zároveň jsem měl doma nevyužívaný ovladač pracující s~touto frekvencí.
 	
 	
 	
-	Motivací k výběru tématu \uv{chytré domácnosti} mi bylo její čím dál větší nasazování v domácnostech a snaha vytvořit si ji po svém. Na mnohých komerčních řešeních mi totiž nevyhovoval způsob ovládání, nutnost dokupovat různé sety, stejně jako velký zásah do soukromí uživatelů.
+	Motivací k~výběru tématu \uv{chytré domácnosti} mi bylo její čím dál větší nasazování v~domácnostech a snaha vytvořit si ji po svém. Na mnohých komerčních řešeních mi totiž nevyhovoval způsob ovládání, nutnost dokupovat různé sety, stejně jako velký zásah do soukromí uživatelů.
 	
 	
 	\section{Cíl práce}
@@ -71,9 +69,6 @@
 	
 	
 	\chapter{Implementace}
-	
-	Druhá kapitola obsahuje detailní informace o tom, jak probíhala implementace. Zde se objeví zdůvodnění výběru technologií, řešení problémů, na které jste narazili, informace o použitých knihovnách apod. Pochvalte se, nikdo to za Vás neudělá. Přiznejte chyby, není to ostuda.
-	
 	\section{Schéma řešení}
 	
 	Pro dosažení cíle práce jsem projekt rozdělil na dvě nezávislá zařízení:
@@ -87,36 +82,36 @@
 	
 	\subsection{Centrála}
 	
-	Pro \uv{centrálu} jsem  si vybral platformu ESP32 (konkrétně model NODE-MCU32-S\footnote{\url{https://rpishop.cz/iot/2605-waveshare-nodemcu-32s-esp32-wifi-bluetooth-vyvojova-deska.html}}) a to hned z několika důvodů. Čip má integrovanou wifi, k dispozici je velké množství dokumentace, hardwaru s příklady a knihovnami. Další výhodou je velká komunita, což může pomoct při řešení problémů. Čip lze také integrovat do prostředí Arduino IDE, což umožňuje snadnější práci při tvorbě kódu.
+	Pro \uv{centrálu} jsem  si vybral platformu ESP32 (konkrétně model NODE-MCU32-S\footnote{\url{https://rpishop.cz/iot/2605-waveshare-nodemcu-32s-esp32-wifi-bluetooth-vyvojova-deska.html}}) a to hned z~několika důvodů. Čip má integrovanou wifi, k~dispozici je velké množství dokumentace, hardwaru s~příklady a knihovnami. Další výhodou je velká komunita, což může pomoct při řešení problémů. Čip lze také integrovat do prostředí Arduino IDE, což umožňuje snadnější práci při tvorbě kódu.
 	
 	
 	Při výběru jsem zvažoval i platformu raspberry pi, ale odradila mě přítomnost operačního systému, který je zbytečný pro tak malý projekt a velké pořizovací náklady oproti ESP32.
 	
 	Centrála zajišťuje několik funkcí:
 	\begin{itemize}
-		\item Komunikace s uživatelem
+		\item Komunikace s~uživatelem
 		\item Komunikace mezi zařízeními
 		\item Správa uložených zařízení
 	\end{itemize}
 	
-	\subsubsection{Komunikace s uživatelem}
+	\subsubsection{Komunikace s~uživatelem}
 	
-	Pro komunikaci s uživatelem je vytvořeno jednoduché webové rozhraní umožňující dynamicky vypsat uložená zařízení a přidat nové. Pro tvorbu webového rozhraní jsem zvolil knihovnu ESPAsyncWebServer\footnote{\url{https://github.com/me-no-dev/ESPAsyncWebServer}}. Tato knihovna má dobře zpracovanou dokumentaci a pro nasazení v projektu se hodí svými funkcemi. Samotné připojení čipu k Wi-Fi je realizováno pomocí knihovny WiFi\footnote{\url{https://github.com/arduino-libraries/WiFi}}.
+	Pro komunikaci s~uživatelem je vytvořeno jednoduché webové rozhraní umožňující dynamicky vypsat uložená zařízení a přidat nové. Pro tvorbu webového rozhraní jsem zvolil knihovnu ESPAsyncWebServer\footnote{\url{https://github.com/me-no-dev/ESPAsyncWebServer}}. Tato knihovna má dobře zpracovanou dokumentaci a pro nasazení v~projektu se hodí svými funkcemi. Samotné připojení čipu k~Wi-Fi je realizováno pomocí knihovny WiFi\footnote{\url{https://github.com/arduino-libraries/WiFi}}.
 	
 	
-	První verze kódu měly implementovaný jednoduchý synchronní webserver pomocí knihovny WiFi, obsažené v základní verzi Arduina IDE. Toto řešení nebylo vhodné, protože numožňovalo připojení více uživatelů k rozhraní naráz.
+	První verze kódu měly implementovaný jednoduchý synchronní webserver pomocí knihovny WiFi, obsažené v~základní verzi Arduina IDE. Toto řešení nebylo vhodné, protože numožňovalo připojení více uživatelů k~rozhraní naráz.
 	
 	
 	Další implementovanou funkcí byla autentifikace uživatele. Tato funkce je zajištěná při odesílání requstu pomocí knihovny ESPAsyncWebServer.
 	
 	
-	Pro zjednodušení přístupu k uživatelskému rozhraní je na zařízení spuštěn mDNS server na adrese \url{http://esp32.local}. Tato funkce je realizována pomocí knihovny ESPmDNS \footnote{\url{https://github.com/espressif/arduino-esp32/tree/master/libraries/ESPmDNS}}.
+	Pro zjednodušení přístupu k~uživatelskému rozhraní je na zařízení spuštěn mDNS server na adrese \url{http://esp32.local}. Tato funkce je realizována pomocí knihovny ESPmDNS \footnote{\url{https://github.com/espressif/arduino-esp32/tree/master/libraries/ESPmDNS}}.
 	
 	
-	Uživatelské rozhraní je vytvořeno pomocí HTML. HTML soubor je uložen ve vnitřní flash paměti čipu ESP. K ovládání filesystému SPIF je užito knihovny SPIFFS\footnote{\url{https://github.com/espressif/arduino-esp32/tree/master/libraries/SPIFFS}}. Tato knihovna obsahuje všechny potřebné funkce.
+	Uživatelské rozhraní je vytvořeno pomocí HTML. HTML soubor je uložen ve vnitřní flash paměti čipu ESP. K~ovládání filesystému SPIF je užito knihovny SPIFFS\footnote{\url{https://github.com/espressif/arduino-esp32/tree/master/libraries/SPIFFS}}. Tato knihovna obsahuje všechny potřebné funkce.
 	
 	
-	Pro přidání nového zařízení má uživatel na výběr mezi přidáním koupeného komerčního zařízení nebo přidáním zařízení vyrobeného v rámci tohoto projektu. Postup při zadávání nového zařízení je nastíněn we webovém rozhraní.
+	Pro přidání nového zařízení má uživatel na výběr mezi přidáním koupeného komerčního zařízení nebo přidáním zařízení vyrobeného v~rámci tohoto projektu. Postup při zadávání nového zařízení je nastíněn we webovém rozhraní.
 	
 	
 	Komunikace programu a webového rozhraní je zajištěna pomocí HTTP GET requestů, které program zpracuje a provede potřebné akce. 
@@ -124,39 +119,39 @@
 	
 	\subsubsection{Komunikace mezi zařízeními}
 	
-	Komunikace mezi zařízeními je realizovaná bezdrátově po frekvenci 433 MHz. Tento druh jsem zvolil z důvodu rozšířenosti a nízkých pořizovacích nákladů modulů\footnote{\url{https://www.laskarduino.cz/sada-vysilac-prijimac-433mhz/}}. Další nespornou výhodou je dosah, který v optimálním prostředí může být až 200 m.
+	Komunikace mezi zařízeními je realizovaná bezdrátově po frekvenci 433 MHz. Tento druh jsem zvolil z~důvodu rozšířenosti a nízkých pořizovacích nákladů modulů\footnote{\url{https://www.laskarduino.cz/sada-vysilac-prijimac-433mhz/}}. Další nespornou výhodou je dosah, který v~optimálním prostředí může být až 200 m.
 	
 	
-	Další ze zvažovaných řešení byla realizace pomocí Wi-Fi nebo GSM modulu. V prvním případě jsem jako nevýhodu viděl dosah (závislost na dostupnosti připojení). Dále by nebylo tak snadné ovládat zařízení pomocí ovladače. V druhém případě byla nevýhoda cena a potřeba realizace připojení pomocí telefoního operátora.
+	Další ze zvažovaných řešení byla realizace pomocí Wi-Fi nebo GSM modulu. V~prvním případě jsem jako nevýhodu viděl dosah (závislost na dostupnosti připojení). Dále by nebylo tak snadné ovládat zařízení pomocí ovladače. V~druhém případě byla nevýhoda cena a potřeba realizace připojení pomocí telefoního operátora.
 	
 	
-	Ovládání modulů jsem chtěl realizovat pomocí jednoduché knihovny VirtualWire, ale zjistil jsem, že není funkční na čipech ESP. K ovládání jsem tak použil knihovnu RadioHead. 
+	Ovládání modulů jsem chtěl realizovat pomocí jednoduché knihovny VirtualWire, ale zjistil jsem, že není funkční na čipech ESP. K~ovládání jsem tak použil knihovnu RadioHead. 
 	
 	
-	Pro ovládání \uv{Koncového zařízení} je vyslána zpráva obsahující ID zařízení a tag ON nebo OFF, \uv{koncové zařízení} následně odchytí ID a provede příkaz. Tento systém je do budoucna rozšiřitelný o další tagy pro zařízení, které potřebují k ovlání více příkazů než ON nebo OFF.
+	Pro ovládání \uv{Koncového zařízení} je vyslána zpráva obsahující ID zařízení a tag ON nebo OFF, \uv{koncové zařízení} následně odchytí ID a provede příkaz. Tento systém je do budoucna rozšiřitelný o~další tagy pro zařízení, které potřebují k~ovlání více příkazů než ON nebo OFF.
 	
 	
-	Tento navržený systém jsem implementoval, nicméně jsem narazil na problém s ovládáním pomocí komerčního ovladače. K tomuto účelu jsem začlenil knihovnu RCswitch\footnote{\url{https://github.com/sui77/rc-switch}}, která umožňuje zobrazit protokol, na jehož základě právě komerční zařízení komunikují. Poté dokáže vysílat tímto protokolem. 
+	Tento navržený systém jsem implementoval, nicméně jsem narazil na problém s~ovládáním pomocí komerčního ovladače. K~tomuto účelu jsem začlenil knihovnu RCswitch\footnote{\url{https://github.com/sui77/rc-switch}}, která umožňuje zobrazit protokol, na jehož základě právě komerční zařízení komunikují. Poté dokáže vysílat tímto protokolem. 
 	
 	
 	Ve svém řešení jsem chtěl použít knihovny obě a rozdělit tak ovládání na dvě části, podle toho, jakým způsobem mají komunikovat. Při realizaci tohoto jsem však narazil na problém, že není možné bezdrátový vysílač ovládat dvěma knihovnami současně.
 	
 	
-	Nakonec jsem vybral knihovnu RCswitch z důvodu větší spolehlivosti při přenosu vysílání a možného rozšíření na ovládání komerčních zařízení (nebo ovládání komerčními zařízeními). Toto řešení sebou nese nutnost dvou kódů, pro zapnutí a vypnutí (při použití již výše zmiňovaného ovladače). 
+	Nakonec jsem vybral knihovnu RCswitch z~důvodu větší spolehlivosti při přenosu vysílání a možného rozšíření na ovládání komerčních zařízení (nebo ovládání komerčními zařízeními). Toto řešení sebou nese nutnost dvou kódů, pro zapnutí a vypnutí (při použití již výše zmiňovaného ovladače). 
 	
 	
 	\subsubsection{Správa uložených zařízení}
 	
-	Zařízení se ukládají přímo do flash paměti ESP32 o velikosti 4 MB. Soubor je nazván \uv{zarizeni.csv}. Zařízení se ukládají ve formátu CSV (comma separate value). Pro ovládání filesystému byla zvolena výše zmíněná knihovna SPIFFS. Pro \uv{parsování} csv souboru jsem využil již hotové řešení za pomocí knihovny CSVparser\footnote{\url{https://github.com/michalmonday/CSV-Parser-for-Arduino}}. Knihovna je pěkně zadokumentovaná a obsahuje vše, co jsem pro čtení CSV potřeboval. 
+	Zařízení se ukládají přímo do flash paměti ESP32 o~velikosti 4 MB. Soubor je nazván \uv{zarizeni.csv}. Zařízení se ukládají ve formátu CSV (comma separate value). Pro ovládání filesystému byla zvolena výše zmíněná knihovna SPIFFS. Pro \uv{parsování} csv souboru jsem využil již hotové řešení za pomocí knihovny CSVparser\footnote{\url{https://github.com/michalmonday/CSV-Parser-for-Arduino}}. Knihovna je pěkně zadokumentovaná a obsahuje vše, co jsem pro čtení CSV potřeboval. 
 	
 	
-	Do sloupce \uv{název} se uloží název, který si zadá sám uživatel v uživatelském rozhraní. Do sloupce \uv{kod\_ovladac} se v případě zařízení vyrobeného v rámci projektu uloží \uv{x}, protože k ovládání stačí ID zařízení, které je v tomto případě ve sloupci \uv{kod\_zarizeni}.
+	Do sloupce \uv{název} se uloží název, který si zadá sám uživatel v~uživatelském rozhraní. Do sloupce \uv{kod\_ovladac} se v~případě zařízení vyrobeného v~rámci projektu uloží \uv{x}, protože k~ovládání stačí ID zařízení, které je v~tomto případě ve sloupci \uv{kod\_zarizeni}.
 	
 	
-	Při zadávání komerčního zařízení záleží na způsobu ovládání daného zařízení. Při tvorbě jsem vycházel z mého ovladače, který má zvlášť kód pro vypnutí a zapnutí. Jiná zařízení mají odlišná schémata. 
+	Při zadávání komerčního zařízení záleží na způsobu ovládání daného zařízení. Při tvorbě jsem vycházel z~mého ovladače, který má zvlášť kód pro vypnutí a zapnutí. Jiná zařízení mají odlišná schémata. 
 	
 	
-	Pro implementaci takového typu zařízení je za potřebí analyzovat, jaký způsob ovládání zařízení používá. K tomu slouží example kód knihovny RCswitch. Pro funkčnost ovládání je také potřeba prostudovat dokumentaci k této knihovně a dopsat správný typ ovládání do místa v kódu (Toto místo je označeno přímo v kódu).
+	Pro implementaci takového typu zařízení je za potřebí analyzovat, jaký způsob ovládání zařízení používá. K~tomu slouží example kód knihovny RCswitch. Pro funkčnost ovládání je také potřeba prostudovat dokumentaci k~této knihovně a dopsat správný typ ovládání do místa v~kódu (Toto místo je označeno přímo v~kódu).
 	
 	\subsection{Koncové zařízení}
 	
@@ -167,22 +162,23 @@
 		\item zapne/vypne spotřebič
 		\item reaguje na pohyb
 		\item obsahuje senzor světla 
-		\item reaguje na vstup uživatele z tlačítka
+		\item reaguje na vstup uživatele z~tlačítka
 	\end{itemize}
 	
-	Pro \uv{koncová zařízení} jsem zvolil jako vývojovou platformu Arduino uno\footnote{\url{https://www.laskarduino.cz/arduino-uno-r3--atmega328p--klon/}}. Po odladění kódu a hardwaru jsem vyrobil prototyp, který již využíval Arduino Pro mini\footnote{\url{https://www.laskarduino.cz/arduino-pro-mini--atmega328-5v-16mhz--klon/}} s pšti voltovou logikou. 
+	Pro \uv{koncová zařízení} jsem zvolil jako vývojovou platformu Arduino uno\footnote{\url{https://www.laskarduino.cz/arduino-uno-r3--atmega328p--klon/}}. Po odladění kódu a hardwaru jsem vyrobil prototyp, který již využíval Arduino Pro mini\footnote{\url{https://www.laskarduino.cz/arduino-pro-mini--atmega328-5v-16mhz--klon/}} s~pšti voltovou logikou. 
 	
 	
 	Pro realizaci zapínání a vypínání spotřebičů jsem zvolil ovládání pomocí relé. Pro snadnější ovládání jsem vybral již hotový modul pro arduino\footnote{\url{https://dratek.cz/arduino/2954-modul-rele-5v-1-kanal-opticky-oddeleno.html}}, který pokud je na vstupu logická 1 vypnutý, pokud je přítomna zem, tak je zapnutý (je tzv. negovaný).
 	
 	
-	Reakce na pohyb je zajišťována PIR senzorem\footnote{\url{https://www.laskarduino.cz/arduino-pir-detektor-pohybu-hc-sr501/}}. Opět byl zakoupen modul, který bylo snazší implementovat. Aby nedocházelo k zapnutí světla ve dne, byl k senzoru přidán fotorezistor, který reaguje na hladinu světla v místnosti. Při tvorbě kódu pro fotorezistor jsem narazil na problém s rozeznáváním světla od tmy. Fototorezistor v mém zapojení totiž neukazoval konstantní hodnoty.
+	Reakce na pohyb je zajišťována PIR senzorem\footnote{\url{https://www.laskarduino.cz/arduino-pir-detektor-pohybu-hc-sr501/}}. Opět byl zakoupen modul, který bylo snazší implementovat. Aby nedocházelo k~zapnutí světla ve dne, byl k~senzoru přidán fotorezistor, který reaguje na hladinu světla v~místnosti. Při tvorbě kódu pro fotorezistor jsem narazil na problém s~rozeznáváním světla od tmy. Fototorezistor v~mém zapojení totiž neukazoval konstantní hodnoty.
 	
 	
-	Při prvním pokusu ovládání jsem nastavil pevnou hranici pro tmu, kde jsem porovnával napětí na analogovém vstupu s pevně danou hodnotou. Toto řešení se neukázalo jako vhodné ve chvíli. kdy fotorezistor ukazoval hodnoty blízké k hranici, docházelo tak k rychlému spínání a vypínání světla. Ve finálním kódu jsem použil hystereze a k tomuto efektu nedochází. Nevýhoda tohoto řešení je, že si uživatel musí nastavit hranici tmy v kódu. Toto by se dalo vyřešit náhradou rezistoru za trimmer, kterým by uživatel měnil hodnotu odporu a s tím i napětí na amalogovém vstupu.
+	Při prvním pokusu ovládání jsem nastavil pevnou hranici pro tmu, kde jsem porovnával napětí na analogovém vstupu s~pevně danou hodnotou. Toto řešení se neukázalo jako vhodné ve chvíli. kdy fotorezistor ukazoval hodnoty blízké k~hranici, docházelo tak k~rychlému spínání a vypínání světla. Ve finálním kódu jsem použil hystereze a k~tomuto efektu nedochází. Nevýhoda tohoto řešení je, že si uživatel musí nastavit hranici tmy v~kódu. Toto by se dalo vyřešit náhradou rezistoru za trimmer, kterým by uživatel měnil hodnotu odporu a s~tím i napětí na amalogovém vstupu.
 	
 	
-	Při pátrání na internetu jsem objevil právě takový modul\footnote{\url{https://www.laskarduino.cz/arduino-svetelny-senzor--4-pin-modul/}}, který umožňoval trimmerem měnit \uv{citlivost na tmu}. Proto jsem ho zakoupil a ve výsledném řešení je implementován. Samotný modul má dva výstupy. Jeden je analogový ukazující \uv{hladinu tmy} a druhý je digitální, který má buď logickou jedničku na světle, zem při tmě. Toto zapojení se tak i hodí k negovanému relé, kde lze zapojit modul napřímo k ovládání relé bez nutnosti mikrokontroleru.
+	Při hlubším hledání na internetu jsem objevil právě takový modul\footnote{\url{https://www.laskarduino.cz/arduino-svetelny-senzor--4-pin-modul/}}, který umožňoval trimmerem měnit \uv{citlivost na tmu}. Proto jsem ho zakoupil a ve výsledném řešení je implementován. Samotný modul má dva výstupy. Jeden je analogový ukazující \uv{hladinu tmy} a druhý je digitální, který má buď logickou jedničku na světle, zem při tmě. Toto zapojení se tak i hodí k~negovanému relé, kde lze zapojit modul napřímo k~ovládání relé bez nutnosti mikrokontroleru. V~repozitáři jsou tak dva kódy, v~zařízení je použit kód nazvaný prijimac\_modul\_svetlo.ino.
+	
 	\begin{figure}[htb]
 		\centering
 		\includegraphics[width=1\hsize]{img/schema_koncove_zarizeni.png}
@@ -191,7 +187,7 @@
 	\section{Návrh prototypu}
 	\subsection{Centrála}
 	
-	Centrálu jsem se rozhodl ponechat v nepájivém kontaktním poli a vyrobit k ní krabičku na 3D tiskárně. Návrh krabičky pro 3D tisk jsem tvořil v programu thinkercad. 
+	Centrálu jsem se rozhodl ponechat v~nepájivém kontaktním poli a vyrobit k~ní krabičku na 3D tiskárně. Návrh krabičky pro 3D tisk jsem tvořil v~programu thinkercad. 
 	
 	\begin{figure}[htb]
 		\centering
@@ -202,41 +198,42 @@
 	
 	\subsubsection{Pokus 1}
 	
-	Oddělení na snímání pohybu pomocí PIR čidla a ovládání pomocí tlačítka (ovladače) jsem původně chtěl rozdělit hardwarově. Jedna část by bylo Arduino, které přijímá kód po rádiu a vstup uživatele z tlačítka a druhá část by byl PIR senzor, který obstarává vše ostatní.
+	Oddělení na snímání pohybu pomocí PIR čidla a ovládání pomocí tlačítka (ovladače) jsem původně chtěl rozdělit hardwarově. Jedna část by bylo Arduino, které přijímá kód po rádiu a vstup uživatele z~tlačítka a druhá část by byl PIR senzor, který obstarává vše ostatní.
 	
 	
-	Protože PIR senzor má vlastní časovač, logickou 1 dává na výstup vždy podle uživatele nadefinovanou dobu od posledního pohybu. Toho jsem chtěl využít a spojit výstup arduina pomocí dvou diod s výstupem PIR senzoru a připojit to na vstup relé. Toto řešení však sebou neslo spoustu nevýhod. 
+	Protože PIR senzor má vlastní časovač, logickou 1 dává na výstup vždy podle uživatele nadefinovanou dobu od posledního pohybu. Toho jsem chtěl využít a spojit výstup arduina pomocí dvou diod s~výstupem PIR senzoru a připojit to na vstup relé. Toto řešení však sebou neslo spoustu nevýhod. 
 	
 	\begin{figure}[htb]
 		\centering
 		\includegraphics[width=0.5\hsize]{img/zapojeni_rele.png}
 		\caption{Schéma zapojení relé a diody}\end{figure}
 	
-	Toto řešení nefungovalo perfektně, kvůli úbytku napětí na diodě (0.7 V), takže výstup s PIR nebyl iniciován jako logická 1. Další nevýhodou byl fakt, že používám negované relé. Tyto problémy by šly vyřešit použitím tranzistoru, nicméně i kvůli detektoru hladiny světla jsem toto řešení zavrhl.
+	Toto řešení nefungovalo perfektně, kvůli úbytku napětí na diodě (0.7 V), takže výstup s~PIR nebyl iniciován jako logická 1. Další nevýhodou byl fakt, že používám negované relé. Tyto problémy by šly vyřešit použitím tranzistoru, nicméně i kvůli detektoru hladiny světla jsem toto řešení zavrhl.
 	
 	\subsubsection{Pokus 2}
 	
-	Po prvním nezdařilém pokusu jsem přešel na kompletní ovládání arduinem. Nejprve jsem si všechny potřebné díly spojil v nepájivém kontaktním poli a potom jsem ověřil funkčnost kódu. Takto vyrobené zařízení splňovalo všechny požadavky, takže jsem se rozhodl zařízení přenést do kompaktnější podoby.
+	Po prvním nezdařilém pokusu jsem přešel na kompletní ovládání arduinem. Nejprve jsem si všechny potřebné díly spojil v~nepájivém kontaktním poli a potom jsem ověřil funkčnost kódu. Takto vyrobené zařízení splňovalo všechny požadavky, takže jsem se rozhodl zařízení přenést do kompaktnější podoby.
 	
 	
-	Opět jsem vytvořil návrh krabičky pro 3D tisk. Při návrhu krabičky pro PIR senzor jsem vycházel již z hotového modelu\footnote{\url{https://www.thingiverse.com/thing:2845890}} staženého z portálu thinkverse, který jsem obohatil o díru na fotorezistor a notifikační LED. Návrh je od autora hills8, publikován je pod licencí creative commons-attribution. Návrh krabičky pro zařízení jsem již vytvářel sám. Moduly jsem následně přenesl na zakoupenou PCB návrhovou desku podle schématu.
+	Opět jsem vytvořil návrh krabičky pro 3D tisk. Při návrhu krabičky pro PIR senzor jsem vycházel již z~hotového modelu\footnote{\url{https://www.thingiverse.com/thing:2845890}} staženého z~portálu thinkverse, který jsem obohatil o~díru na fotorezistor a notifikační LED. Návrh je od autora hills8, publikován je pod licencí creative commons-attribution. Návrh krabičky pro zařízení jsem již vytvářel sám. Moduly jsem následně přenesl na zakoupenou PCB návrhovou desku podle schématu.
 	
-	\begin{figure}
+	\begin{figure}[!]
 		\centering
 		\includegraphics[width=1\hsize]{img/přijímač_zásuvka_bb.png}
-		\caption{Schéma zapojení koncového zařízení s fotorezistorem v nepájivém kontaktním poli}
+		\caption{Schéma zapojení koncového zařízení s~fotorezistorem v~nepájivém kontaktním poli}
 		
 		\includegraphics[width=1\hsize]{img/přijímač_zásuvka_modul_bb.png}
-		\caption{Schéma zapojení koncového zařízení se senzorem světla v nepájivém kontaktním poli}
+		\caption{Schéma zapojení koncového zařízení se senzorem světla v~nepájivém kontaktním poli}
 	\end{figure}
 	
 	\section{Výroba prototypu}
 	
-	Tisk součástek jsem prováděl na tiskárně Ender 3 pro, kterou jsem si sám složil. Při pájení součástek na desku jsem narážel na nedostatečné vybavení, ale myslím, že jsem nakonec udělal co bylo v mých silách. 
+	Tisk součástek jsem prováděl na tiskárně Ender 3 pro, kterou jsem si sám složil. Při pájení součástek na desku jsem narážel na nedostatečné vybavení, to jsem nakonec vyřešil zapůjčením vybavení od vedoucího práce. Užitečné instrukce k~letování jsem našel na portálu youtube ve videu \uv{Basic Soldering Lesson 1 - "Solder & Flux"} z~kanálu paceworldwide
+	.\footnote{\url{https://www.youtube.com/watch?v=vIT4ra6Mo0s}}
 	
 	\subsection{3D tisk}
 	
-	Tisk probíhal na již zmíněné tiskárně Creality Ender 3 pro\footnote{\url{https://www.creality3dshop.eu/collections/ender-series-3d-printer/products/creality3d-ender-3-pro-high-precision-3d-printer}}. Tisknul jsem na originální magnetickou podložku, na tiskárně byl vyměňen podavač filamentu a přidán BLtouch zajišťující automatické \uv{vyrovnání} desky. Materiál pro tisk jsem zvolil PLA, konkrétně jsem měl PLA od Creality\footnote{\url{https://www.creality3dshop.eu/collections/filament/products/3d-printer-silver-color-pla-filament-1-75mm-accuracy-0-05-mm-1kg}} v šedé barvě.
+	Tisk probíhal na již zmíněné tiskárně Creality Ender 3 pro\footnote{\url{https://www.creality3dshop.eu/collections/ender-series-3d-printer/products/creality3d-ender-3-pro-high-precision-3d-printer}}. Tisknul jsem na originální magnetickou podložku, na tiskárně byl vyměňen podavač filamentu a přidán BLtouch zajišťující automatické \uv{vyrovnání} desky. Materiál pro tisk jsem zvolil PLA, konkrétně jsem měl PLA od Creality\footnote{\url{https://www.creality3dshop.eu/collections/filament/products/3d-printer-silver-color-pla-filament-1-75mm-accuracy-0-05-mm-1kg}} v~šedé barvě.
 	
 	\subsubsection{Parametry tisku}
 	\begin{itemize}
@@ -267,7 +264,7 @@
 			\hline
 			1 & Mikrospínač & 4 \\
 			\hline
-			2 & Relé modul s optickým oddělením & 65 \\
+			2 & Relé modul s~optickým oddělením & 65 \\
 			\hline
 			1 & Rezistor 10k & 1 \\
 			\hline
@@ -294,10 +291,10 @@
 	
 	
 	\section{Možnosti automatizace}
-	Díky ovládání pomocí HTTP GET requestů jsou možnosti automatizace pomocí softwaru třetích stran poměrně jednoduché. K automatizaci lze využít aplikaci Tasker\footnote{\url{https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm&hl=en_US&gl=US}} pro Android, která nabízí velice rozsáhlé možnosti. Tato aplikace je placená, podobné funkce nabízí i aplikace Automate\footnote{\url{https://play.google.com/store/apps/details?id=com.llamalab.automate&hl=en_US&gl=US}}, která je zdarma. 
+	Díky ovládání pomocí HTTP GET requestů jsou možnosti automatizace pomocí softwaru třetích stran poměrně jednoduché. K~automatizaci lze využít aplikaci Tasker\footnote{\url{https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm&hl=en_US&gl=US}} pro Android, která nabízí velice rozsáhlé možnosti. Tato aplikace je placená, podobné funkce nabízí i aplikace Automate\footnote{\url{https://play.google.com/store/apps/details?id=com.llamalab.automate&hl=en_US&gl=US}}, která je zdarma. 
 	
 	
-	Uživatel si v aplikaci může nadefinovat chování \uv{co se stane když} v reakci na nějaký podmět. Lze si například nadefinovat zapnutí světla pokud se připojíme k domácí wi-fi, nacházíme-li se na nějakých GPS souřadnicích, v reakci na čase, při příjmu oznámení telefonu a mnohem více. To, co tvoří chytrou domácnost opravdu chytrou je právě automatizace. Na tu se projekt nezaměřoval, nicméně implementace do projektů třetích stran není problém.
+	Uživatel si v~aplikaci může nadefinovat chování \uv{co se stane když} v~reakci na nějaký podmět. Lze si například nadefinovat zapnutí světla pokud se připojíme k~domácí wi-fi, nacházíme-li se na nějakých GPS souřadnicích, v~reakci na čase, při příjmu oznámení telefonu a mnohem více. To, co tvoří chytrou domácnost opravdu chytrou je právě automatizace. Na tu se projekt nezaměřoval, nicméně implementace do projektů třetích stran není problém.
 	
 	
 	Struktura requestu pro zařízení:
@@ -313,32 +310,76 @@
 	
 	\section{Návrhy na vylepšení}
 	\subsection{Uživatelské rozhraní}
-	Při zpracování rešerše na začátku projektu jsem objevil zajímavé řešení uživatelského rozhraní pomocí Blynk\footnote{\url{https://blynk.io/}}. Tato platforma má rozsáhlé možnosti, zejména pro \uv{Internet věcí}. To by mé řešení mohlo rozšířit mimo  domácí síť za využití cloudu. Samotný cloud je možné nainstalovat na vlastní zařízení (například raspberry pi), můžete tak mít dohled nad svými daty. Zároveň projekt nabízí vytvoření mobilní aplikace pro Android, mohl bych tak řešení povýšit o mnoho pater výše, co se týče uživatelské přívětivosti. Projekt je open-source, mobilní aplikaci je pak možné využívat i komerčně. Implementace do projektu by nebyla vůbec složitá.
+	Při zpracování rešerše na začátku projektu jsem objevil zajímavé řešení uživatelského rozhraní pomocí Blynk\footnote{\url{https://blynk.io/}}. Tato platforma má rozsáhlé možnosti, zejména pro \uv{Internet věcí}. To by mé řešení mohlo rozšířit mimo  domácí síť za využití cloudu. Samotný cloud je možné nainstalovat na vlastní zařízení (například raspberry pi), můžete tak mít dohled nad svými daty. Zároveň projekt nabízí vytvoření mobilní aplikace pro Android, mohl bych tak řešení povýšit o~mnoho pater výše, co se týče uživatelské přívětivosti. Projekt je open-source, mobilní aplikaci je pak možné využívat i komerčně. Implementace do projektu by nebyla vůbec složitá.
 	
 	
 	\subsection{Zařízení}
-	Nevýhoda \uv{koncového zařízení} je napájení, kdy potřebujeme externí zdroj. Toto řešení jsem zvolil kvůli své jednoduchosti, zároveň by zařízení pro zapojení do sítě potřebovalo revizi podle Vyhlášky č. 50/1978 Sb. Českého úřadu bezpečnosti práce a Českého báňského úřadu o odborné způsobilosti v elektrotechnice\footnote{\url{https://www.zakonyprolidi.cz/cs/1978-50}}. 
+	Nevýhoda \uv{koncového zařízení} je napájení, kdy potřebujeme externí zdroj. Toto řešení jsem zvolil kvůli své jednoduchosti, zároveň by zařízení pro zapojení do sítě potřebovalo revizi podle Vyhlášky č. 50/1978 Sb. Českého úřadu bezpečnosti práce a Českého báňského úřadu o~odborné způsobilosti v~elektrotechnice\footnote{\url{https://www.zakonyprolidi.cz/cs/1978-50}}. 
 	
 	
-	Jinak by zařízení bylo schopné obstarávat všechny funkce, vešlo by se do elektroinstalační krabice místo normálního vypínače. K této minimalizaci se také nabízí optimalizace použitých součástek (používat základní komponenty místo modulů, napříkalad relé) a sestavení plošného spoje. Ten by byl spolehlivější, menší a pro toto nasazení daleko vhhodnější.
+	Jinak by zařízení bylo schopné obstarávat všechny funkce, vešlo by se do elektroinstalační krabice místo normálního vypínače. K~této minimalizaci se také nabízí optimalizace použitých součástek (používat základní komponenty místo modulů, napříkalad relé) a sestavení plošného spoje. Ten by byl spolehlivější, menší a pro toto nasazení daleko vhhodnější.
 	
 	
-	Dále bych chtěl do projektu začlenit ovládání naší vjezdové brány na zahradu, která pracuje s plovoucím kódem na frekvenci 433 MHz. Toto by znamelo možnost otevírat bránu pomocí telefonu místo ovladače a další možnosti automatizace, například automatické zavlažování.
+	Dále bych chtěl do projektu začlenit ovládání naší vjezdové brány na zahradu, která pracuje s~plovoucím kódem na frekvenci 433 MHz. Toto by znamelo možnost otevírat bránu pomocí telefonu místo ovladače a další možnosti automatizace, například automatické zavlažování.
 	
 	
-	Dále jsem našel zajímavý projekt zabývající se ovládání rolet\footnote{\url{https://www.instructables.com/Arduino-Motorized-Roller-Blinds/}}. Tento projekt by nebyl problém realizovat a k ovládání použít své vytvořené schéma a rozhraní. Naše domácnost by se tak stale zase o trochu chytřejší.
+	Dále jsem našel zajímavý projekt zabývající se ovládání rolet\footnote{\url{https://www.instructables.com/Arduino-Motorized-Roller-Blinds/}}. Tento projekt by nebyl problém realizovat a k~ovládání použít své vytvořené schéma a rozhraní. Naše domácnost by se tak stale zase o~trochu chytřejší.
+	
+	\section{Testování}
+	Celé zařízení jsem otestoval, z~dosažených výsledků jsem byl však zklamaný. Ačkoliv jsem bezdrátový vysílač napájel maximálním možným napětím, nedosahoval tak dobrých přenosových vzdáleností. Dle mé hypotézy pravděpodobně bude chyba na straně vysílače, zakoupením dražšího modulu s~deklarovanými vzdálenostmi by se asi problém vyřešil. Žádné další problémy jsem však nezaznamenal.
 	
 	\chapter{Technická dokumentace}
 	
-	Poslední kapitola obsahuje informace o tom, jak projekt, který v rámci maturitní práce vznikl, nainstalovat, spustit a používat.
-	
-	\section{Ukázka sekce}
+	\uv{Koncové zařízení} je samostatně funkčním celkem, stačí připojit pomocí přiloženého usb kabelu k~napájení. Zařízení vyžaduje 5V, což je běžné napětí USB. Po připojení k~napájení je zařízení v~provozu a čeká na vstup uživatele. Ve výchozím stavu je relé rozepnuté, při připojování ovládaného zařízení tak stačí respektovat značení na relé. Pokud ovládáte zařízení běžné elektroinstalace, přerušujete fázi (zapojení jako u~vypínače). Na pin COM tedy přiveďte napájení. Pokud vstup do zařízení připojíte k~NO (normally open), bude obvod uzavřen při rozepnutém stavu relé (to znamená i při odpojení napájení k~modulu). Připojením k~NC (normally closed) bude obvod uzavřen při sepnutí relé. Pro potřeby projektu zapojte dle obrázku.
 	
 	
-	\subsection{A jedné podsekce}
+	Při uvádění \uv{centrály} do provozu potřebujete zadat údaje k~Wi-Fi síti (SSID a heslo). Zařízení podporuje standardy IEEE 802.11B, IEEE 802.11G, IEEE 802.11N a zabezpečení WPA/WPA2/WPA2-Enterprise, WPS. Údaje se zadávají do kódu pro zařízení, který je následně nutné zkompilovat a nahrát do čipu. Postup uvádím v~prostředí Arduino IDE. Návod k~instalaci je dostupný v~anglickém jazyce na randomnerdtutorials\footnote{\url{https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/}}.
 	
+	\begin{enumerate}
+		\item Otevřete soubor centrala.ino\footnote{\url{https://github.com/aulisek/chytra_domacnost/blob/main/SRC/centrala/centrala.ino}} pomocí Arduino IDE.
+		\item Na kartě Soubor otevřete vlastnosti.
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.5\hsize]{img/navod_vlastnosti.png}
+			\caption{Přístup ke  kartě vlastnosti}
+		\end{figure}
+		\item Do pole \uv{Správce dalších desek URL} vložte: \url{https://dl.espressif.com/dl/package_esp32_index.json}
+		\item Potvrďte OK.
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.8\hsize]{img/navod_karta_vlastnosti.png}
+			\caption{Nastavení na kartě vlastnosti}
+		\end{figure}
+		\item Na kartě nástroje zvolte Manažér desek.
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.5\hsize]{img/navod_manazer_desek.png}
+			\caption{Přístup k~Manažéru desek}.
+		\end{figure}
+		\item Do vyhledávání zadejte \uv{esp}.
+		\item Klikněte na instalovat a vyčkejte než se proces dokončí.
+		\item Po úspěšné instalaci zvolte \uv{Zavřít}.
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=1\hsize]{img/navod_manazer_instalace.png}
+			\caption{Instalace desky v~prostředí manažéru}
+		\end{figure}
+		\item Připojte zařízení k~PC pomocí micro USB kabelu.
+		\item Na kartě nástroje vyberte port, ke kterému je zařízení připojeno.
+		\item Na kartě \uv{Nástroje} vyberte zařízení NODEMCU ESP-32S
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=1\hsize]{img/navod_deska.png}
+			\caption{Zvolení zařízení ze seznamu}
+		\end{figure}
+		\item Klikněte na šipku v~levém horním rohu pro kompilaci a nahrání kódu.
+		\item Pro ověření můžete na kartě \uv{Nástroje} zobrazit \uv{Sériový monitor}, nastavte v~prevém dolním rohu rychlost na 115200 baudů. 
+		\item V~Sériovém monitoru by se Vám měli ukázat případné chyby.
+		\item Odpojte čip od PC a připojte napájecí adaptér.
+		\item Připojte se k~uživatelskému rozhraní na adrese \url{http://esp32.local}.
+		\item Do administračního prostředí je potřeba autentifikace, výchozí jméno je admin a heslo admin, změnit lze v~kódu na řádku 14 a 15.
+	\end{enumerate}
 	
-	\section{A další sekce}
 	
 	
 	\chapter*{Závěr}
@@ -346,21 +387,19 @@
 	\addcontentsline{toc}{chapter}{Závěr}
 	
 	
-	Závěr obsahuje shrnutí práce a vyjadřuje se k míře splnění jejího zadání. Dále by se zde mělo objevit sebehodnocení studenta a informace o tom, co nového se naučil a jak vnímal svou práci na projektu.
+	Závěr obsahuje shrnutí práce a vyjadřuje se k~míře splnění jejího zadání. Dále by se zde mělo objevit sebehodnocení studenta a informace o~tom, co nového se naučil a jak vnímal svou práci na projektu.
 	
-	V rámci projektu jsem vytvořil funkční soustavu zařízení umožňující realizaci chytré domácnosti. Toto zařízení splňuje všechny body zadání. Se zařízením jsem spokojený, splňuje všechny mé požadavky. Do budoucna se nabízí rozšíření a vylepšení zařízení.
-	
-	
-	Při tvorbě projektu jsem si osvojil mnoho nových dovedností. Při sofwarovém návrhu jsem se blíže seznámil s prostředím Arduino IDE, práci s knihovnami a dokumentací. Naučil jsem se práci se senzory a způsoby jejich připojení. Při tvorbě webového prostředí nasazení HTML a kaskádových stylů. K zaznamenávání verzí projektu jsem používal verzovací systém git, změny jsem nahrával na server github. Bylo to moje první setkání s verzovacími systémy, ze začátku jsem trochu tápal, jak ho přesně použít. Při tvorbě kódu jsem však ocenil přehlednost a vracení se ke starším verzím. Systém jsem ovládal z příkazové řádky, naučil jsem se tak spravovat svůj soborový systém a efektivní práci s ním.
+	V~rámci projektu jsem vytvořil funkční soustavu zařízení umožňující realizaci chytré domácnosti. Toto zařízení splňuje všechny body zadání. Se zařízením jsem spokojený, splňuje všechny mé požadavky. Do budoucna se nabízí rozšíření a vylepšení zařízení.
 	
 	
-	Realizace hardwarové části mi přinesla zkušenost s letováním, nahráváním programu do Arduina pro mini pomocí programátoru mimo prostředí Arduino IDE. Také jsem se naučil základy programu fritzing při tvorbě schémat zapojení modulů. Naučil jsem se základy 3D modelování pomocí softwaru thinkercad, následné převedení předlohy modelu do hotové podoby použitím metody 3D tisku. S tím se pojí i samotná údržba 3D tiskárny. Po jejím složení jsem se rozhl pro několik úprav. Seznámil jsem se s firmwarem Marlin, naučil jsem se ho upravovat, zkompilovat a nahrát ho do tiskárny za použití USBisp programátoru. Dále jsem se dozvěděl více o materiálech pro 3D tisk a potřebným nastavením parametrů tisku.
+	Při tvorbě projektu jsem si osvojil mnoho nových dovedností. Při sofwarovém návrhu jsem se blíže seznámil s~prostředím Arduino IDE, práci s~knihovnami a dokumentací. Naučil jsem se práci se senzory a způsoby jejich připojení. Při tvorbě webového prostředí nasazení HTML a kaskádových stylů. K~zaznamenávání verzí projektu jsem používal verzovací systém git, změny jsem nahrával na server github. Bylo to moje první setkání s~verzovacími systémy, ze začátku jsem trochu tápal, jak ho přesně použít. Při tvorbě kódu jsem však ocenil přehlednost a vracení se ke starším verzím. Systém jsem ovládal z~příkazové řádky, naučil jsem se tak spravovat svůj soborový systém a efektivní práci s~ním. Při tvorbě dokumentace jsem se seznámil se sázecím sytémem \LaTeX, který pro mě byl nový.
 	
 	
-	Při tvorbě dokumentace jsem se seznámil se zázecím sytémem \LaTeX, který pro mě byl nový 
+	Realizace hardwarové části mi přinesla zkušenost s~letováním, nahráváním programu do Arduina pro mini pomocí programátoru mimo prostředí Arduino IDE. Také jsem se naučil základy programu fritzing při tvorbě schémat zapojení modulů. Naučil jsem se základy 3D modelování pomocí softwaru thinkercad, následné převedení předlohy modelu do hotové podoby použitím metody 3D tisku. S~tím se pojí i samotná údržba 3D tiskárny. Po jejím složení jsem se rozhodl pro několik úprav. Seznámil jsem se s~firmwarem Marlin, naučil jsem se ho upravovat, zkompilovat a nahrát ho do tiskárny za použití USBisp programátoru. Dále jsem se dozvěděl více o~materiálech pro 3D tisk a potřebným nastavením parametrů tisku.
+	
 	
 	%%% Seznam použité literatury
-	\nocite{einstein}\nocite{maly}\nocite{knuthwebsite}\nocite{ucebnice}\nocite{polovodicovatechnika}\nocite{šrait}\nocite{techtutorials}
+	\nocite{maly}\nocite{ucebnice}\nocite{polovodicovatechnika}\nocite{šrait}\nocite{techtutorials}\nocite{medium}\nocite{stack}
 	\printbibliography[title={Seznam použité literatury},heading={bibintoc}]
 	
 	%%% Seznam obrázků
