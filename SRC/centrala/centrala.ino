@@ -128,7 +128,7 @@ String processor(const String& var) {
 
 void setup() {
   //Zahájení sériové komunikace
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println();
 
   //připojení souborového svazku
